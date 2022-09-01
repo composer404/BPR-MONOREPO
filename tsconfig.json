@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "exactOptionalPropertyTypes": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "incremental": true,
+        "module": "commonjs",
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
+        "outDir": "./dist",
+        "removeComments": true,
+        "sourceMap": true,
+        "strict": true,
+        "target": "es2020",
+
+        // Root specific.
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true
+    },
+    // Include and exclude files for eslint to pick them.
+    "include": [".*.js", "*.js", "*.ts", "**/*.ts", "**/*.js"],
+    "exclude": ["node_modules", "tmp", "assets", "dist", "www"]
+}
