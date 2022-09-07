@@ -48,6 +48,7 @@ model TrainingMachine {
     formula_for_calories String?
     video                String?
     availability         Boolean
+    class                String
 
     Gym   Gym    @relation(fields: [gymId], references: [id])
     gymId String
