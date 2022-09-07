@@ -1,0 +1,7 @@
+{
+  "name": "ionic-gym-progress-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
