@@ -9,24 +9,6 @@ const routes: Routes = [
     loadChildren: () => {
       return LoginModule;
     }
-  },
-  {
-    path: `signup`,
-    loadChildren: () => {
-
-    }
-  },
-  {
-    path: `main`,
-    loadChildren: () => {
-
-    }
-  },
-  {
-    path: `edit-account`,
-    loadChildren: () => {
-
-    }
   }
 ];
 
