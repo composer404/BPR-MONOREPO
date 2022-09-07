@@ -6,3 +6,103 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+
+model User {
+    id        String  @id @default(uuid())
+    firstName String?
+    lastName  String?
+    email     String  @unique
+    password  String
+    avatar    String?
+    sex       String
+    height    Float
+    weight    Float
+    age       Int
+
+    trainings Training[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Gym {
+    id            String @id @default(uuid())
+    street        String
+    post_code     String
+    country       String
+    street_number String
+
+    administrators   Administrator[]
+    trainingMachines TrainingMachine[]
+    trainings        Training[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model TrainingMachine {
+    id                   String  @id @default(uuid())
+    name                 String
+    description          String?
+    location             String?
+    formula_for_calories String?
+    video                String?
+    availability         Boolean
+
+    Gym   Gym    @relation(fields: [gymId], references: [id])
+    gymId String
+
+    Exercise   Exercise @relation(fields: [exerciseId], references: [id])
+    exerciseId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Administrator {
+    id          String @id @default(uuid())
+    login       String @unique
+    password    String
+    information String
+
+    Gym   Gym    @relation(fields: [gymId], references: [id])
+    gymId String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Training {
+    id          String  @id @default(uuid())
+    title       String
+    type        String
+    description String?
+    comment     String?
+
+    user   User   @relation(fields: [userId], references: [id])
+    userId String
+
+    gym   Gym    @relation(fields: [gymId], references: [id])
+    gymId String
+
+    exercises Exercise[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Exercise {
+    id            String  @id @default(uuid())
+    title         String
+    description   String?
+    training_type String
+    quantity      Float?
+    muscle_group  String
+
+    training        Training          @relation(fields: [trainingId], references: [id])
+    trainingId      String
+    trainingMachine TrainingMachine[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
