@@ -7,5 +7,4 @@ export enum LOCAL_API_SERVICES {
     /* ---------------------------------- USERS --------------------------------- */
     users = `/users`,
     usersPassword = `/users/password`,
-   
 }

@@ -3,7 +3,7 @@ import { Subject, firstValueFrom } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LOCAL_API_SERVICES } from '../../interfaces/local-api-endpoints';
+import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -24,9 +24,10 @@ export class AuthService {
         const response = await firstValueFrom(
             this.httpClient.post<Token>(`${environment.localApiUrl}${LOCAL_API_SERVICES.authLogin}`, {
                 login: username,
-                password: password,
+                password,
             }),
         ).catch((err) => {
+            console.log(`[AUTH ERR]`, err);
             return err;
         });
 
@@ -58,7 +59,8 @@ export class AuthService {
             return false;
         }
 
-        const profile = await this.getProfile().catch(() => {
+        const profile = await this.getProfile().catch((err) => {
+            console.log(`[AUTH ERR]`, err);
             return false;
         });
 
@@ -72,7 +74,7 @@ export class AuthService {
     public async signup(body: SignUpInput): Promise<BPRApiCreatedObject> {
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(
-                `${environment.localApiUrl}${LOCAL_API_SERVICES.authRegistry}`,
+                `${environment.localApiUrl}${LOCAL_API_SERVICES.authSignup}`,
                 body,
             ),
         );

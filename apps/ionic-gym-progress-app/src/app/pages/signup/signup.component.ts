@@ -16,15 +16,15 @@ import { Router } from '@angular/router';
 export class SignupComponent implements OnInit {
     signupForm: FormGroup;
     items: MenuItem[];
-    activeIndex: number = 0;
+    activeIndex = 0;
 
-    firstStep: boolean = true;
+    firstStep = true;
     secondStep: boolean;
     thirdStep: boolean;
 
     avatar: any;
 
-    constructor(private router: Router, private authService: AuthService, private infoService: InfoService) {}
+    constructor(private readonly router: Router, private readonly authService: AuthService, private readonly infoService: InfoService) {}
 
     ngOnInit(): void {
         this.items = [
