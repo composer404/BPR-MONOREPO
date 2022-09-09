@@ -8,23 +8,22 @@ export interface UserProfile {
 }
 
 export interface SignUpInput {
-    login: string;
     email: string;
     firstName: string;
     lastName: string;
     password: string;
+    height: number;
+    weight: number;
+    sex: string;
+    age: number;
     avatar: string;
 }
 
-export enum API_ERROR_CODES {
+export enum ERROR_CODES {
     notUniqueLogin = `notUniqueLogin`,
     notUniqueEmail = `notUniqueEmail`,
 }
 
-export enum BPR_ERROR_CODES {
-    unauthorized = `unauthorized`,
-    internal = `internal`,
-}
 
 export interface BPRApiCreatedObject {
     id: string;
@@ -32,11 +31,19 @@ export interface BPRApiCreatedObject {
 
 export interface BPRUser {
     id: string;
-    createdAt: string;
-    updatedAt: string;
-    login: string;
     email: string;
     firstName: string;
     lastName: string;
     avatar: string;
+    createdAt: Date;
+    updatedAt: Date;
+    sex: string;
+    height: number;
+    weight: number;
+    age: number;
+}
+
+export enum BPR_ERROR_CODES {
+    unauthorized = `unauthorized`,
+    internal = `internal`,
 }

@@ -1,1 +1,120 @@
-sign up
+<div class="flex h-screen justify-center items-center bg-primary">
+    <div class="m-24 w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden bg-primary-dark">
+        <div class="md:flex w-full">
+            <div class="p-20 w-full">
+                <p-steps class="steps" [(activeIndex)]="activeIndex" [model]="items" [readonly]="false"></p-steps>
+                <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+                    <ng-container *ngIf="firstStep">
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="email" class="text-sm">Email</label>
+                            <input formControlName="email" class="input" pInputText id="email" type="text" />
+                            <small
+                                *ngIf="
+                                    signupForm.get('email').invalid &&
+                                    (signupForm.get('email').dirty || signupForm.get('email').touched)
+                                "
+                                id="email-help"
+                                class="p-error"
+                                ><div *ngIf="signupForm.get('email').errors?.required">An email is required.</div>
+                            </small>
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="password" class="text-sm">Password</label>
+                            <p-password
+                                formControlName="password"
+                                id="password"
+                                feedback="false"
+                                class="password"
+                                styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                                [toggleMask]="true"
+                                [feedback]="false"
+                            ></p-password>
+                            <small
+                                *ngIf="
+                                    signupForm.get('password').invalid &&
+                                    (signupForm.get('password').dirty || signupForm.get('password').touched)
+                                "
+                                id="password-help"
+                                class="p-error"
+                                ><div *ngIf="signupForm.get('password').errors?.required">Password is required.</div>
+                                <div *ngIf="signupForm.get('password').errors?.minlength">
+                                    Password must be at least 4 characters long.
+                                </div>
+                            </small>
+                        </div>
+                        <div class="flex flex-col mt-10 text-center">
+                            <button
+                                (click)="firstStep = false; secondStep = true; activeIndex = 1"
+                                class="bg-accent py-2 text-white rounded-sm"
+                                type="button"
+                            >
+                                Next
+                            </button>
+                            <div class="flex mt-5 gap-2 mx-auto">
+                                <p class="text-gray-500 text-center">Have an account?</p>
+                                <a class="text-accent" [routerLink]="['/login']">Sign In</a>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <!-- <ng-container *ngIf="secondStep">
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="username" class="text-sm">First Name</label>
+                            <input formControlName="firstName" class="input" pInputText id="firstName" type="text" />
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="username" class="text-sm">Last Name</label>
+                            <input formControlName="lastName" class="input" pInputText id="lastName" type="text" />
+                        </div>
+                        <div class="flex flex-col mt-10 text-center">
+                            <button
+                                (click)="secondStep = false; thirdStep = true; activeIndex = 2"
+                                class="bg-accent py-2 text-white rounded-sm"
+                                type="button"
+                            >
+                                Next
+                            </button>
+                            <div class="flex mt-5 gap-2 mx-auto">
+                                <p class="text-gray-500 text-center">Have an account?</p>
+                                <a class="text-accent" [routerLink]="['/login']">Sign In</a>
+                            </div>
+                        </div>
+                    </ng-container> -->
+
+                    <ng-container *ngIf="thirdStep">
+                        <div class="flex flex-col mt-8 mb-8 gap-4 justify-center">
+                            <div class="mx-auto">
+                                <label>Choose a picture for an avatar</label>
+                                <label for="avatar" class="custom-file-upload ml-2">Browse</label>
+                            </div>
+                            <div class="mx-auto mt-2">
+                                <p-avatar class="avatar" size="xlarge">
+                                    <img [src]="avatar" *ngIf="avatar" />
+                                </p-avatar>
+                            </div>
+                            <input
+                                type="file"
+                                id="avatar"
+                                accept="image/png, image/jpeg"
+                                (change)="selectFile($event)"
+                            />
+                        </div>
+                        <div class="flex flex-col mt-10 text-center">
+                            <button
+                                [disabled]="signupForm.invalid"
+                                class="bg-accent py-2 text-white rounded-sm"
+                                type="submit"
+                            >
+                                Create
+                            </button>
+                            <div class="flex mt-5 gap-2 mx-auto">
+                                <p class="text-gray-500 text-center">Have an account?</p>
+                                <a class="text-accent" [routerLink]="['/login']">Sign In</a>
+                            </div>
+                        </div>
+                    </ng-container>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
