@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth/auth.service';
-import { ERROR_CODES } from '../../interfaces/interfaces';
+import { API_ERROR_CODES } from '../../interfaces/interfaces';
 import { InfoService } from '../../services/api/info.service';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -105,7 +105,7 @@ export class SignupComponent implements OnInit {
         //     return;
         // }
 
-        if ((response as any)?.code === ERROR_CODES.notUniqueEmail) {
+        if ((response as any)?.code === API_ERROR_CODES.notUniqueEmail) {
             this.infoService.error(`User with provided email already exists!`);
             return;
         }
