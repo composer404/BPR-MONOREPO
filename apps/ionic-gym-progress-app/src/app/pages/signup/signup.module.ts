@@ -13,18 +13,18 @@ import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { SignupComponent } from './signup.component';
+import { SignupPage } from './signup.page';
 import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
     {
         path: '',
-        component: SignupComponent,
+        component: SignupPage,
     },
 ];
 @NgModule({
-    declarations: [SignupComponent],
+    declarations: [SignupPage],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

@@ -8,8 +8,61 @@
 </ion-header>
 <ion-content>
   <ion-card class="card-wrapper h-screen m-5">
-    <ion-card-header>
+        <div class="ml-5 mr-5 mt-10">
+          <div class="mb-5">
+            <ion-label>Email address</ion-label>
+            <ion-input class="input-border mt-5" type="text" position="stacked"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input class="input-border mt-2" type="password"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input class="input-border mt-2" type="firstName"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input class="input-border mt-2" type="lastName"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">Age</ion-label>
+            <ion-input class="input-border mt-2" type="age"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">Height</ion-label>
+            <ion-input class="input-border mt-2" type="height" placeholder="cm" ></ion-input>
+          </div>
+          <div class="mb-36">
+          <ion-list>
+            <ion-item>
+              <ion-select interface="popover" placeholder="Select sex">
+                <ion-select-option value="masculine">Masculine</ion-select-option>
+                <ion-select-option value="feminine">Feminine</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+        </div>
+          <div class="flex flex-col mt-8 mb-8 gap-4 justify-center">
+            <div class="mx-auto">
+                <label>Choose a picture for an avatar</label>
+            </div>
+            <div class="mx-auto mt-2">
+                <p-avatar class="avatar" size="xlarge">
+                    <img [src]="avatar" *ngIf="avatar" />
+                </p-avatar>
+            </div>
+            <input
+                type="file"
+                id="avatar"
+                accept="image/png, image/jpeg"
+                (change)="selectFile($event)"
+            />
+        </div>
 
-    </ion-card-header>
+          <ion-button class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52" expand="block" type="submit">
+            Sign-up
+          </ion-button>
+        </div>
   </ion-card>
 </ion-content>
