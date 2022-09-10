@@ -5,7 +5,7 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 
 @Module({
     imports: [PrismaModule],
-    providers: [],
+    providers: [GymsService],
     controllers: [GymsController],
     exports: [GymsService],
 })

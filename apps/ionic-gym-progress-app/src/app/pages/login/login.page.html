@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Login</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card class="card-wrapper h-screen m-5">
+        <div class="ml-5 mr-5 mt-10">
+          <div class="mb-5">
+            <ion-label>Email address</ion-label>
+            <ion-input class="input-border mt-2" type="text" position="stacked"></ion-input>
+          </div>
+          <div class="mb-36">
+            <ion-label position="stacked">Password</ion-label>
+            <ion-input class="input-border mt-2" type="password"></ion-input>
+          </div>
+
+<!--          <div *ngIf="submitted && form.email.errors" class="invalid-feedback">-->
+<!--            <div *ngIf="form.email.errors.required">Email is required</div>-->
+<!--            <div *ngIf="form.email.errors.email">Email format is incorrect</div>-->
+<!--          </div>-->
+
+          <ion-button class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52" expand="block" type="submit">
+            Log in
+          </ion-button>
+
+          <h5 class="login-sub-text">* Field required</h5>
+        </div>
+  </ion-card>
+</ion-content>

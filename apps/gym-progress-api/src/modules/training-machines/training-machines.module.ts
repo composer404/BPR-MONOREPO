@@ -5,7 +5,7 @@ import { TrainingMachinesService } from './training-machines.service';
 
 @Module({
     imports: [PrismaModule],
-    providers: [],
+    providers: [TrainingMachinesService],
     controllers: [TrainingMachinesController],
     exports: [TrainingMachinesService],
 })
