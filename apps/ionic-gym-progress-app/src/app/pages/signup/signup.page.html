@@ -34,6 +34,10 @@
             <ion-input class="input-border mt-2" type="height" placeholder="cm" ></ion-input>
           </div>
           <div class="mb-36">
+            <ion-label position="stacked">Weight</ion-label>
+            <ion-input class="input-border mt-2" type="weight" placeholder="kg" ></ion-input>
+          </div>
+          <div class="mb-36">
           <ion-list>
             <ion-item>
               <ion-select interface="popover" placeholder="Select sex">
@@ -63,6 +67,12 @@
           <ion-button class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52" expand="block" type="submit">
             Sign-up
           </ion-button>
+          <div class="flex mt-5 gap-2 mx-auto">
+            <p class="text-gray-500 text-center">Have an account?</p>
+            <ion-button class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52" expand="block" type="submit" [routerLink]="['/login']">
+              Login
+            </ion-button>
+        </div>
         </div>
   </ion-card>
 </ion-content>
