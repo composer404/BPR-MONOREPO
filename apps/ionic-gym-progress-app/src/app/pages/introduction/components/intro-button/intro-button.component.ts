@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 export class IntroButtonComponent implements OnInit {
 
   @Input()
-  public href: string
+  public href: string;
 
   @Input()
   public description: string;
