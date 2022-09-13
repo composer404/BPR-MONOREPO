@@ -14,6 +14,9 @@ import {Router} from '@angular/router';
 export class SignupPage implements OnInit {
    signupForm: FormGroup;
    avatar: any;
+   age:number;
+   height:number;
+   weight:number;
    unauthorized: boolean;
  
   constructor(private router: Router, private authService: AuthService, private infoService: InfoService) { }
@@ -24,9 +27,9 @@ export class SignupPage implements OnInit {
       password: new FormControl(``, [Validators.required, Validators.minLength(4)]),
       firstName: new FormControl(``),
       lastName: new FormControl(``),
-      age: new FormControl(``),
-      height: new FormControl(``),
-      weight: new FormControl(``),
+      age: new FormControl(),
+      height: new FormControl(),
+      weight: new FormControl(),
       sex: new FormControl(``),
     });
   }
@@ -47,30 +50,14 @@ export class SignupPage implements OnInit {
 }
 
  async onSignUp() {
-  // if (this.signupForm.invalid) {
-  //   return false;
-  // }
-  //   const login = this.signupForm.get(`email`).value;
-  //   const password = this.signupForm.get(`password`).value;
-  //   const firstName = this.signupForm.get(`firstName`).value;
-  //   const lastName = this.signupForm.get(`lastName`).value;
-  //   const age = this.signupForm.get(`age`).value;
-  //   const  height= this.signupForm.get(`height`).value;
-  //   const weight = this.signupForm.get(`weight`).value;
-  //   const sex = this.signupForm.get(`sex`).value;
-    
-  //   const response = await this.authService.signup(email, password,firstName,lastName,age,height,weight,sex);
-
-
-    
   const response = await this.authService.signup({
       email: this.signupForm.get('email').value,
       password: this.signupForm.get('password').value,
       firstName: this.signupForm.get('firstName').value,
       lastName: this.signupForm.get('lastName').value,
-      age:this.signupForm.get('age').value,
-      height:this.signupForm.get('height').value,
-      weight:this.signupForm.get('weight').value,
+      age:parseInt(this.signupForm.get('age').value),
+      height:parseFloat(this.signupForm.get('height').value),
+      weight:parseFloat(this.signupForm.get('weight').value),
       sex:this.signupForm.get('sex').value,
       avatar: this.avatar,
   });
@@ -92,5 +79,10 @@ if (response?.id) {
 }
 this.infoService.error(`Cannot connect to the server. Try again later.`);
 
+}
+hideErrorMessage() {
+  if (this.unauthorized) {
+    this.unauthorized = false;
+  }
 }
 }

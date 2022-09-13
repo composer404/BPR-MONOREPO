@@ -9,11 +9,13 @@ import { CommonModule } from '@angular/common';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
+import { IonicModule } from '@ionic/angular';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { SignupPage } from './signup.page';
+import { SignupPageRoutingModule } from './signup-routing.module';
 import { StepsModule } from 'primeng/steps';
 import { ToastModule } from 'primeng/toast';
 
@@ -29,6 +31,7 @@ const routes: Routes = [
         CommonModule,
         RouterModule.forChild(routes),
         ButtonModule,
+        IonicModule,
         RippleModule,
         CardModule,
         DividerModule,
@@ -39,6 +42,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         ToastModule,
         StepsModule,
+        SignupPageRoutingModule,
         PasswordModule,
         FileUploadModule,
     ],
