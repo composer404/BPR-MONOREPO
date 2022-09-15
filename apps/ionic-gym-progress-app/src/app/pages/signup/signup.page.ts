@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { API_ERROR_CODES } from '../../interfaces/interfaces';
 import {AuthService} from '../../services/auth/auth.service';
-import {InfoService} from '../../services/api/info.service';
+import { InfoService } from '../../services/common/info.service';
 import {Router} from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
