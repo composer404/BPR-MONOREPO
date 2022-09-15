@@ -5,13 +5,14 @@ import { Observable, throwError } from 'rxjs';
 
 import { AuthService } from '../services/auth/auth.service';
 import { Injectable } from '@angular/core';
+import { ToastService } from '../services/common/toast.service';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService, private toastService: ToastService) {}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.authService.getTokenValue();
         if (token) {
@@ -24,9 +25,12 @@ export class TokenInterceptorService implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((err) => {
                 if (err.status === 401) {
+                    this.toastService.error(`Authentication error`);
                     this.authService.logout();
+                    return;
                 }
-                console.error(err);
+                console.log(`requiers error`);
+                this.toastService.error(`Server error. Try again later...`);
                 const error = err.error || err.statusText;
                 return throwError(error);
             }),
