@@ -5,6 +5,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../services/auth/auth.service';
 import {InfoService} from '../../services/api/info.service';
 import {Router} from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-signup',
@@ -18,8 +19,10 @@ export class SignupPage implements OnInit {
    height:number;
    weight:number;
    unauthorized: boolean;
+   numberRegEx = /\-?\d*\.?\d{1,2}/;
+  
  
-  constructor(private router: Router, private authService: AuthService, private infoService: InfoService) { }
+  constructor(private router: Router, private authService: AuthService, private infoService: InfoService, private toastController: ToastController ) {}
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -27,9 +30,9 @@ export class SignupPage implements OnInit {
       password: new FormControl(``, [Validators.required, Validators.minLength(4)]),
       firstName: new FormControl(``),
       lastName: new FormControl(``),
-      age: new FormControl(),
-      height: new FormControl(),
-      weight: new FormControl(),
+      age: new FormControl(``,[Validators.required, Validators.pattern(this.numberRegEx)]),
+      height: new FormControl(``,[Validators.required, Validators.pattern(this.numberRegEx)]),
+      weight: new FormControl(``,[Validators.required, Validators.pattern(this.numberRegEx)]),
       sex: new FormControl(``),
     });
   }
@@ -85,4 +88,15 @@ hideErrorMessage() {
     this.unauthorized = false;
   }
 }
+
+async succesfulToast(position: 'top') {
+  const toast = await this.toastController.create({
+    message: 'Account succesfully created',
+    duration: 1500,
+    position: position
+  });
+
+  await toast.present();
+}
+
 }
