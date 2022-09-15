@@ -70,6 +70,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4200
+          },
           "configurations": {
             "production": {
               "browserTarget": "gym-progress-kiosk:build:production"

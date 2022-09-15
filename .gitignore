@@ -4,6 +4,8 @@
 # dist do not ignore
 /tmp
 /out-tsc
+android
+out
 
 # dependencies
 node_modules

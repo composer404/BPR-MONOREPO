@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "declaration": false,
+        "experimentalDecorators": true,
+        "lib": ["es2018", "dom"],
+        "moduleResolution": "node",
+        "outDir": "./dist/electron",
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "target": "es5",
+        "types": ["node"]
+    },
+    "files": ["./src/electron/main.ts"]
+}
