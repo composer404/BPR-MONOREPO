@@ -1,21 +1,19 @@
-import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-import { IonicModule } from '@ionic/angular';
-
-import { IntroductionPageRoutingModule } from './introduction-routing.module';
-
+import { IntroButtonModule } from 'src/app/components/intro-button/intro-button.module';
 import { IntroductionPage } from './introduction.page';
-import {IntroButtonComponent} from './components/intro-button/intro-button.component';
+import { IonicModule } from '@ionic/angular';
+import { NgModule } from '@angular/core';
+
+const routes: Routes = [
+    {
+        path: '',
+        component: IntroductionPage,
+    },
+];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    IntroductionPageRoutingModule
-  ],
-    declarations: [IntroductionPage, IntroButtonComponent]
+    imports: [CommonModule, RouterModule.forChild(routes), IonicModule, IntroButtonModule],
 })
 export class IntroductionPageModule {}
