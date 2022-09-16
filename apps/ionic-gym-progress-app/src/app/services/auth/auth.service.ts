@@ -20,10 +20,10 @@ export class AuthService {
         return localStorage.getItem('token') as string;
     }
 
-    public async login(username: string, password: string): Promise<string> {
+    public async login(email: string, password: string): Promise<string> {
         const response = await firstValueFrom(
             this.httpClient.post<Token>(`${environment.localApiUrl}${LOCAL_API_SERVICES.authLogin}`, {
-                login: username,
+                email,
                 password,
             }),
         ).catch((err) => {

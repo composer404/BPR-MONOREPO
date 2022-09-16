@@ -1,7 +1,7 @@
 import * as argon2 from 'argon2';
 
-import { AdministratorInput, CreatedObjectResponse, GymInput, PrismaErrorResponse } from 'src/models';
-import { Gym, Prisma } from '@prisma/client';
+import { Administrator, Gym, Prisma } from '@prisma/client';
+import { AdministratorInput, CreatedObjectResponse, GymInput } from 'src/models';
 
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
@@ -13,6 +13,7 @@ export class GymsService {
 
     constructor(private readonly prismaService: PrismaService) {
         this.database = this.prismaService.gym;
+        this.administratorDb = this.prismaService.administrator;
     }
 
     /* ----------------------------- SELECT GYM ----------------------------- */
@@ -34,11 +35,13 @@ export class GymsService {
         return prismaGym;
     }
 
-    async findGymByName(name: string): Promise<Gym | null> {
+    async findGymByName(name: string): Promise<Gym[] | null> {
         const prismaGym = await this.database
-            .findFirst({
+            .findMany({
                 where: {
-                    name,
+                    name: {
+                        startsWith: name,
+                    },
                 },
             })
             .catch((err) => {
@@ -144,5 +147,26 @@ export class GymsService {
         return {
             id: result.id,
         };
+    }
+
+    /* ---------------------------- GET ADMINISTRATOR --------------------------- */
+
+    async findAdministratorByLogin(login: string): Promise<Administrator | null> {
+        const result = await this.administratorDb
+            .findFirst({
+                where: {
+                    login,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+
+        if (!result) {
+            return null;
+        }
+
+        return result;
     }
 }

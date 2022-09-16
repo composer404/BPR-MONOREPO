@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export interface Token {
     accessToken: string;
 }
 
 export interface UserProfile {
     id: string;
-    login: string;
+    email: string;
 }
 
 export interface SignUpInput {
@@ -20,17 +21,32 @@ export interface SignUpInput {
 }
 
 export enum API_ERROR_CODES {
-  notUniqueLogin = `notUniqueLogin`,
-  notUniqueEmail = `notUniqueEmail`,
+    notUniqueLogin = `notUniqueLogin`,
+    notUniqueEmail = `notUniqueEmail`,
 }
 
 export enum BPR_ERROR_CODES {
-  unauthorized = `unauthorized`,
-  internal = `internal`,
+    unauthorized = `unauthorized`,
+    internal = `internal`,
 }
 
 export interface BPRApiCreatedObject {
     id: string;
+}
+
+export interface DialogResponse {
+    data: any;
+    role: string;
+}
+
+export interface ConfirmDialogInput {
+    header: string;
+    confirmFn?: any;
+    cancelFn?: any;
+    confirmText?: string;
+    confirmRole?: string;
+    cancelText?: string;
+    cancelRole?: string;
 }
 
 export interface BPRUser {

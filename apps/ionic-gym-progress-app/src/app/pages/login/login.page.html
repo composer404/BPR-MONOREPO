@@ -1,75 +1,91 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-title>Login</ion-title>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>Login test</ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card class="card-wrapper h-screen m-5">
+    <ion-card class="card-wrapper h-screen m-5">
         <div class="ml-5 mr-5">
-          <div class="mx-auto h-5 mb-5 text-center">
-            <label *ngIf="unauthorized" class="text-accent text-center font-semibold"
-            >Invalid login or password</label>
-          </div>
-          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-            <div class="mb-5">
-              <div class="mb-2">
-                <ion-label for="login" position="stacked">Email address</ion-label>
-                <ion-input  (keydown)="hideErrorMessage()"
-                        formControlName="login"
-                        id="login"
-                        type="text" class="login input-border mt-2" type="text" position="stacked"></ion-input>
-              </div>
-              <small
-              *ngIf="
+            <div class="mx-auto h-5 mb-5 text-center">
+                <label *ngIf="unauthorized" class="text-accent text-center font-semibold"
+                    >Invalid login or password</label
+                >
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <div class="mb-5">
+                    <div class="mb-2">
+                        <ion-label for="login" position="stacked">Email address</ion-label>
+                        <ion-input
+                            (keydown)="hideErrorMessage()"
+                            formControlName="login"
+                            id="login"
+                            type="text"
+                            class="login input-border mt-2"
+                            type="text"
+                            position="stacked"
+                        ></ion-input>
+                    </div>
+                    <small
+                        *ngIf="
                                 loginForm.get('login').invalid &&
                                 (loginForm.get('login').dirty || loginForm.get('login').touched)
                             "
-              id="login-help"
-              class="p-error"
-              ><div class="text-rose-500 mb-5" *ngIf="loginForm.get('login').errors?.required">Login is required.</div>
-              <div class="text-rose-500 mb-5" *ngIf="loginForm.get('login').errors?.minlength">
-                Login must be at least 4 characters long.
-              </div>
-              </small>
-            </div>
-            <div>
-              <div class="mb-2">
-                <ion-label for="password" position="stacked">Password</ion-label>
-                <ion-input   (keydown)="hideErrorMessage()"
-                             formControlName="password"
-                             id="password"
-                             feedback="false"
-                             class="password input-border mt-2" type="password">
-
-                </ion-input>
-              </div>
-              <small
-              *ngIf="
+                        id="login-help"
+                        class="p-error"
+                        ><div class="text-rose-500 mb-5" *ngIf="loginForm.get('login').errors?.required">
+                            Login is required.
+                        </div>
+                        <div class="text-rose-500 mb-5" *ngIf="loginForm.get('login').errors?.minlength">
+                            Login must be at least 4 characters long.
+                        </div>
+                    </small>
+                </div>
+                <div>
+                    <div class="mb-2">
+                        <ion-label for="password" position="stacked">Password</ion-label>
+                        <ion-input
+                            (keydown)="hideErrorMessage()"
+                            formControlName="password"
+                            id="password"
+                            feedback="false"
+                            class="password input-border mt-2"
+                            type="password"
+                        >
+                        </ion-input>
+                    </div>
+                    <small
+                        *ngIf="
                                 loginForm.get('password').invalid &&
                                 (loginForm.get('password').dirty || loginForm.get('password').touched)
                             "
-              id="password-help"
-              class="p-error h-3"
-              ><div class="text-rose-500" *ngIf="loginForm.get('password').errors?.required">Password is required</div>
-              <div class="text-rose-500" *ngIf="loginForm.get('password').errors?.minlength">
-                Password must be at least 4 characters long.
-              </div>
-            </small>
-            </div>
+                        id="password-help"
+                        class="p-error h-3"
+                        ><div class="text-rose-500" *ngIf="loginForm.get('password').errors?.required">
+                            Password is required
+                        </div>
+                        <div class="text-rose-500" *ngIf="loginForm.get('password').errors?.minlength">
+                            Password must be at least 4 characters long.
+                        </div>
+                    </small>
+                </div>
 
-          <ion-button [disabled]="loginForm.invalid"
-                      type="submit" class="button-login h-16 rounded-lg normal-case
-                      text-xl text-slate-100 mt-32 mb-52" expand="block" type="submit">
-            Log in
-          </ion-button>
-          </form>
-          <div class="flex mt-5 gap-2">
-            <p class="text-gray-500">Don't you have an account?</p>
-            <a class="text-green-600" [routerLink]="['/signup']">Sign Up</a>
-          </div>
+                <ion-button
+                    [disabled]="loginForm.invalid"
+                    type="submit"
+                    class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mt-32 mb-52"
+                    expand="block"
+                    type="submit"
+                >
+                    Log in
+                </ion-button>
+            </form>
+            <div class="flex mt-5 gap-2">
+                <p class="text-gray-500">Don't you have an account?</p>
+                <a class="text-green-600" [routerLink]="['/signup']">Sign Up</a>
+            </div>
         </div>
-  </ion-card>
+    </ion-card>
 </ion-content>

@@ -31,6 +31,8 @@ export class GymInputClass {
     @ApiProperty()
     name: string;
     @ApiProperty()
+    decription: string;
+    @ApiProperty()
     street: string;
     @ApiProperty()
     post_code: string;

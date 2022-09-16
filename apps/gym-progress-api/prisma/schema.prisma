@@ -68,7 +68,7 @@ model Administrator {
     password    String
     information String
 
-    Gym   Gym    @relation(fields: [gymId], references: [id])
+    gym   Gym    @relation(fields: [gymId], references: [id])
     gymId String
 
     createdAt DateTime @default(now())
