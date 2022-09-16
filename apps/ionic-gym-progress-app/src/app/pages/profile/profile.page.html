@@ -1,4 +1,12 @@
-User profile page
+<ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':'#ffffff'">
+    <ion-button expand="full" (click)="logout()">Logout</ion-button>
+    <ion-button expand="full" (click)="deleteAccount()">Delete account</ion-button>
+    <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive"> SCAN QR </ion-button>
 
-<button (click)="logout()">Logout</button>
-<button (click)="deleteAccount()">Delete account</button>
+    <ion-row class="scan-button" [hidden]="!scanActive">
+        <ion-col class="ion-no-padding">
+            <ion-button expand="full" (click)="stopScanner()">Stop</ion-button>
+        </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scanActive"></div>
+</ion-content>

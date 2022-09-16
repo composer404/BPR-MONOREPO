@@ -1,15 +1,39 @@
 import * as argon2 from 'argon2';
 
+import { Administrator, User } from '@prisma/client';
 import { CreatedObjectResponse, PrismaErrorResponse, SignUpInput } from '../../models';
 
+import { GymsService } from '../gyms/gyms.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '@prisma/client';
 import { UsersService } from '../users';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly jwtService: JwtService, private readonly userService: UsersService) {}
+    constructor(
+        private readonly jwtService: JwtService,
+        private readonly userService: UsersService,
+        private readonly gymService: GymsService,
+    ) {}
+
+    async validateAdmin(login: string, password: string): Promise<Administrator | null> {
+        /* ---------------------------- ADMIN VALIDATION ---------------------------- */
+
+        const admin = await this.gymService.findAdministratorByLogin(login);
+
+        if (!admin) {
+            return null;
+        }
+
+        /* --------------------------- PASSWORD VALIDATION -------------------------- */
+
+        const passwordValidation = await argon2.verify(admin.password, password);
+        if (!passwordValidation) {
+            return null;
+        }
+
+        return { password, ...admin };
+    }
 
     async validateUser(email: string, password: string): Promise<User | null> {
         /* ----------------------------- USER VALIDATION ---------------------------- */
@@ -38,6 +62,21 @@ export class AuthService {
         const payload = {
             email: user.email,
             sub: user.id,
+        };
+        return {
+            accessToken: this.jwtService.sign(payload),
+        };
+    }
+
+    async loginAdmin(admin: any): Promise<any> {
+        /* -------------------------- GENERATING JWT TOKEN -------------------------- */
+        if (!admin) {
+            return null;
+        }
+
+        const payload = {
+            login: admin.login,
+            sub: admin.id,
         };
         return {
             accessToken: this.jwtService.sign(payload),

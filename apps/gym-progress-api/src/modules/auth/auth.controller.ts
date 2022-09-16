@@ -2,7 +2,7 @@ import { Controller, Post, UseGuards, Get, Body, Request } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger';
 import { CreatedObjectResponse, PrismaErrorResponse, BPRRequest, SignUpInput, UserOutput } from '../../models';
 import { AuthService } from './auth.service';
-import { JwtAuthGuard, LocalAuthGuard } from './guards';
+import { AdminAuthGuard, JwtAuthGuard, LocalAuthGuard } from './guards';
 
 @ApiTags(`AUTH ACTIONS`)
 @Controller(`auth`)
@@ -19,6 +19,12 @@ export class AuthController {
     @Post('login')
     async login(@Request() req: BPRRequest) {
         return this.authService.login(req.user);
+    }
+
+    @UseGuards(AdminAuthGuard)
+    @Post('admin/login')
+    async adminLogin(@Request() req: BPRRequest) {
+        return this.authService.loginAdmin(req.user);
     }
 
     @Post('signup')

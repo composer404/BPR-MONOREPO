@@ -16,9 +16,9 @@ export class GymsController {
         return this.gymsService.findGymById(params.id);
     }
 
-    @Get(':name')
-    async findGymByName(@Param() params: any): Promise<Gym | null> {
-        return this.gymsService.findGymById(params.name);
+    @Get('name/:name')
+    async findGymByName(@Param() params: any): Promise<Gym[] | null> {
+        return this.gymsService.findGymByName(params.name);
     }
 
     @Post(':id/administrators')
