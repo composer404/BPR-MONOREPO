@@ -16,3 +16,15 @@ export enum BPR_ERROR_CODES {
 export interface BPRApiCreatedObject {
     id: string;
 }
+
+export interface AdminProfile {
+    id: string;
+    login: string;
+}
+
+export interface AdminSignupInput {
+    login: string;
+    password: string;
+    information: string;
+    gymId: string;
+}

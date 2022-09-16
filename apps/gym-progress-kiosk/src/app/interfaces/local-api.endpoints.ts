@@ -1,2 +1,6 @@
-export enum LOCAL_API_SERVICES {}
-/* ---------------------------------- AUTH ---------------------------------- */
+export enum LOCAL_API_SERVICES {
+    /* ---------------------------------- AUTH ---------------------------------- */
+
+    authLogin = `/auth/admin/login`,
+    authProfile = `/auth/admin/profile`,
+}

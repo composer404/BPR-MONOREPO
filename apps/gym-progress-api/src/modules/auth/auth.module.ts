@@ -1,3 +1,4 @@
+import { AdminJwtStrategy } from './strategies/admin-jwt.strategy';
 import { AdminLocalStrategy } from './strategies/admin-local.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
@@ -18,7 +19,7 @@ import { UsersModule } from '../users';
             secret: process.env.AUTH_JWT_SECRET,
         }),
     ],
-    providers: [AuthService, JwtStrategy, LocalStrategy, AdminLocalStrategy],
+    providers: [AuthService, JwtStrategy, LocalStrategy, AdminLocalStrategy, AdminJwtStrategy],
     controllers: [AuthController],
     exports: [AuthService],
 })

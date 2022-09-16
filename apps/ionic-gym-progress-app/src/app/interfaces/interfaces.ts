@@ -5,7 +5,7 @@ export interface Token {
 
 export interface UserProfile {
     id: string;
-    login: string;
+    email: string;
 }
 
 export interface SignUpInput {

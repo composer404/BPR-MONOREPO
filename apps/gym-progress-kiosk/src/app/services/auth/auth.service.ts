@@ -1,4 +1,10 @@
-import { BPRApiCreatedObject, BPR_ERROR_CODES, SignUpInput, Token, UserProfile } from '../../interfaces/interfaces';
+import {
+    AdminProfile,
+    AdminSignupInput,
+    BPRApiCreatedObject,
+    BPR_ERROR_CODES,
+    Token,
+} from '../../interfaces/interfaces';
 import { Subject, firstValueFrom } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
@@ -20,10 +26,10 @@ export class AuthService {
         return localStorage.getItem('token') as string;
     }
 
-    public async login(email: string, password: string): Promise<string> {
+    public async login(login: string, password: string): Promise<string> {
         const response = await firstValueFrom(
             this.httpClient.post<Token>(`${environment.localApiUrl}${LOCAL_API_SERVICES.authLogin}`, {
-                email,
+                login,
                 password,
             }),
         ).catch((err) => {
@@ -46,9 +52,9 @@ export class AuthService {
         return response.accessToken;
     }
 
-    public async getProfile(): Promise<UserProfile> {
+    public async getProfile(): Promise<AdminProfile> {
         return firstValueFrom(
-            this.httpClient.get<UserProfile>(`${environment.localApiUrl}${LOCAL_API_SERVICES.authProfile}`),
+            this.httpClient.get<AdminProfile>(`${environment.localApiUrl}${LOCAL_API_SERVICES.authProfile}`),
         );
     }
 
@@ -71,10 +77,10 @@ export class AuthService {
         return true;
     }
 
-    public async signup(body: SignUpInput): Promise<BPRApiCreatedObject> {
+    public async signup(body: AdminSignupInput): Promise<BPRApiCreatedObject> {
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(
-                `${environment.localApiUrl}${LOCAL_API_SERVICES.authSignup}`,
+                `${environment.localApiUrl}/gyms/${body.gymId}/administrators`,
                 body,
             ),
         );
