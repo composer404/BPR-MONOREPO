@@ -1,0 +1,23 @@
+
+.input {
+    background-color: transparent ;
+}
+
+.password::ng-deep .p-password {
+  width: 100%;
+}
+
+.password::ng-deep .p-password input {
+    width: 100%;
+    background-color: transparent;
+}
+.image-frame {
+    height: 100px;
+    width:100px;
+  }
+
+  .image-size{
+    height: 100px;
+    width: 100px;
+  }
+
