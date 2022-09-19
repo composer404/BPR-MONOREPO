@@ -1,0 +1,23 @@
+
+.input {
+    background-color: transparent ;
+    color: orange ;
+    border-color: orange ;
+}
+
+.password::ng-deep .p-password input {
+    width: 100%;
+    background-color: transparent;
+    color: orange;
+    border-color: orange;
+}
+.image-frame {
+    height: 100px;
+    width:100px;
+  }
+
+  .image-size{
+    height: 100px;
+    width: 100px;
+  }
+

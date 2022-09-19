@@ -1,1 +1,63 @@
-Singup works
+<div class="flex h-screen justify-center items-center bg-primary">
+    <div class="m-24 w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden bg-primary-dark">
+        <div class="md:flex w-full">
+            <div class="md:shrink-0">
+                <img class="h-80 w-full object-cover md:h-full md:w-80" src="/assets/icon/gym.jpg" alt="Gym" />
+            </div>
+            <div class="p-20 w-full">
+                <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+                    <ng-container>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="login" class="text-sm">Login</label>
+                            <input formControlName="login" class="input" pInputText id="login" type="text" />
+                            <small
+                                *ngIf="
+                                    signupForm.get('login').invalid &&
+                                    (signupForm.get('login').dirty || signupForm.get('login').touched)
+                                "
+                                id="login-help"
+                                class="p-error"
+                                ><div *ngIf="signupForm.get('login').errors?.['required']">Login is required.</div>
+                                <div *ngIf="signupForm.get('login').errors?.['minlength']">
+                                    Login must be at least 4 characters long.
+                                </div>
+                            </small>
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="password" class="text-sm">Password</label>
+                            <p-password formControlName="password" id="password" class="password"
+                                styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+                                [toggleMask]="true" [feedback]="false"></p-password>
+                            <small
+                                *ngIf="
+                                    signupForm.get('password').invalid &&
+                                    (signupForm.get('password').dirty || signupForm.get('password').touched)
+                                "
+                                id="password-help"
+                                class="p-error"
+                                ><div *ngIf="signupForm.get('password').errors?.['required']">Password is required.</div>
+                                <div *ngIf="signupForm.get('password').errors?.['minlength']">
+                                    Password must be at least 4 characters long.
+                                </div>
+                            </small>
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="information" class="text-sm">Information</label>
+                            <input formControlName="information" class="input" pInputText id="information" type="text" />
+                        </div>
+                        <div class="flex flex-col gap-1 mb-4">
+                            <label for="gymId" class="text-sm">Gym Id</label>
+                            <input formControlName="gymId" class="input" pInputText id="gymId" type="text" />
+                        </div>
+                        <div class="flex flex-col mt-10 text-center">
+                            <button [disabled]="signupForm.invalid" class="bg-accent py-2 text-white rounded-sm"
+                                type="submit">
+                                Create
+                            </button>
+                        </div>
+                    </ng-container>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
