@@ -2,9 +2,9 @@
     <div class="m-24 w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden bg-primary-dark">
         <div class="md:flex w-full">
             <div class="md:shrink-0">
-                <img class="h-80 w-full object-cover md:h-full md:w-80" src="/assets/icon/gym.jpg" alt="Gym" />
+                <!-- <img class="h-80 w-full object-cover md:h-full md:w-80" src="/assets/icon/gym.jpg" alt="Gym" /> -->
             </div>
-            <div class="p-20 w-full">
+            <div class="p-20 w-full card">
                 <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="onSignUp()">
                     <ng-container>
                         <div class="flex flex-col gap-1 mb-4">
@@ -25,9 +25,14 @@
                         </div>
                         <div class="flex flex-col gap-1 mb-4">
                             <label for="password" class="text-sm">Password</label>
-                            <p-password formControlName="password" id="password" class="password"
-                                styleClass="p-password p-component p-inputwrapper p-input-icon-right"
-                                [toggleMask]="true" [feedback]="false"></p-password>
+                            <p-password
+                                formControlName="password"
+                                id="password"
+                                class="password"
+                                styleClass="p-password p-component p-inputwrapper p-input-icon-right password"
+                                [toggleMask]="true"
+                                [feedback]="false"
+                            ></p-password>
                             <small
                                 *ngIf="
                                     signupForm.get('password').invalid &&
@@ -35,7 +40,9 @@
                                 "
                                 id="password-help"
                                 class="p-error"
-                                ><div *ngIf="signupForm.get('password').errors?.['required']">Password is required.</div>
+                                ><div *ngIf="signupForm.get('password').errors?.['required']">
+                                    Password is required.
+                                </div>
                                 <div *ngIf="signupForm.get('password').errors?.['minlength']">
                                     Password must be at least 4 characters long.
                                 </div>
@@ -43,15 +50,24 @@
                         </div>
                         <div class="flex flex-col gap-1 mb-4">
                             <label for="information" class="text-sm">Information</label>
-                            <input formControlName="information" class="input" pInputText id="information" type="text" />
+                            <input
+                                formControlName="information"
+                                class="input"
+                                pInputText
+                                id="information"
+                                type="text"
+                            />
                         </div>
                         <div class="flex flex-col gap-1 mb-4">
                             <label for="gymId" class="text-sm">Gym Id</label>
                             <input formControlName="gymId" class="input" pInputText id="gymId" type="text" />
                         </div>
                         <div class="flex flex-col mt-10 text-center">
-                            <button [disabled]="signupForm.invalid" class="bg-accent py-2 text-white rounded-sm"
-                                type="submit">
+                            <button
+                                [disabled]="signupForm.invalid"
+                                class="primary-button py-2 rounded-md"
+                                type="submit"
+                            >
                                 Create
                             </button>
                         </div>
@@ -61,3 +77,13 @@
         </div>
     </div>
 </div>
+
+<!-- <div class="card">
+    <div class="w-full">
+        <div>Example input 1</div>
+        <div class="w-full">
+            <input pInputText class="w-full p-inputtext-sm" />
+        </div>
+    </div>
+    <div></div>
+</div> -->

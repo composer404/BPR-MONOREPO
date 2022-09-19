@@ -1,1 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #7f00ff;
+}
+
+.primary-button {
+    background-color: #7f00ff;
+    color: #fff;
+}
+
+.card {
+    background-color: white;
+    border-radius: 6px;
+    margin: auto;
+    padding: 20px;
+}
