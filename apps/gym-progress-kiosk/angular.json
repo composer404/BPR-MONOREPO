@@ -113,5 +113,8 @@
       }
     }
   },
-  "defaultProject": "gym-progress-kiosk"
+  "defaultProject": "gym-progress-kiosk",
+  "cli": {
+    "analytics": false
+  }
 }
