@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
+        "noPropertyAccessFromIndexSignature": false,
         "declaration": true,
         "emitDecoratorMetadata": true,
         "exactOptionalPropertyTypes": true,

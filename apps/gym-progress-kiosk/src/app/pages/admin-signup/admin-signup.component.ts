@@ -17,17 +17,18 @@ import { environment } from 'src/environments/environment';
 })
 export class AdminSignupComponent implements OnInit {
     signupForm: FormGroup;
-    
 
 
-    constructor(private router: Router, private authService: AuthService,private infoService:InfoService) {}
+
+    constructor(private router: Router, private authService: AuthService,private infoService:InfoService) {
+      this.signupForm = new FormGroup({
+        login: new FormControl(``, [Validators.required, Validators.minLength(4)]),
+        password: new FormControl(``, [Validators.required, Validators.minLength(4)]),
+        information: new FormControl(``),
+      });
+    }
 
     ngOnInit(): void {
-        this.signupForm = new FormGroup({
-            login: new FormControl(``, [Validators.required, Validators.minLength(4)]),
-            password: new FormControl(``, [Validators.required, Validators.minLength(4)]),
-            information: new FormControl(``),
-        });
     }
 
 
