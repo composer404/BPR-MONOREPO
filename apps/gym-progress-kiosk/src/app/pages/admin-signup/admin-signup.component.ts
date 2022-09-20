@@ -1,3 +1,5 @@
+// import * as environment from '../../environments/environment';
+
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -6,6 +8,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { InfoService } from '../../services/info.service';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: `app-admin-signup-component`,
@@ -14,6 +17,7 @@ import { Router } from '@angular/router';
 })
 export class AdminSignupComponent implements OnInit {
     signupForm: FormGroup;
+    
 
 
     constructor(private router: Router, private authService: AuthService,private infoService:InfoService) {}
@@ -23,7 +27,6 @@ export class AdminSignupComponent implements OnInit {
             login: new FormControl(``, [Validators.required, Validators.minLength(4)]),
             password: new FormControl(``, [Validators.required, Validators.minLength(4)]),
             information: new FormControl(``),
-            gymId: new FormControl(``),
         });
     }
 
@@ -33,9 +36,8 @@ export class AdminSignupComponent implements OnInit {
             login: this.signupForm.get('login').value,
             password: this.signupForm.get('password').value,
             information: this.signupForm.get('information').value,
-            gymId: this.signupForm.get('gymId').value,
+            gymId:environment.gymId,
         });
-
         if ((response as any)?.code === API_ERROR_CODES.notUniqueLogin) {
             this.infoService.error(`User with provided login already exists!`);
             return;
