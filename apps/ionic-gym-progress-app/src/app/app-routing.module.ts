@@ -25,6 +25,18 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
     },
+  {
+    path: 'list/list-machines',
+    loadChildren: () => import('./pages/list/list-machines/list-machines.module').then(m => m.ListMachinesPageModule)
+  },
+  {
+    path: 'list/list-gyms',
+    loadChildren: () => import('./pages/list/list-gyms/list-gyms.module').then(m => m.ListGymsPageModule)
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('./pages/list/list.module').then( m => m.ListPageModule)
+  },
 ];
 
 @NgModule({
