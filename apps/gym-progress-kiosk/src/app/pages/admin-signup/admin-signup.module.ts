@@ -9,6 +9,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
     {
@@ -27,6 +28,7 @@ const routes: Routes = [
         FormsModule,
         ReactiveFormsModule,
         PasswordModule,
+        ToastModule,
     ],
     providers: [MessageService],
 })

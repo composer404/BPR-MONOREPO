@@ -38,15 +38,12 @@ export class AdminSignupComponent implements OnInit {
             information: this.signupForm.get('information').value,
             gymId:environment.gymId,
         });
+        
         if ((response as any)?.code === API_ERROR_CODES.notUniqueLogin) {
             this.infoService.error(`User with provided login already exists!`);
             return;
         }
 
-        if ((response as any)?.code === API_ERROR_CODES.notUniqueEmail) {
-            this.infoService.error(`User with provided email already exists!`);
-            return;
-        }
 
         if (response?.id) {
             this.infoService.success(`Account has been successfully created!`);
