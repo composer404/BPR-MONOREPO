@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth/auth.service';
 import { InfoService } from '../../services/common/info.service';
+import { ToastService } from 'src/app/services/common/toast.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +16,8 @@ export class LoginPage implements OnInit {
     loginForm: FormGroup;
     unauthorized: boolean;
 
-    constructor(private router: Router, private authService: AuthService, private infoService: InfoService) {}
+    constructor(private router: Router, private authService: AuthService, private infoService: InfoService,
+                private toastService: ToastService) {}
 
     ngOnInit() {
         this.loginForm = new FormGroup({
@@ -33,12 +35,13 @@ export class LoginPage implements OnInit {
         const password = this.loginForm.get(`password`).value;
         const response = await this.authService.login(login, password);
 
-        if (response === API_ERROR_CODES.notUniqueEmail) {
-            this.unauthorized = true;
-            return;
+        if ((response as any)?.code === API_ERROR_CODES.notUniqueEmail) {
+          await this.toastService.error(`Unauthorized`);
+          return;
         }
 
         if (response === BPR_ERROR_CODES.internal) {
+            await this.toastService.error(`Cannot connect to the server. Try again later`);
             this.infoService.error(`Cannot connect to the server. Try again later.`);
             return;
         }

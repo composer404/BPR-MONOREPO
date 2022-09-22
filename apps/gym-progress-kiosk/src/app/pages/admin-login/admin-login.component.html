@@ -1,1 +1,85 @@
-Login works
+<div class="flex h-screen justify-center items-center bg-primary">
+  <div class="m-24 mx-auto rounded-xl shadow-xl overflow-hidden bg-white">
+    <div class="md:flex">
+      <div class="md:shrink-0">
+        <img
+          class="h-80 w-full object-cover md:h-full md:w-80"
+          src="/assets/icon/exercise.jpg"
+          alt="Exercise"
+        />
+      </div>
+      <div class="p-20">
+        <div class="mx-auto h-5 mb-5 text-center">
+          <label *ngIf="unauthorized" class="text-accent text-center font-semibold"
+          >Invalid login or password</label
+          >
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <div class="w-60">
+          <div class="flex flex-col gap-2 mb-6">
+            <label for="login" class="text-gray-500">Login</label>
+            <input
+              (keydown)="hideErrorMessage()"
+              formControlName="login"
+              class="login"
+              pInputText
+              id="login"
+              type="text"
+            />
+            <small
+              *ngIf="
+                                loginForm.get('login').invalid &&
+                                (loginForm.get('login').dirty || loginForm.get('login').touched)
+                            "
+              id="login-help"
+              class="p-error"
+            ><div *ngIf="loginForm.get('login').errors?.['required']">Login is required.</div>
+              <div *ngIf="loginForm.get('login').errors?.['minlength']">
+                Login must be at least 4 characters long.
+              </div>
+            </small>
+          </div>
+          <div class="flex gap-2 flex-col">
+            <label for="password" class="text-gray-500">Password</label>
+            <p-password
+              (keydown)="hideErrorMessage()"
+              formControlName="password"
+              id="password"
+              [feedback]="false"
+              class="password"
+              styleClass="p-password p-component p-inputwrapper p-input-icon-right"
+              [toggleMask]="true"
+              [feedback]="false"
+            ></p-password>
+            <small
+              *ngIf="
+                                loginForm.get('password').invalid &&
+                                (loginForm.get('password').dirty || loginForm.get('password').touched)
+                            "
+              id="password-help"
+              class="p-error h-3"
+            ><div *ngIf="loginForm.get('password').errors?.['required']">Password is required</div>
+              <div *ngIf="loginForm.get('password').errors?.['minlength']">
+                Password must be at least 4 characters long.
+              </div>
+            </small>
+          </div>
+          </div>
+          <div class="flex flex-col mt-10">
+            <button
+              class="bg-accent py-2 text-white rounded-sm"
+              [disabled]="loginForm.invalid"
+              type="submit"
+            >
+              Login
+            </button>
+            <div class="flex mt-5 gap-2">
+              <p class="text-gray-500">Don't you have an account?</p>
+              <a class="text-green-600" [routerLink]="['/signup']">Sign Up</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
