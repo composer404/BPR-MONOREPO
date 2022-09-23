@@ -26,6 +26,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
     },
   {
+    path: 'list/list-exercises',
+    loadChildren: () => import('./pages/list/list-exercises/list-exercises.module').then(m => m.ListExercisesPageModule)
+  },
+  {
     path: 'list/list-machines',
     loadChildren: () => import('./pages/list/list-machines/list-machines.module').then(m => m.ListMachinesPageModule)
   },
