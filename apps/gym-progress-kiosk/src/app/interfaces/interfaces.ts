@@ -28,3 +28,15 @@ export interface AdminSignupInput {
     information: string;
     gymId: string;
 }
+
+export interface TrainingMachines {
+    id:string;
+    name: string;
+    description: string;
+    location: string;
+    formulaForCalories: string;
+    video: string;
+    availability: string;
+    gymId: string;
+    exerciseId: string;
+}
