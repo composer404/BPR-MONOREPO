@@ -1,0 +1,47 @@
+<form [formGroup]="trainingMachineForm" (ngSubmit)="createTrainingMachine()">
+    <div class="m-10 gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="name">Name</label>
+            <input formControlName="name" pInputText id="name" type="text" />
+            <small
+                *ngIf="
+                    trainingMachineForm.get('name').invalid &&
+                    (trainingMachineForm.get('name').dirty || trainingMachineForm.get('name').touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="trainingMachineForm.get('name').errors?.['required']">A name of the movie is required.</div>
+                <div *ngIf="trainingMachineForm.get('name').errors?.['minlength']">A title must be at least 1 character long.</div>
+            </small>
+            <div class="flex mt-2"></div>
+            <label for="description">Description</label>
+            <textarea formControlName="description" pInputTextarea [rows]="5" id="description" name="text"></textarea>
+            <small
+                *ngIf="
+                    trainingMachineForm.get('description').invalid &&
+                    (trainingMachineForm.get('description').dirty || trainingMachineForm.get('description').touched)
+                "
+                id="login-help"
+                class="p-error"
+                ><div *ngIf="trainingMachineForm.get('description').errors?.['required']">The description is required.</div>
+                <div *ngIf="trainingMachineForm.get('description').errors?.['minlength']">
+                    The description must be at least 10 characters long.
+                </div>
+            </small>
+            <label for="location">Location</label>
+            <input formControlName="location" pInputText id="location" type="text" />
+            <label for="formulaForCalories">formula For Calories</label>
+            <input formControlName="formulaForCalories" pInputText id="formulaForCalories" type="text" />
+            <label for="video">video</label>
+            <input formControlName="video" pInputText id="video" type="text" />
+            <label for="availability">availability</label>
+            <input formControlName="availability" pInputText id="availability" type="text" />
+        </div>
+        <div class="flex gap-2 mt-6">
+            <button [disabled]="trainingMachineForm.invalid" class="py-2 px-4 text-white rounded-md" type="submit">
+                Create
+            </button>
+            <button class="py-2 px-4 text-white rounded-md" type="button" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</form>

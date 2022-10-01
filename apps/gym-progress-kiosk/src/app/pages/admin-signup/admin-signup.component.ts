@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
     selector: `app-admin-signup-component`,
     templateUrl: `./admin-signup.component.html`,
     styleUrls: [`./admin-signup.component.scss`],
+    providers: [InfoService]
 })
 export class AdminSignupComponent implements OnInit {
     signupForm: FormGroup;
@@ -41,7 +42,7 @@ export class AdminSignupComponent implements OnInit {
         });
         
         if ((response as any)?.code === API_ERROR_CODES.notUniqueLogin) {
-            this.infoService.error(`User with provided login already exists!`);
+            this.infoService.error(`Admin with provided login already exists!`);
             return;
         }
 
