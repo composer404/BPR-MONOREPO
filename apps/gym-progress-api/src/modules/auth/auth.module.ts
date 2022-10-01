@@ -19,7 +19,7 @@ import { UsersModule } from '../users';
             secret: process.env.AUTH_JWT_SECRET,
         }),
     ],
-    providers: [AuthService, JwtStrategy, LocalStrategy, AdminLocalStrategy, AdminJwtStrategy],
+    providers: [AuthService, AdminJwtStrategy, AdminLocalStrategy, JwtStrategy, LocalStrategy],
     controllers: [AuthController],
     exports: [AuthService],
 })
