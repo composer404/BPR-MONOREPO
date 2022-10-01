@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EditAccountPage } from './edit-accout.page';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
     {
@@ -13,7 +14,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [CommonModule, RouterModule.forChild(routes), IonicModule],
+    imports: [CommonModule, RouterModule.forChild(routes), IonicModule, ReactiveFormsModule],
     declarations: [EditAccountPage],
 })
 export class EditPageModule {}

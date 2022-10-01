@@ -48,6 +48,10 @@ const routes: Routes = [
         path: 'list',
         loadChildren: () => import('./pages/list/list.module').then((m) => m.ListPageModule),
     },
+    {
+        path: 'profile-tabs',
+        loadChildren: () => import('./pages/profile-tabs/profile-tabs.module').then((m) => m.ProfileTabsPageModule),
+    },
 ];
 
 @NgModule({

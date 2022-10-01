@@ -1,0 +1,21 @@
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button [tab]="'profile/' + userId">
+            <ion-icon name="home"></ion-icon>
+            <ion-label>Home</ion-label>
+        </ion-tab-button>
+        <ion-tab-button [tab]="">
+            <ion-icon name="trophy"></ion-icon>
+            <ion-label>Trainings</ion-label>
+        </ion-tab-button>
+        <ion-tab-button [tab]="">
+            <ion-icon name="stats-chart-sharp"></ion-icon>
+            <ion-label>Statistics</ion-label>
+        </ion-tab-button>
+        <ion-tab-button [tab]="'profile/edit/' + userId">
+            <ion-icon name="settings"></ion-icon>
+            <ion-label>Edit</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+    <router-outlet></router-outlet>
+</ion-tabs>
