@@ -115,7 +115,6 @@ export class TrainingMachinesService {
     }
 
     async getTrainingMachineById(id: any): Promise<TrainingMachine | null> {
-        console.log(`service`);
         const trainingMachine = await this.database
             .findFirst({
                 where: {
