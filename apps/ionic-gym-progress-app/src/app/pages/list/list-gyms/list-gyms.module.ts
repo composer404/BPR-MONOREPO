@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { ListGymsPage } from './list-gyms.page';
 import {RouterModule, Routes} from '@angular/router';
-import {ContentWrapperModule} from "../../../components/content-wrapper/content-wrapper.module";
+import {ContentWrapperModule} from '../../../components/content-wrapper/content-wrapper.module';
 
 const routes: Routes = [
   {

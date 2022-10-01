@@ -29,7 +29,6 @@ export class TokenInterceptorService implements HttpInterceptor {
                     this.authService.logout();
                     return;
                 }
-                console.log(`requiers error`);
                 this.toastService.error(`Server error. Try again later...`);
                 const error = err.error || err.statusText;
                 return throwError(error);
