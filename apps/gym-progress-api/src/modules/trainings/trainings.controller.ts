@@ -34,8 +34,8 @@ export class TrainingsController {
 
     @UseGuards(JwtAuthGuard)
     @Put(`:id`)
-    async updateTraining(@Param() params: any, @Body() trainingMachine: TrainingInput): Promise<boolean> {
-        return this.trainingService.updateTraining(params.id, trainingMachine);
+    async updateTraining(@Param() params: any, @Body() training: TrainingInput): Promise<boolean> {
+        return this.trainingService.updateTraining(params.id, training);
     }
 
     @UseGuards(JwtAuthGuard)
