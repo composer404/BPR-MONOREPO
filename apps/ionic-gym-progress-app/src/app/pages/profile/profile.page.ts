@@ -1,8 +1,5 @@
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Component } from '@angular/core';
-import { DialogService } from 'src/app/services/common/dialog.service';
-import { UserService } from 'src/app/services/api/user.service';
 
 @Component({
     selector: 'app-profile',
@@ -13,19 +10,7 @@ export class ProfilePage {
     scannedValue;
     scanActive = false;
 
-    constructor(
-        private readonly authService: AuthService,
-        private readonly userService: UserService,
-        private readonly dialogService: DialogService,
-    ) {}
-
-    logout() {
-        this.authService.logout();
-    }
-
-    async deleteAccount() {
-        this.presentConfirmationDialog();
-    }
+    constructor() {}
 
     async checkPermission() {
         return new Promise(async (resolve, reject) => {
@@ -68,15 +53,5 @@ export class ProfilePage {
     ionViewWillLeave() {
         BarcodeScanner.stopScan();
         this.scanActive = false;
-    }
-
-    private async presentConfirmationDialog() {
-        await this.dialogService.openConfirmationDialog({
-            header: `Are you sure?`,
-            confirmFn: async () => {
-                await this.userService.deleteAccount();
-                this.logout();
-            },
-        });
     }
 }

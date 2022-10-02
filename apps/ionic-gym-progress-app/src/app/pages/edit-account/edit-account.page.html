@@ -1,29 +1,58 @@
-<ion-card>
-    <form [formGroup]="editForm" (ngSubmit)="onSubmitForm()" novalidate>
-        <ion-item lines="full">
-            <ion-label position="floating">First name</ion-label>
-            <ion-input formControlName="firstName" type="text" required></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-            <ion-label position="floating">Last name</ion-label>
-            <ion-input formControlName="lastName" type="text" required></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-            <ion-label position="floating">Age</ion-label>
-            <ion-input formControlName="age" type="number" required></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-            <ion-label position="floating">Height</ion-label>
-            <ion-input formControlName="height" type="number" required></ion-input>
-        </ion-item>
-        <ion-item lines="full">
-            <ion-label position="floating">Weight</ion-label>
-            <ion-input formControlName="weight" type="number" required></ion-input>
-        </ion-item>
-        <ion-row>
-            <ion-col>
-                <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
-            </ion-col>
-        </ion-row>
-    </form>
-</ion-card>
+<div class="logout purple" (click)="onLogout()">
+    <ion-icon class="text-3xl" name="log-out"></ion-icon>
+</div>
+
+<div class="h-full flex items-center justify-center">
+    <div class="w-full p-10">
+        <div class="w-full text-center mb-10">
+            <div class="logo">GYM PROGRESS</div>
+            <div class="px-10"><small>Here is a place were you can manage your account.</small></div>
+        </div>
+        <div class="card">
+            <form [formGroup]="editForm" (ngSubmit)="onSubmitForm()" novalidate>
+                <ion-item lines="full">
+                    <ion-label position="floating">First name</ion-label>
+                    <ion-input formControlName="firstName" type="text" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Last name</ion-label>
+                    <ion-input formControlName="lastName" type="text" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Age</ion-label>
+                    <ion-input formControlName="age" type="number" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Height</ion-label>
+                    <ion-input formControlName="height" type="number" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Weight</ion-label>
+                    <ion-input formControlName="weight" type="number" required></ion-input>
+                </ion-item>
+                <ion-list>
+                    <ion-item lines="full">
+                        <ion-select interface="popover" placeholder="Select sex" formControlName="sex">
+                            <ion-select-option value="masculine">Masculine</ion-select-option>
+                            <ion-select-option value="feminine">Feminine</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+                <div class="w-full text-center px-5 mt-10">
+                    <button
+                        [disabled]="editForm.invalid"
+                        type="submit"
+                        class="primary-button mb-2"
+                        expand="block"
+                        type="submit"
+                    >
+                        Confirm
+                    </button>
+                </div>
+            </form>
+            <div class="px-5">
+                <button (click)="onDeleteAccount()" class="primary-button" expand="block">Delete account</button>
+            </div>
+        </div>
+    </div>
+</div>
