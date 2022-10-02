@@ -33,6 +33,26 @@
     --primary-gradient: linear-gradient(90deg, rgba(200,47,129,1) 0%, rgba(123,39,164,1) 100%);
 }
 
+.logo {
+    font-size: 36px;
+    font-weight: 800;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+.img-bg {
+    background-image: url(./assets/login-bg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: -9999;
+    filter: grayscale(100%) blur(2px) brightness(30%);
+  }
+
 
 .primary-button {
     background: var(--primary-gradient) !important;
@@ -46,6 +66,10 @@
 ion-item{
     --background: transparent !important;
     --border-color: #ffffff
+}
+
+.list-md {
+    background: transparent !important;
 }
 
 ion-item.item-has-focus > ion-label{

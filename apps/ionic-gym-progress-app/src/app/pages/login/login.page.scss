@@ -1,28 +1,6 @@
-.img-bg {
-  // --background: linear-gradient(#FF8100, #FF4E00);
-  background-image: url(../../../assets/login-bg.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: -9999;
-  filter: grayscale(100%) blur(2px) brightness(30%);
-  // filter: blur(5px);
-}
-
 .card-wrapper {
   border-radius: 1rem;
   padding: 0.5rem;
-}
-
-.logo {
-  font-size: 36px;
-  font-weight: 800;
-  background: var(--primary-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .input-border {
