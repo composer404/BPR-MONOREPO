@@ -1,56 +1,52 @@
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BPRSharedModule } from 'src/app/shared/bpr-shared.module'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import {ButtonModule} from 'primeng/button';
-import {CardModule} from 'primeng/card';
+import { BPRSharedModule } from 'src/app/shared/bpr-shared.module';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-import {DialogModule} from 'primeng/dialog';
+import { DialogModule } from 'primeng/dialog';
+import { DialogService } from 'primeng/dynamicdialog';
 import { HttpClientModule } from '@angular/common/http';
-import {InputNumberModule} from 'primeng/inputnumber';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import {ListViewComponent} from './list-view.component'
+import { ListViewComponent } from './list-view.component';
 import { MachineListComponent } from './machine-list/machine-list.component';
 import { MessageService } from 'primeng/api';
-import { NgModule }      from '@angular/core';
-import {TableModule} from 'primeng/table';
-import {ToastModule} from 'primeng/toast';
-import{ TrainingMachinesComponent } from './training-machines/training-machines.component';
-import { environment } from 'src/environments/environment';
+import { NgModule } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TrainingMachinesComponent } from './training-machines/training-machines.component';
 
 const routes: Routes = [
-        {
-            path: '',
-            component: ListViewComponent,
-        },
-    ];
+    {
+        path: '',
+        component: ListViewComponent,
+    },
+];
 
 @NgModule({
     declarations: [ListViewComponent, MachineListComponent, TrainingMachinesComponent],
-  imports: [
-    // BrowserModule,
-    // BrowserAnimationsModule,
-    CardModule,
-    BPRSharedModule,
-    TableModule,
-    CommonModule,
-		DialogModule,
-		ButtonModule,
-		ToastModule,
-    InputTextModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    InputNumberModule,
-    ConfirmDialogModule,
-    InputTextareaModule,
-  ],
-  providers: [ MessageService, ConfirmationService]
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        CardModule,
+        BPRSharedModule,
+        TableModule,
+        DialogModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        InputNumberModule,
+        ConfirmDialogModule,
+        InputTextareaModule,
+    ],
+    providers: [MessageService, ConfirmationService, DialogService],
 })
-
-export class ListViewModule { }
+export class ListViewModule {}
