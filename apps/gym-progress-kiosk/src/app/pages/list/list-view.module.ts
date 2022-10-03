@@ -5,6 +5,7 @@ import { BPRSharedModule } from 'src/app/shared/bpr-shared.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import {ButtonModule} from 'primeng/button';
+import {CardModule} from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
@@ -13,7 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {InputTextModule} from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { MachineListComponent } from './machine-list.component';
+import {ListViewComponent} from './list-view.component'
+import { MachineListComponent } from './machine-list/machine-list.component';
 import { MessageService } from 'primeng/api';
 import { NgModule }      from '@angular/core';
 import {TableModule} from 'primeng/table';
@@ -24,15 +26,16 @@ import { environment } from 'src/environments/environment';
 const routes: Routes = [
         {
             path: '',
-            component: MachineListComponent,
+            component: ListViewComponent,
         },
     ];
 
 @NgModule({
-    declarations: [MachineListComponent,TrainingMachinesComponent],
+    declarations: [ListViewComponent, MachineListComponent, TrainingMachinesComponent],
   imports: [
     // BrowserModule,
     // BrowserAnimationsModule,
+    CardModule,
     BPRSharedModule,
     TableModule,
     CommonModule,
@@ -50,4 +53,4 @@ const routes: Routes = [
   providers: [ MessageService, ConfirmationService]
 })
 
-export class MachineListModule { }
+export class ListViewModule { }

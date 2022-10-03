@@ -1,13 +1,13 @@
-import {AdminProfile, BPR_ADMIN_ACTIONS} from '../../interfaces/interfaces';
+import {AdminProfile, BPR_ADMIN_ACTIONS} from '../../../interfaces/interfaces';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 import {ConfirmationModalComponent} from 'src/app/shared/confirmation-modal/confirmation-modal.component'
 import { DialogService } from 'primeng/dynamicdialog';
 import { HttpClient } from '@angular/common/http';
-import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
+import { LOCAL_API_SERVICES } from '../../../interfaces/local-api.endpoints';
 import { Subscription } from 'rxjs';
-import{ TrainingMachines } from '../../interfaces/interfaces';
-import{ TrainingMachinesComponent } from './training-machines/training-machines.component';
+import{ TrainingMachines } from '../../../interfaces/interfaces';
+import{ TrainingMachinesComponent } from 'src/app/pages/list/training-machines/training-machines.component';
 import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 import { environment } from 'src/environments/environment';
 
@@ -20,9 +20,9 @@ import { environment } from 'src/environments/environment';
 export class MachineListComponent implements  OnDestroy{
     admin: AdminProfile;
     subscriptions: Subscription[] = [];
+   
+    @Input()
     trainingMachines: TrainingMachines[];
-    // @Input()
-    // trainingMachines: TrainingMachines[];
     @Output()
     onRemove = new EventEmitter<string>();
 
@@ -32,7 +32,6 @@ export class MachineListComponent implements  OnDestroy{
     constructor( 
         private readonly httpClient: HttpClient,
         private readonly dialogService: DialogService,
-       // private readonly trainingMachinesSerivice: TrainingMachinesService
        ) {}  
         
    

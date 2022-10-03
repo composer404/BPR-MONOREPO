@@ -1,0 +1,16 @@
+<div class="mt-3">
+    <button class="py-2 px-4 text-black rounded-md bg-black" (click)="openCreateModal()" >
+        Add new training machine
+    </button>
+</div> 
+<!-- <ng-container *ngIf="trainingMachines.length; else noTrainingMachines">
+    <div class="mt-3" *ngFor="let trainingMachines of trainingMachines">
+         <app-trainingMachines-card
+            (onRemove)="onRemoveTrainingMachines($event)"
+            [trainingMachines]="trainingMachines"
+        ></app-trainingMachines-card> 
+    </div>
+</ng-container> -->
+<ng-template #noTopLists>
+    <div>No training Machines</div> -->
+</ng-template> 
