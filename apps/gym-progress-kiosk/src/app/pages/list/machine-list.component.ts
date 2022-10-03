@@ -1,12 +1,14 @@
+import {AdminProfile, BPR_ADMIN_ACTIONS} from '../../interfaces/interfaces';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
+import {ConfirmationModalComponent} from 'src/app/shared/confirmation-modal/confirmation-modal.component'
 import { DialogService } from 'primeng/dynamicdialog';
 import { HttpClient } from '@angular/common/http';
 import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
 import { Subscription } from 'rxjs';
 import{ TrainingMachines } from '../../interfaces/interfaces';
 import{ TrainingMachinesComponent } from './training-machines/training-machines.component';
-import { TrainingMachinesService } from 'src/app/services/machineList.service';
+import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,7 +17,8 @@ import { environment } from 'src/environments/environment';
     styleUrls: [`./machine-list.component.scss`],
 })
 
-export class MachineListComponent implements OnDestroy{
+export class MachineListComponent implements  OnDestroy{
+    admin: AdminProfile;
     subscriptions: Subscription[] = [];
     trainingMachines: TrainingMachines[];
     // @Input()
@@ -29,7 +32,8 @@ export class MachineListComponent implements OnDestroy{
     constructor( 
         private readonly httpClient: HttpClient,
         private readonly dialogService: DialogService,
-       ) {}  //private readonly trainingMachinesSerivice: TrainingMachinesService
+       // private readonly trainingMachinesSerivice: TrainingMachinesService
+       ) {}  
         
    
     ngOnDestroy(): void {
@@ -38,31 +42,23 @@ export class MachineListComponent implements OnDestroy{
         });
     }
 
-    // async getTrainingMachines() {
-    //     const response = await this.trainingMachinesSerivice.getTrainingMachines;
-    //     if (response) {
-    //         this.trainingMachines = response;
-    //     }
-    // }
-
-
     openCreateModal() {
         const ref = this.dialogService.open(TrainingMachinesComponent, {
             header: `Add new training machine`,
-            width: `40%`,
+            width: `100%`,
         });
 
-        // this.subscriptions.push(
-        //     ref.onClose.subscribe((data) => {
-        //         if (data) {
-        //             this.getTrainingMachineId(data);
-        //         }
-        //     }),
-        // );
+        this.subscriptions.push(
+            ref.onClose.subscribe((data) => {
+                if (data) {
+                    this.getTrainingMachinesByGymId(data);
+                }
+            }),
+        );
     }
 
-    private getTrainingsMachinesById(id: string) {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${id}`;
+    private getTrainingMachinesByGymId(gymId: string) {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
         this.subscriptions.push(
             this.httpClient.get<TrainingMachines>(url).subscribe((response) => {
                 if (response) {
@@ -70,6 +66,31 @@ export class MachineListComponent implements OnDestroy{
                     return;
                 }
                 //error message;
+            }),
+        );
+    }
+
+    onRemoveTrainingMachines(gymId: string) {
+        const ref = this.dialogService.open(ConfirmationModalComponent, {
+            header: `Confirm action`,
+            width: `40%`,
+        });
+
+        this.subscriptions.push(
+            ref.onClose.subscribe((data: BPR_ADMIN_ACTIONS) => {
+                if (data === BPR_ADMIN_ACTIONS.confirm) {
+                    const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
+                    this.subscriptions.push(
+                        this.httpClient.delete<boolean>(url).subscribe((response) => {
+                            if (response) {
+                                this.trainingMachines = this.trainingMachines.filter((element) => {
+                                    return element.gymId !== gymId;
+                                });
+                                this.onRemove.emit(gymId);
+                            }
+                        }),
+                    );
+                }
             }),
         );
     }

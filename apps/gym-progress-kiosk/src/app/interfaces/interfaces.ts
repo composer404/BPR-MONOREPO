@@ -17,6 +17,11 @@ export interface BPRApiCreatedObject {
     id: string;
 }
 
+export enum BPR_ADMIN_ACTIONS {
+    confirm = `confirm`,
+    cancel = `cancel`,
+}
+
 export interface AdminProfile {
     id: string;
     login: string;
