@@ -1,17 +1,3 @@
-ion-content {
-  --background: linear-gradient(#FF8100, #FF4E00);
-}
-
-.button-login {
-  --border-radius: 2rem;
-  --background: #ED9124;
-
-  .button-login[disabled] {
-    --background: #CCC;
-    color: black;
-  }
-}
-
 .card-wrapper {
   border-radius: 1rem;
   padding: 0.5rem;

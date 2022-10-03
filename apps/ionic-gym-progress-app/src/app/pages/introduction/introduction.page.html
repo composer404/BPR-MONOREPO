@@ -1,4 +1,22 @@
-<ion-content>
+<div class="img-bg"></div>
+<div class="h-full flex items-center justify-center">
+    <div class="w-full p-10">
+        <div class="w-full text-center mb-10">
+            <div class="logo mb-4" style="font-size: 52px; line-height: 3rem">GYM PROGRESS</div>
+            <div class="">
+                <small>
+                    Welcome to the application that will help you manage your workouts and speed up the effects of your
+                    work.</small
+                >
+            </div>
+        </div>
+        <div>
+            <button [routerLink]="['/login']" type="submit" class="primary-button" expand="block">Log in</button>
+            <button [routerLink]="['/signup']" type="submit" class="mt-4 primary-button" expand="block">Sign up</button>
+        </div>
+    </div>
+</div>
+<!-- <ion-content>
     <ion-header class="mt-12 mb-12 ion-no-border">
         <ion-title class="text-2xl text-slate-100">Welcome to GymProgress!</ion-title>
     </ion-header>
@@ -16,4 +34,4 @@
         <div class="mt-5"></div>
         <app-intro-button href="signup" description="Create an account"></app-intro-button>
     </div>
-</ion-content>
+</ion-content> -->

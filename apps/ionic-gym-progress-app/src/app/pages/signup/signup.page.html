@@ -1,167 +1,222 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>Sign up</ion-title>
-        <ion-buttons slot="start">
-            <ion-back-button></ion-back-button>
-        </ion-buttons>
-    </ion-toolbar>
-</ion-header>
-<ion-content>
-    <ion-card class="card-wrapper h-screen m-5">
-        <div class="ml-5 mr-5">
-            <div class="mx-auto h-5 mb-5 text-center">
-                <label *ngIf="unauthorized" class="text-accent text-center font-semibold">Invalid information</label>
-            </div>
+<div class="img-bg"></div>
+
+<div class="h-full flex items-center justify-center">
+    <div class="w-full p-10">
+        <div class="w-full text-center mb-10">
+            <div class="logo">GYM PROGRESS</div>
+            <div class="px-10"><small>Fill the form with all required data and start your fitness journey</small></div>
+        </div>
+        <div>
             <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
-                <div class="mb-5">
-                    <div class="mb-2">
-                        <ion-label for="email" position="stacked">Email address</ion-label>
-                        <ion-input
-                            (keydown)="hideErrorMessage()"
-                            formControlName="email"
-                            id="email"
-                            type="text"
-                            class="login input-border mt-2"
-                            type="text"
-                            position="stacked"
-                        ></ion-input>
+                <ion-item lines="full">
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input formControlName="email" type="email" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input formControlName="password" type="password" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">First Name</ion-label>
+                    <ion-input formControlName="firstName" type="text" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Last Name</ion-label>
+                    <ion-input formControlName="lastName" type="text" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Age</ion-label>
+                    <ion-input formControlName="age" type="number" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Height</ion-label>
+                    <ion-input formControlName="height" type="number" step=".01" required></ion-input>
+                </ion-item>
+                <ion-item lines="full">
+                    <ion-label position="floating">Weight</ion-label>
+                    <ion-input formControlName="weight" type="number" step=".01" required></ion-input>
+                </ion-item>
+                <ion-list>
+                    <ion-item lines="full">
+                        <ion-select interface="popover" placeholder="Select sex" formControlName="sex">
+                            <ion-select-option value="masculine">Masculine</ion-select-option>
+                            <ion-select-option value="feminine">Feminine</ion-select-option>
+                        </ion-select>
+                    </ion-item>
+                </ion-list>
+                <div class="w-full text-center px-5 mt-10">
+                    <button
+                        [disabled]="signupForm.invalid"
+                        type="submit"
+                        class="primary-button"
+                        expand="block"
+                        type="submit"
+                    >
+                        Sign up
+                    </button>
+                    <div class="mt-3">
+                        <small
+                            >Have you an account? <span [routerLink]="['/login']"><u>Log in</u></span>
+                        </small>
                     </div>
-                    <small
-                        *ngIf="
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="ml-5 mr-5">
+    <div class="mx-auto h-5 mb-5 text-center">
+        <label *ngIf="unauthorized" class="text-accent text-center font-semibold">Invalid information</label>
+    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+        <div class="mb-5">
+            <div class="mb-2">
+                <ion-label for="email" position="stacked">Email address</ion-label>
+                <ion-input
+                    (keydown)="hideErrorMessage()"
+                    formControlName="email"
+                    id="email"
+                    type="text"
+                    class="login input-border mt-2"
+                    type="text"
+                    position="stacked"
+                ></ion-input>
+            </div>
+            <small
+                *ngIf="
                                 signupForm.get('email').invalid &&
                                 (signupForm.get('email').dirty || signupForm.get('email').touched)
                             "
-                        id="email-help"
-                        class="p-error"
-                        ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('email').errors?.required">
-                            Email is required.
-                        </div>
-                        <div class="text-rose-500 mb-5" *ngIf="signupForm.get('email').errors?.minlength">
-                            Email must be at least 4 characters long.
-                        </div>
-                    </small>
+                id="email-help"
+                class="p-error"
+                ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('email').errors?.required">
+                    Email is required.
                 </div>
-                <div>
-                    <div class="mb-2">
-                        <ion-label for="password" position="stacked">Password</ion-label>
-                        <ion-input
-                            (keydown)="hideErrorMessage()"
-                            formControlName="password"
-                            id="password"
-                            feedback="false"
-                            class="password input-border mt-2"
-                            type="password"
-                        >
-                        </ion-input>
-                    </div>
-                    <small
-                        *ngIf="
+                <div class="text-rose-500 mb-5" *ngIf="signupForm.get('email').errors?.minlength">
+                    Email must be at least 4 characters long.
+                </div>
+            </small>
+        </div>
+        <div>
+            <div class="mb-2">
+                <ion-label for="password" position="stacked">Password</ion-label>
+                <ion-input
+                    (keydown)="hideErrorMessage()"
+                    formControlName="password"
+                    id="password"
+                    feedback="false"
+                    class="password input-border mt-2"
+                    type="password"
+                >
+                </ion-input>
+            </div>
+            <small
+                *ngIf="
                                 signupForm.get('password').invalid &&
                                 (signupForm.get('password').dirty || signupForm.get('password').touched)
                             "
-                        id="password-help"
-                        class="p-error h-3"
-                        ><div class="text-rose-500" *ngIf="signupForm.get('password').errors?.required">
-                            Password is required
-                        </div>
-                        <div class="text-rose-500" *ngIf="signupForm.get('password').errors?.minlength">
-                            Password must be at least 4 characters long.
-                        </div>
-                    </small>
+                id="password-help"
+                class="p-error h-3"
+                ><div class="text-rose-500" *ngIf="signupForm.get('password').errors?.required">
+                    Password is required
                 </div>
-                <div class="mb-36">
-                    <ion-label for="firstName" position="stacked">First Name</ion-label>
-                    <ion-input formControlName="firstName" class="input-border mt-2" type="firstName"></ion-input>
+                <div class="text-rose-500" *ngIf="signupForm.get('password').errors?.minlength">
+                    Password must be at least 4 characters long.
                 </div>
-                <div class="mb-36">
-                    <ion-label for="lastName" position="stacked">Last Name</ion-label>
-                    <ion-input formControlName="lastName" class="input-border mt-2" type="lastName"></ion-input>
-                </div>
-                <div class="mb-36">
-                    <ion-label for="age" position="stacked">Age</ion-label>
-                    <ion-input
-                        appIntegerInput
-                        formControlName="age"
-                        class="input-border mt-2"
-                        type="age"
-                        inputmode="numeric"
-                    ></ion-input>
-                    <small
-                        *ngIf="
+            </small>
+        </div>
+        <div class=" ">
+            <ion-label for="firstName" position="stacked">First Name</ion-label>
+            <ion-input formControlName="firstName" class="input-border mt-2" type="firstName"></ion-input>
+        </div>
+        <div class=" ">
+            <ion-label for="lastName" position="stacked">Last Name</ion-label>
+            <ion-input formControlName="lastName" class="input-border mt-2" type="lastName"></ion-input>
+        </div>
+        <div class=" ">
+            <ion-label for="age" position="stacked">Age</ion-label>
+            <ion-input
+                appIntegerInput
+                formControlName="age"
+                class="input-border mt-2"
+                type="age"
+                inputmode="numeric"
+            ></ion-input>
+            <small
+                *ngIf="
                                 signupForm.get('age').invalid &&
                                 (signupForm.get('age').dirty || signupForm.get('age').touched)
                             "
-                        id="age-help"
-                        class="p-error"
-                        ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('age').errors?.required">
-                            Age is required.
-                        </div>
-                        <div class="text-rose-500 mb-5" *ngIf="signupForm.get('age').errors.pattern">
-                            Only numbers are allowed.
-                        </div>
-                    </small>
+                id="age-help"
+                class="p-error"
+                ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('age').errors?.required">Age is required.</div>
+                <div class="text-rose-500 mb-5" *ngIf="signupForm.get('age').errors.pattern">
+                    Only numbers are allowed.
                 </div>
-                <div class="mb-36">
-                    <ion-label for="height" position="stacked">Height</ion-label>
-                    <ion-input
-                        appIntegerInput
-                        formControlName="height"
-                        class="input-border mt-2"
-                        type="height"
-                        placeholder="cm"
-                        inputmode="numeric"
-                    ></ion-input>
-                    <small
-                        *ngIf="
+            </small>
+        </div>
+        <div class="">
+            <ion-label for="height" position="stacked">Height</ion-label>
+            <ion-input
+                appIntegerInput
+                formControlName="height"
+                class="input-border mt-2"
+                type="height"
+                placeholder="cm"
+                inputmode="numeric"
+            ></ion-input>
+            <small
+                *ngIf="
                                 signupForm.get('height').invalid &&
                                 (signupForm.get('height').dirty || signupForm.get('height').touched)
                             "
-                        id="age-help"
-                        class="p-error"
-                        ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('height').errors?.required">
-                            Height is required.
-                        </div>
-                        <div class="text-rose-500 mb-5" *ngIf="signupForm.get('height').errors.pattern">
-                            Only numbers are allowed.
-                        </div>
-                    </small>
+                id="age-help"
+                class="p-error"
+                ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('height').errors?.required">
+                    Height is required.
                 </div>
-                <div class="mb-36">
-                    <ion-label for="weight" position="stacked">Weight</ion-label>
-                    <ion-input
-                        appIntegerInput
-                        formControlName="weight"
-                        class="input-border mt-2"
-                        type="weight"
-                        placeholder="kg"
-                        inputmode="numeric"
-                    ></ion-input>
-                    <small
-                        *ngIf="
+                <div class="text-rose-500 mb-5" *ngIf="signupForm.get('height').errors.pattern">
+                    Only numbers are allowed.
+                </div>
+            </small>
+        </div>
+        <div class="">
+            <ion-label for="weight" position="stacked">Weight</ion-label>
+            <ion-input
+                appIntegerInput
+                formControlName="weight"
+                class="input-border mt-2"
+                type="weight"
+                placeholder="kg"
+                inputmode="numeric"
+            ></ion-input>
+            <small
+                *ngIf="
                                 signupForm.get('weight').invalid &&
                                 (signupForm.get('weight').dirty || signupForm.get('weight').touched)
                             "
-                        id="age-help"
-                        class="p-error"
-                        ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('weight').errors?.required">
-                            Weightt is required.
-                        </div>
-                        <div class="text-rose-500 mb-5" *ngIf="signupForm.get('weight').errors.pattern">
-                            Only numbers are allowed.
-                        </div>
-                    </small>
+                id="age-help"
+                class="p-error"
+                ><div class="text-rose-500 mb-5" *ngIf="signupForm.get('weight').errors?.required">
+                    Weightt is required.
                 </div>
-                <div class="mb-36">
-                    <ion-list>
-                        <ion-item>
-                            <ion-select interface="popover" placeholder="Select sex" formControlName="sex">
-                                <ion-select-option value="masculine">Masculine</ion-select-option>
-                                <ion-select-option value="feminine">Feminine</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                    </ion-list>
+                <div class="text-rose-500 mb-5" *ngIf="signupForm.get('weight').errors.pattern">
+                    Only numbers are allowed.
                 </div>
-                <div class="flex flex-col mt-8 mb-8 gap-4 justify-center">
+            </small>
+        </div>
+        <div class="">
+            <ion-list>
+                <ion-item>
+                    <ion-select interface="popover" placeholder="Select sex" formControlName="sex">
+                        <ion-select-option value="masculine">Masculine</ion-select-option>
+                        <ion-select-option value="feminine">Feminine</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+        </div>
+        <div class="flex flex-col mt-8 mb-8 gap-4 justify-center">
                     <div class="mx-auto">
                         <label>Choose a picture for an avatar</label>
                     </div>
@@ -173,27 +228,28 @@
                     <input type="file" id="avatar" accept="image/png, image/jpeg" (change)="selectFile($event)" />
                 </div>
 
-                <ion-button
-                    [disabled]="signupForm.invalid"
-                    type="submit"
-                    class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mt-32 mb-52"
-                    expand="block"
-                    type="submit"
-                >
-                    Sign up
-                </ion-button>
-            </form>
-            <div class="flex mt-5 gap-2 mx-auto">
-                <p class="text-gray-500 text-center">Have an account?</p>
-                <ion-button
-                    class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52"
-                    expand="block"
-                    type="submit"
-                    [routerLink]="['/login']"
-                >
-                    Login
-                </ion-button>
-            </div>
-        </div>
-    </ion-card>
-</ion-content>
+        <ion-button
+            [disabled]="signupForm.invalid"
+            type="submit"
+            class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mt-32 mb-52"
+            expand="block"
+            type="submit"
+        >
+            Sign up
+        </ion-button>
+    </form>
+    <div class="flex mt-5 gap-2 mx-auto">
+        <p class="text-gray-500 text-center">Have an account?</p>
+        <ion-button
+            class="button-login h-16 rounded-lg normal-case text-xl text-slate-100 mb-52"
+            expand="block"
+            type="submit"
+            [routerLink]="['/login']"
+        >
+            Login
+        </ion-button>
+    </div>
+</div> -->
+<!-- </ion-card> -->
+<!-- </ion-content> -->
+<!-- </ion-card> -->

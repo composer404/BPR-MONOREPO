@@ -12,7 +12,7 @@ export class ToastService {
     }
 
     async error(message: string, position?: `bottom` | `middle` | `top`) {
-        await this.generalToast(message, `error`, position);
+        await this.generalToast(message, `danger`, position);
     }
 
     async warning(message: string, position?: `bottom` | `middle` | `top`) {

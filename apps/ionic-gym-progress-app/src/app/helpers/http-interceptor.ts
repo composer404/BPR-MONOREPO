@@ -25,7 +25,7 @@ export class TokenInterceptorService implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((err) => {
                 if (err.status === 401) {
-                    this.toastService.error(`Authentication error`);
+                    this.toastService.error(`Inserted credentails are invalid!`);
                     this.authService.logout();
                     return;
                 }
