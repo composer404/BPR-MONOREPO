@@ -1,20 +1,18 @@
-
 <ng-container *ngIf="trainingMachines"></ng-container>
 <div class="px-6 mt-4">
     <div class="uppercase text-sm font-bold text-dark-red">Training Machines</div>
     <div class="text-2xl" *ngFor="let trainingMachines of trainingMachines">
         (onChanges)="getTrainingMachinesForGym($event)"
-        {{ trainingMachines}}
+        {{ trainingMachines }}
     </div>
-    
-    <!-- <app-machine-list-component> -->
-            <!-- [trainingMachines]="trainingMachines" -->
-            <!-- *ngFor="let trainingMachines of trainingMachines"
-            (onChanges)="getTrainingMachinesForGym()" -->
-            <!-- (onRemove)="onRemoveTrainingMachine($event)"
-            (onChanges)="getTrainingMachinesForGym()" -->
-        <!-- </app-machine-list-component>  -->
-        
-    </div>
-<ng-container> 
+    <app-machine-list-component></app-machine-list-component>
 
+    <!-- <app-machine-list-component> -->
+    <!-- [trainingMachines]="trainingMachines" -->
+    <!-- *ngFor="let trainingMachines of trainingMachines"
+            (onChanges)="getTrainingMachinesForGym()" -->
+    <!-- (onRemove)="onRemoveTrainingMachine($event)"
+            (onChanges)="getTrainingMachinesForGym()" -->
+    <!-- </app-machine-list-component>  -->
+</div>
+<ng-container> </ng-container>

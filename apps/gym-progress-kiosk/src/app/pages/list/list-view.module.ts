@@ -33,10 +33,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [
-        ListViewComponent,
-         MachineListComponent,
-          TrainingMachinesComponent,],
+    declarations: [ListViewComponent, MachineListComponent, TrainingMachinesComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -47,15 +44,14 @@ const routes: Routes = [
         ButtonModule,
         ToastModule,
         InputTextModule,
-        HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
         InputNumberModule,
         ConfirmDialogModule,
         InputTextareaModule,
         // DynamicDialogRef,
-       // BrowserAnimationsModule,
+        // BrowserAnimationsModule,
     ],
-    providers: [MessageService, ConfirmationService, DialogService,DynamicDialogRef,DynamicDialogConfig],
+    providers: [MessageService, ConfirmationService, DialogService, DynamicDialogRef, DynamicDialogConfig],
 })
 export class ListViewModule {}
