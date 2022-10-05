@@ -35,17 +35,21 @@ export interface AdminSignupInput {
 }
 
 export interface TrainingMachines {
-    id:string;
-    name: string;
-    description: string;
-    location: string;
-    formulaForCalories: string;
-    video: string;
-    availability: string;
-    gymId: string;
+    id?: string;
+    name?: string;
+    description?: string;
+    location?: string;
+    formula_for_calories?: string;
+    video?: string;
+    availability?: string;
+    gymId?: string;
+    class: string;
+}
+
+export interface BPRApiCreatedObject {
+    id: string;
 }
 
 export interface TrainingMachinesDetails extends TrainingMachines {
     trainingMachines: TrainingMachines[];
 }
-

@@ -2,8 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AdminLoginModule } from './pages/admin-login/admin-login.module';
 import { AdminSignupModule } from './pages/admin-signup/admin-signup.module';
-import { ListViewModule } from './pages/list/list-view.module';
 import { NgModule } from '@angular/core';
+import { TrainingMachinesListModule } from './pages/training-machines-list/training-machines-list.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
 
 const routes: Routes = [
@@ -28,14 +28,13 @@ const routes: Routes = [
     {
         path: `training-machines`,
         loadChildren: () => {
-            return ListViewModule;
+            return TrainingMachinesListModule;
         },
     },
     {
         path: `**`,
         redirectTo: `welcome`,
     },
-   
 ];
 
 @NgModule({

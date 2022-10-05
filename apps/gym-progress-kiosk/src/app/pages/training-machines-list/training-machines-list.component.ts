@@ -1,40 +1,42 @@
-import {AdminProfile, BPR_ADMIN_ACTIONS} from '../../../interfaces/interfaces';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { BPR_ADMIN_ACTIONS, TrainingMachines } from 'src/app/interfaces/interfaces';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-import {ConfirmationModalComponent} from 'src/app/shared/confirmation-modal/confirmation-modal.component'
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { HttpClient } from '@angular/common/http';
-import { LOCAL_API_SERVICES } from '../../../interfaces/local-api.endpoints';
+import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
 import { Subscription } from 'rxjs';
-import{ TrainingMachines } from '../../../interfaces/interfaces';
-import{ TrainingMachinesComponent } from 'src/app/pages/list/training-machines/training-machines.component';
 import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: `app-machine-list-component`,
-    templateUrl: `./machine-list.component.html`,
-    styleUrls: [`./machine-list.component.scss`],
+    selector: `app-training-machines-list-component`,
+    templateUrl: `./training-machines-list.component.html`,
+    styleUrls: [`./training-machines-list.component.scss`],
 })
+export class TrainingMachinesListComponent {
+    // admin: AdminProfile;
 
-export class MachineListComponent implements  OnDestroy{
-    admin: AdminProfile;
     subscriptions: Subscription[] = [];
-   
-    @Input()
-    trainingMachines: TrainingMachines[];
+    trainingMachines: TrainingMachines[] = [];
+
     @Output()
     onRemove = new EventEmitter<string>();
 
     @Output()
     onChanges = new EventEmitter<void>();
-    
-    constructor( 
+
+    constructor(
         private readonly httpClient: HttpClient,
         private readonly dialogService: DialogService,
-       ) {}  
-        
-   
+        private readonly trainingMachineService: TrainingMachinesService,
+    ) {}
+
+    ngOnInit(): void {
+        this.getTrainingMachinesByGymId();
+    }
+
     ngOnDestroy(): void {
         this.subscriptions?.forEach((sub) => {
             sub.unsubscribe();
@@ -42,31 +44,20 @@ export class MachineListComponent implements  OnDestroy{
     }
 
     openCreateModal() {
-        const ref = this.dialogService.open(TrainingMachinesComponent, {
+        const ref = this.dialogService.open(CreateTrainingMachineModalComponent, {
             header: `Add new training machine`,
             width: `100%`,
         });
 
         this.subscriptions.push(
-            ref.onClose.subscribe((data) => {
-                if (data) {
-                    this.getTrainingMachinesByGymId(data);
-                }
+            ref.onClose.subscribe(() => {
+                this.getTrainingMachinesByGymId();
             }),
         );
     }
 
-    private getTrainingMachinesByGymId(gymId: string) {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/gym/${gymId}`;
-        this.subscriptions.push(
-            this.httpClient.get<TrainingMachines>(url).subscribe((response) => {
-                if (response) {
-                    this.trainingMachines.push(response);
-                    return;
-                }
-                //error message;
-            }),
-        );
+    private async getTrainingMachinesByGymId() {
+        this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
     }
 
     onRemoveTrainingMachines(gymId: string) {
@@ -93,5 +84,4 @@ export class MachineListComponent implements  OnDestroy{
             }),
         );
     }
-    
 }

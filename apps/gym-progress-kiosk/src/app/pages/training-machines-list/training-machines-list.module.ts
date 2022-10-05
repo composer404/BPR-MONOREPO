@@ -1,39 +1,30 @@
-// import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BPRSharedModule } from 'src/app/shared/bpr-shared.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
 import { DialogModule } from 'primeng/dialog';
-import { DialogService } from 'primeng/dynamicdialog';
-import { HttpClientModule } from '@angular/common/http';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { ListViewComponent } from './list-view.component';
-import { MachineListComponent } from './machine-list/machine-list.component';
-import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { TrainingMachinesComponent } from './training-machines/training-machines.component';
+import { TrainingMachinesListComponent } from './training-machines-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: ListViewComponent,
+        component: TrainingMachinesListComponent,
     },
 ];
 
 @NgModule({
-    declarations: [ListViewComponent, MachineListComponent, TrainingMachinesComponent],
+    declarations: [CreateTrainingMachineModalComponent, TrainingMachinesListComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -49,9 +40,7 @@ const routes: Routes = [
         InputNumberModule,
         ConfirmDialogModule,
         InputTextareaModule,
-        // DynamicDialogRef,
-        // BrowserAnimationsModule,
     ],
-    providers: [MessageService, ConfirmationService, DialogService, DynamicDialogRef, DynamicDialogConfig],
+    providers: [],
 })
-export class ListViewModule {}
+export class TrainingMachinesListModule {}

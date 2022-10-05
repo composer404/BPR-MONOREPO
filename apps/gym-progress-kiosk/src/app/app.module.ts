@@ -1,3 +1,4 @@
+import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
@@ -14,8 +15,17 @@ import { environment } from 'src/environments/environment';
 const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule,  BrowserAnimationsModule, AppRoutingModule, HttpClientModule, SocketIoModule.forRoot(config)],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        SocketIoModule.forRoot(config),
+    ],
     providers: [
+        DynamicDialogRef,
+        DynamicDialogConfig,
+        DialogService,
         MessageService,
         WebsocketService,
         {
