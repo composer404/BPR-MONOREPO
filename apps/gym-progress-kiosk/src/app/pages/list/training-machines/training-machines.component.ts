@@ -9,10 +9,11 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { ConfirmationService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { InfoService } from '../../../services/info.service';
-import { LOCAL_API_SERVICES } from '../../../interfaces/local-api.endpoints'
+import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints'
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { TrainingMachines } from 'src/app/interfaces/interfaces'
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -22,29 +23,30 @@ import { environment } from 'src/environments/environment';
 })
 export class TrainingMachinesComponent implements OnInit  {
     public trainingMachineForm: FormGroup;
+    trainingMachines: TrainingMachines;
+   // gymId:'278e3def-aedf-4ccd-b4a1-0e2954b7f796';
 
     constructor(
         private readonly httpClient: HttpClient,
-        public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig,
+         public ref: DynamicDialogRef,
+         public config: DynamicDialogConfig,
+         
     ) {}
 
     ngOnInit(): void {
         this.trainingMachineForm = new FormGroup({
             name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
-            description: new FormControl(``, [Validators.required, Validators.minLength(10)]),
-            locatiom: new FormControl(``),
+            description: new FormControl(``, [Validators.required]),
+            location: new FormControl(``),
             formulaForCalories:new FormControl(``),
             video: new FormControl(``),
             availability:new FormControl(``),
-            // gymId:new FormControl(``),
-            // exerciseId:new FormControl(``),
         });
     }
 
     createTrainingMachine(): void {
         this.httpClient
-            .post<{ id: string }>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}`, {
+            .post<{ gymId: string }>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/278e3def-aedf-4ccd-b4a1-0e2954b7f796`, {
                 name: this.trainingMachineForm.get('name').value,
                 description: this.trainingMachineForm.get('description').value,
                 locatiom: this.trainingMachineForm.get('location').value,
@@ -52,15 +54,14 @@ export class TrainingMachinesComponent implements OnInit  {
                 video: this.trainingMachineForm.get('video').value,
                 availability: this.trainingMachineForm.get('availability').value,
                 gymId:environment.gymId,
-                exerciseId:environment.exerciseId,
             })
             .subscribe((response) => {
-                if (!response?.id) {
+                if (!response?.gymId) {
                     //error
                     return;
                 }
 
-               this.ref.close(response.id);
+               this.ref.close(response.gymId);
             });
     }
 

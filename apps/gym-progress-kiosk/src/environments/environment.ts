@@ -7,8 +7,7 @@ export const environment = {
     apiURL: 'http://localhost:8000',
     localApiUrl: `http://localhost:3000`,
     gymId:`278e3def-aedf-4ccd-b4a1-0e2954b7f796`,
-    exerciseId:``,
-};
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

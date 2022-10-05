@@ -57,7 +57,7 @@ export class MachineListComponent implements  OnDestroy{
     }
 
     private getTrainingMachinesByGymId(gymId: string) {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/gym/${gymId}`;
         this.subscriptions.push(
             this.httpClient.get<TrainingMachines>(url).subscribe((response) => {
                 if (response) {

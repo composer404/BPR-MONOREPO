@@ -1,7 +1,11 @@
+// import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { BPRSharedModule } from 'src/app/shared/bpr-shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -29,7 +33,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [ListViewComponent, MachineListComponent, TrainingMachinesComponent],
+    declarations: [
+        ListViewComponent,
+         MachineListComponent,
+          TrainingMachinesComponent,],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
@@ -46,7 +53,9 @@ const routes: Routes = [
         InputNumberModule,
         ConfirmDialogModule,
         InputTextareaModule,
+        // DynamicDialogRef,
+       // BrowserAnimationsModule,
     ],
-    providers: [MessageService, ConfirmationService, DialogService],
+    providers: [MessageService, ConfirmationService, DialogService,DynamicDialogRef,DynamicDialogConfig],
 })
 export class ListViewModule {}

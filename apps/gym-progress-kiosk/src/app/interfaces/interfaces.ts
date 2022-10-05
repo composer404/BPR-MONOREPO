@@ -43,5 +43,9 @@ export interface TrainingMachines {
     video: string;
     availability: string;
     gymId: string;
-    exerciseId: string;
 }
+
+export interface TrainingMachinesDetails extends TrainingMachines {
+    trainingMachines: TrainingMachines[];
+}
+

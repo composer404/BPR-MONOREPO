@@ -1,5 +1,5 @@
 <form [formGroup]="trainingMachineForm" (ngSubmit)="createTrainingMachine()">
-    <div class="m-10 gap-5">
+    <div class="m-10 gap-5"  >
         <div class="flex flex-col gap-2">
             <label for="name">Name</label>
             <input formControlName="name" pInputText id="name" type="text" />
@@ -24,9 +24,6 @@
                 id="login-help"
                 class="p-error"
                 ><div *ngIf="trainingMachineForm.get('description').errors?.['required']">The description is required.</div>
-                <div *ngIf="trainingMachineForm.get('description').errors?.['minlength']">
-                    The description must be at least 10 characters long.
-                </div>
             </small>
             <label for="location">Location</label>
             <input formControlName="location" pInputText id="location" type="text" />
@@ -38,10 +35,10 @@
             <input formControlName="availability" pInputText id="availability" type="text" />
         </div>
         <div class="flex gap-2 mt-6">
-            <button [disabled]="trainingMachineForm.invalid" class="py-2 px-4 text-white rounded-md" type="submit">
+            <button [disabled]="trainingMachineForm.invalid" class="py-2 px-4 text-black rounded-md" type="submit">
                 Create
             </button>
-            <button class="py-2 px-4 text-white rounded-md" type="button" (click)="close()">Cancel</button>
+            <button class="py-2 px-4 text-black rounded-md" type="button" (click)="close()">Cancel</button>
         </div>
     </div>
 </form>
