@@ -75,7 +75,11 @@ export interface Training {
     gymId?: string;
     createdAt?: string;
     updatedAt?: string;
-    exercises?: Exercise[];
+}
+
+export interface TrainingWithExercises {
+    training: Training;
+    exercises: Exercise[];
 }
 
 export interface Exercise {
