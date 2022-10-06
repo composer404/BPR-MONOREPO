@@ -1,59 +1,5 @@
 <ion-app>
     <ion-split-pane contentId="main-content">
-        <!-- <ion-menu contentId="main-content" type="overlay">
-            <ion-content>
-                <ion-list id="inbox-list">
-                    <ion-list-header>Inbox</ion-list-header>
-                    <ion-note>hi@ionicframework.com</ion-note>
-
-                    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-                        <ion-item
-                            routerDirection="root"
-                            [routerLink]="[p.url]"
-                            lines="none"
-                            detail="false"
-                            routerLinkActive="selected"
-                        >
-                            <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-                            <ion-label>{{ p.title }}</ion-label>
-                        </ion-item>
-                    </ion-menu-toggle>
-                </ion-list>
-
-                <ion-list id="labels-list">
-                    <ion-list-header>Labels</ion-list-header>
-
-                    <ion-item *ngFor="let label of labels" lines="none">
-                        <ion-icon slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-                        <ion-label>{{ label }}</ion-label>
-                    </ion-item>
-                </ion-list>
-            </ion-content>
-        </ion-menu> -->
         <ion-router-outlet id="main-content"></ion-router-outlet>
-        <!-- <ion-tabs>
-            <ion-tab-bar slot="bottom">
-                <ion-tab-button tab="schedule">
-                    <ion-icon name="calendar"></ion-icon>
-                    <ion-label>Schedule</ion-label>
-                    <ion-badge>6</ion-badge>
-                </ion-tab-button>
-
-                <ion-tab-button tab="speakers">
-                    <ion-icon name="person-circle"></ion-icon>
-                    <ion-label>Speakers</ion-label>
-                </ion-tab-button>
-
-                <ion-tab-button tab="map">
-                    <ion-icon name="map"></ion-icon>
-                    <ion-label>Map</ion-label>
-                </ion-tab-button>
-
-                <ion-tab-button tab="about">
-                    <ion-icon name="information-circle"></ion-icon>
-                    <ion-label>About</ion-label>
-                </ion-tab-button>
-            </ion-tab-bar>
-        </ion-tabs> -->
     </ion-split-pane>
 </ion-app>
