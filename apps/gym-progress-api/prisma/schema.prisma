@@ -100,7 +100,7 @@ model Exercise {
     id            String  @id @default(uuid())
     title         String
     description   String?
-    training_type String
+    exercise_type String // require to define type of quantity (e.g time, repeat number...)
     quantity      Float?
     muscle_group  String
 

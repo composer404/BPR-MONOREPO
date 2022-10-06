@@ -22,7 +22,7 @@ const routes: Routes = [
     },
     {
         path: 'profile/:id/edit',
-        canActivate: [LoginGuard],
+        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/edit-account/edit-account.module').then((m) => m.EditPageModule),
     },
     {
@@ -32,24 +32,29 @@ const routes: Routes = [
     },
     {
         path: 'list/list-exercises',
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/list/list-exercises/list-exercises.module').then((m) => m.ListExercisesPageModule),
     },
     {
         path: 'list/list-machines',
+        canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/list/list-machines/list-machines.module').then((m) => m.ListMachinesPageModule),
     },
     {
         path: 'list/list-gyms',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/list/list-gyms/list-gyms.module').then((m) => m.ListGymsPageModule),
     },
     {
         path: 'list',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/list/list.module').then((m) => m.ListPageModule),
     },
     {
         path: 'profile-tabs',
+        canActivate: [AuthGuard],
         loadChildren: () => import('./pages/profile-tabs/profile-tabs.module').then((m) => m.ProfileTabsPageModule),
     },
 ];

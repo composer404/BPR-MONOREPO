@@ -62,3 +62,45 @@ export interface BPRUser {
     weight: number;
     age: number;
 }
+
+/* ------------------------- TRAININGS AND EXERCISES ------------------------ */
+
+export interface Training {
+    id?: string;
+    title?: string;
+    type?: string;
+    description?: string;
+    comment?: string;
+
+    gymId?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    exercises?: Exercise[];
+}
+
+export interface Exercise {
+    id?: string;
+    title?: string;
+    description?: string;
+    exercise_type?: string;
+    muscle_group?: string;
+    trainingId?: string;
+    quantity: number;
+    createdAt?: string;
+    updatedAt?: string;
+    trainingMachine: TrainingMachine;
+}
+
+export interface TrainingMachine {
+    name?: string;
+    description?: string;
+    location?: string;
+    video?: string;
+    availability?: boolean;
+    formula_for_calories?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    class?: string;
+    gymId: string;
+    exercises?: Exercise[];
+}
