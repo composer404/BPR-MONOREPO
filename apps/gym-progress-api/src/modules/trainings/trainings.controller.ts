@@ -18,9 +18,9 @@ export class TrainingsController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Get(`user/all`)
-    async getTrainingByUserId(@Request() req: BPRRequest): Promise<Training[] | null> {
-        return this.trainingService.getTrainingsForUser(req.user.id);
+    @Get(`user/all/:gymId`)
+    async getTrainingByUserId(@Request() req: BPRRequest, @Param() params: any): Promise<Training[] | null> {
+        return this.trainingService.getTrainingsForUser(req.user.id, params.gymId);
     }
 
     @UseGuards(JwtAuthGuard)

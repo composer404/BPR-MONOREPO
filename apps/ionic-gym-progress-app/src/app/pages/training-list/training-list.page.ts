@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Gym, Training } from 'src/app/interfaces/interfaces';
 
-import { IonModal } from '@ionic/angular';
+import { CreateTrainingModalComponent } from 'src/app/components/create-training-modal/create-training-modal.component';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingService } from 'src/app/services/api/trainings.service';
 
@@ -11,12 +12,11 @@ import { TrainingService } from 'src/app/services/api/trainings.service';
     styleUrls: ['./training-list.page.scss'],
 })
 export class TrainingListPage {
-    @ViewChild(IonModal) newTrainingModal: IonModal;
-
     trainingForm: FormGroup;
-    gymId: string = `dd186798-23bb-4834-a989-9b81b4ff1304`;
+    trainings: Training[];
+    selectedGym: Gym;
 
-    constructor(private readonly trainingService: TrainingService, private readonly toastService: ToastService) {
+    constructor(private readonly trainingService: TrainingService) {
         this.trainingForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             type: new FormControl(``, [Validators.required]),
@@ -25,33 +25,8 @@ export class TrainingListPage {
         });
     }
 
-    /* ------------------------------ MODAL ACTIONS ----------------------------- */
-
-    cancelTrainingCreation() {
-        this.newTrainingModal.dismiss(null, 'cancel');
-    }
-
-    createTraining() {
-        this.newTrainingModal.dismiss(null, 'confirm');
-    }
-
-    onWillDismissModal(event: any) {
-        if (event.detail.role !== `confirm`) {
-            return;
-        }
-
-        const result = this.trainingService.createTraining({
-            title: this.trainingForm.get(`title`).value,
-            type: this.trainingForm.get(`type`).value,
-            description: this.trainingForm.get(`description`).value,
-            comment: this.trainingForm.get(`comment`).value,
-            gymId: this.gymId,
-        });
-
-        if (!result) {
-            this.toastService.error(`Cannot create training. Try again later.`);
-            return;
-        }
-        this.toastService.success(`Successfully created new training`);
+    async onGymSelected(gym: Gym) {
+        this.selectedGym = gym;
+        this.trainings = await this.trainingService.getAllTrainingsForUser(this.selectedGym.id);
     }
 }

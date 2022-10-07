@@ -21,7 +21,10 @@ export class TrainingService {
         ).catch(() => null);
     }
 
-    async getAllTrainingsForUser(userId: string) {}
+    async getAllTrainingsForUser(gymId: string): Promise<Training[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/user/all/${gymId}`;
+        return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
+    }
 
     async deleteTraining(trainingId: string) {}
 

@@ -63,6 +63,22 @@ export interface BPRUser {
     age: number;
 }
 
+/* ----------------------------------- GYM ---------------------------------- */
+
+export interface Gym {
+    name?: string;
+    id?: string;
+
+    street?: string;
+    post_code?: string;
+    country?: string;
+    description?: string;
+    street_number?: string;
+
+    createdAt?: string;
+    updatedAt?: string;
+}
+
 /* ------------------------- TRAININGS AND EXERCISES ------------------------ */
 
 export interface Training {
