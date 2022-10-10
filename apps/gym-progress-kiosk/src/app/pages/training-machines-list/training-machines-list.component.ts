@@ -1,11 +1,14 @@
 import { BPR_ADMIN_ACTIONS, TrainingMachines } from 'src/app/interfaces/interfaces';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { ConfirmationService } from 'primeng/api';
 import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import {EditTrainingMachineModalComponent} from 'src/app/modals/edit-training-machine-modal/edit-training-machine-modal.component'
 import { HttpClient } from '@angular/common/http';
 import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
+import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 import { environment } from 'src/environments/environment';
@@ -15,11 +18,12 @@ import { environment } from 'src/environments/environment';
     templateUrl: `./training-machines-list.component.html`,
     styleUrls: [`./training-machines-list.component.scss`],
 })
-export class TrainingMachinesListComponent {
+export class TrainingMachinesListComponent implements OnInit {
     // admin: AdminProfile;
-
+     gymId = `278e3def-aedf-4ccd-b4a1-0e2954b7f796`;
     subscriptions: Subscription[] = [];
-    trainingMachines: TrainingMachines[] = [];
+    trainingMachines: TrainingMachines[]= [] ;
+    
 
     @Output()
     onRemove = new EventEmitter<string>();
@@ -31,10 +35,13 @@ export class TrainingMachinesListComponent {
         private readonly httpClient: HttpClient,
         private readonly dialogService: DialogService,
         private readonly trainingMachineService: TrainingMachinesService,
+        // private messageService: MessageService,
+        private confirmationService: ConfirmationService,
     ) {}
 
     ngOnInit(): void {
         this.getTrainingMachinesByGymId();
+        //  this.removeTrainingMachinesByGymId();
     }
 
     ngOnDestroy(): void {
@@ -46,7 +53,7 @@ export class TrainingMachinesListComponent {
     openCreateModal() {
         const ref = this.dialogService.open(CreateTrainingMachineModalComponent, {
             header: `Add new training machine`,
-            width: `100%`,
+            width: `40%`,
         });
 
         this.subscriptions.push(
@@ -60,28 +67,61 @@ export class TrainingMachinesListComponent {
         this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
     }
 
-    onRemoveTrainingMachines(gymId: string) {
+    
+     async removeTrainingMachinesFromGym() {
         const ref = this.dialogService.open(ConfirmationModalComponent, {
-            header: `Confirm action`,
+                    header: `Confirm action`,
+                    width: `40%`,
+                });
+        this.trainingMachines = await this.trainingMachineService.removeTrainingMachinesByGymId();
+        
+    }
+
+    // onEdit(data: any) {
+    //     const ref = this.dialogService.open(CreateTrainingMachineModalComponent, {
+    //         header: `${data.name}`,
+    //         width: `80%`,
+    //         data: {
+    //             id: data.id,
+    //         },
+    //     });
+
+    //     this.subscriptions.push(
+    //         ref.onClose.subscribe(() => {
+    //             this.onChanges.emit();
+    //         }),
+    //     );
+    // }
+
+    
+    openEditTrainingMachineModal() {
+        const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
             width: `40%`,
+            data: {
+                ...this.trainingMachines,
+            },
         });
 
+        // this.subscriptions.push(
+        //     // ref.onClose.subscribe((data) => {
+        //     //     if (data) {
+        //     //         this.getClientById(data);
+        //     //     }
+        //     // }),
+        //      ref.onClose.subscribe(() => {
+                
+        //     }),
+        // );
         this.subscriptions.push(
-            ref.onClose.subscribe((data: BPR_ADMIN_ACTIONS) => {
-                if (data === BPR_ADMIN_ACTIONS.confirm) {
-                    const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
-                    this.subscriptions.push(
-                        this.httpClient.delete<boolean>(url).subscribe((response) => {
-                            if (response) {
-                                this.trainingMachines = this.trainingMachines.filter((element) => {
-                                    return element.gymId !== gymId;
-                                });
-                                this.onRemove.emit(gymId);
-                            }
-                        }),
-                    );
-                }
+            ref.onClose.subscribe(() => {
+                this.getTrainingMachinesByGymId();
             }),
         );
     }
+
 }
+
+     
+
+
+
