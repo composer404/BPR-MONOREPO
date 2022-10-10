@@ -18,6 +18,11 @@ const routes: Routes = [
                 path: 'profile/edit/:id',
                 loadChildren: () => import('../edit-account/edit-account.module').then((m) => m.EditPageModule),
             },
+            {
+                path: 'profile/training-list/:id',
+                loadChildren: () =>
+                    import('../training-list/training-list.module').then((m) => m.TrainingListPageModule),
+            },
         ],
     },
 ];

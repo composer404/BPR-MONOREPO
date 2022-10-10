@@ -1,0 +1,3 @@
+<input type="text" [disabled]="disabled" [(ngModel)]="insertedName" (ngModelChange)="searchForGym()" />
+
+<app-gym-item *ngFor="let gym of gyms" [gym]="gym" (gymSelected)="gymSelected.emit(gym)"></app-gym-item>

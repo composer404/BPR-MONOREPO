@@ -8,7 +8,7 @@ export class ExerciseInput {
     @ApiProperty()
     description?: string;
     @ApiProperty()
-    training_type: string;
+    exercise_type: string;
     @ApiProperty()
     quantity?: number;
     @ApiProperty()

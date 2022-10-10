@@ -1,0 +1,11 @@
+<ion-card>
+    <ion-card-header>
+        <ion-card-subtitle>{{ gym.name }}</ion-card-subtitle>
+        <ion-card-title>{{ gym.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>{{ gym.description }}</ion-card-content>
+
+    <div class="px-4 mb-4">
+        <button (click)="gymSelected.emit(gym)" class="primary-button rounded-md">Select</button>
+    </div>
+</ion-card>

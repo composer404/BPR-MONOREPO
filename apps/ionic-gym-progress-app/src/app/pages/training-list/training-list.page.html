@@ -1,0 +1,18 @@
+<ion-content class="ion-padding">
+    <!-- ---------------------------- GYM SELECTION ---------------------------- -->
+
+    <ng-container *ngIf="!selectedGym">
+        <app-gym-selection (gymSelected)="onGymSelected($event)"></app-gym-selection>
+    </ng-container>
+
+    <!-- ------------------------- AFTER GYM SELECTION ------------------------- -->
+
+    <ng-container *ngIf="selectedGym">
+        <button (click)="selectedGym = null">back</button>
+        <app-create-training-modal [gymId]="selectedGym.id"></app-create-training-modal>
+
+        <app-training-item *ngFor="let training of trainings" [training]="training"
+            >{{ training.title }}</app-training-item
+        >
+    </ng-container>
+</ion-content>
