@@ -1,10 +1,10 @@
-import { BPRApiCreatedObject, Training } from 'src/app/interfaces/interfaces';
+import {BPRApiCreatedObject, BPRUser, Gym, Training} from 'src/app/interfaces/interfaces';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
-import { firstValueFrom } from 'rxjs';
+import {firstValueFrom, Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
@@ -24,6 +24,15 @@ export class TrainingService {
     async getAllTrainingsForUser(gymId: string): Promise<Training[] | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/user/all/${gymId}`;
         return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
+    }
+
+    // async getTrainingById(id: string): Promise<Training | null> {
+    //     const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${id}`;
+    //     return firstValueFrom(this.httpClient.get<Training>(url)).catch(() => null);
+    // }
+
+    getTrainingById(trainingId: string): Observable<Training> {
+      return this.httpClient.get<Training>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`);
     }
 
     async deleteTraining(trainingId: string) {}
