@@ -1,9 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Gym, Training } from 'src/app/interfaces/interfaces';
-
-import { CreateTrainingModalComponent } from 'src/app/components/create-training-modal/create-training-modal.component';
-import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
@@ -12,17 +10,23 @@ import { TrainingService } from 'src/app/services/api/trainings.service';
     styleUrls: ['./training-list.page.scss'],
 })
 export class TrainingListPage {
+
     trainingForm: FormGroup;
     trainings: Training[];
     selectedGym: Gym;
 
-    constructor(private readonly trainingService: TrainingService) {
+    constructor(private router: Router,
+                private readonly trainingService: TrainingService) {
         this.trainingForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             type: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
             comment: new FormControl(``),
         });
+    }
+
+    public goToTrainingDetails(): void {
+        this.router.navigate(['training-list']);
     }
 
     async onGymSelected(gym: Gym) {
