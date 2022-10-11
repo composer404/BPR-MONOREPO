@@ -1,3 +1,16 @@
-<input type="text" [disabled]="disabled" [(ngModel)]="insertedName" (ngModelChange)="searchForGym()" />
-
-<app-gym-item *ngFor="let gym of gyms" [gym]="gym" (gymSelected)="gymSelected.emit(gym)"></app-gym-item>
+<div class="w-full p-5">
+    <div class="w-full text-center mb-10">
+        <div class="logo">Search for gym</div>
+        <div class="mt-3">
+            <input
+                placeholder="Type name..."
+                type="text"
+                [disabled]="disabled"
+                [(ngModel)]="insertedName"
+                (ngModelChange)="searchForGym()"
+            />
+        </div>
+    </div>
+    <div class="not-found" *ngIf="insertedName.length > 3 && !gyms.length">Gym not found</div>
+    <app-gym-item *ngFor="let gym of gyms" [gym]="gym" (gymSelected)="gymSelected.emit(gym)"></app-gym-item>
+</div>

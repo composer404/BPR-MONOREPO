@@ -13,7 +13,7 @@ export class TrainingsService {
         this.database = this.prismaService.training;
     }
 
-    async getTrainingsForUser(userId: string, gymId: string): Promise<Training[] | null> {
+    async getUserTrainingsForGym(userId: string, gymId: string): Promise<Training[] | null> {
         const trainings = await this.database
             .findMany({
                 where: {

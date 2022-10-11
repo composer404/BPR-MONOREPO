@@ -9,6 +9,12 @@ export class SessionsGateway {
 
     private readonly gymWithUsers: Map<string, UserSession[]> = new Map<string, UserSession[]>();
 
+    @SubscribeMessage(`connect_to_gym`)
+    listenForConnectio(@MessageBody() data: string) {
+        const message = JSON.parse(data);
+        console.log(`[LOG SOCKET] USER CONNECTED TO GYM: gymId: ${message.gymId}, userId: ${message.userId}`);
+    }
+
     @SubscribeMessage('sendMessage')
     listenForMessage(@MessageBody() data: string) {
         console.log(`received message`, data);

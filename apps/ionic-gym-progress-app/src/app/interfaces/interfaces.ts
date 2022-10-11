@@ -1,4 +1,23 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
+/* ---------------------------------- ENUMS --------------------------------- */
+
+export enum API_ERROR_CODES {
+    notUniqueLogin = `notUniqueLogin`,
+    notUniqueEmail = `notUniqueEmail`,
+}
+
+export enum BPR_ERROR_CODES {
+    unauthorized = `unauthorized`,
+    internal = `internal`,
+}
+
+export enum WEBSOCKET_EVENTS {
+    connect_to_gym = `connect_to_gym`,
+}
+
+/* ------------------------------- INTERFACES ------------------------------- */
+
 export interface Token {
     accessToken: string;
 }
@@ -18,16 +37,6 @@ export interface SignUpInput {
     sex: string;
     age: number;
     avatar: string;
-}
-
-export enum API_ERROR_CODES {
-    notUniqueLogin = `notUniqueLogin`,
-    notUniqueEmail = `notUniqueEmail`,
-}
-
-export enum BPR_ERROR_CODES {
-    unauthorized = `unauthorized`,
-    internal = `internal`,
 }
 
 export interface BPRApiCreatedObject {

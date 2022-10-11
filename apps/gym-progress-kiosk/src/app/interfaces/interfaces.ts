@@ -27,6 +27,12 @@ export interface AdminProfile {
     login: string;
 }
 
+export interface SocketUser {
+    userId: string;
+    sessionStartTime: Date;
+    socket: any;
+}
+
 export interface AdminSignupInput {
     login: string;
     password: string;

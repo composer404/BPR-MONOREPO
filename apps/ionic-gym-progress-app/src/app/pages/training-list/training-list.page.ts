@@ -31,6 +31,6 @@ export class TrainingListPage {
 
     async onGymSelected(gym: Gym) {
         this.selectedGym = gym;
-        this.trainings = await this.trainingService.getAllTrainingsForUser(this.selectedGym.id);
+        this.trainings = await this.trainingService.getUserTrainingForGym(this.selectedGym.id);
     }
 }

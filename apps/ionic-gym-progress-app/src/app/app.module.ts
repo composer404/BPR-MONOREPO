@@ -1,6 +1,7 @@
 import { ActivatedRoute, ActivatedRouteSnapshot, RouteReuseStrategy } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,10 +10,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { TokenInterceptorService } from './helpers/http-interceptor';
+import { WebsocketService } from './services/api/websocket.service';
+import { environment } from 'src/environments/environment';
+
+const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
 
 @NgModule({
     declarations: [AppComponent],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        SocketIoModule.forRoot(config),
+    ],
     providers: [
         MessageService,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
@@ -24,4 +36,8 @@ import { TokenInterceptorService } from './helpers/http-interceptor';
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+    constructor(private readonly webSocketService: WebsocketService) {
+        this.webSocketService.connect();
+    }
+}
