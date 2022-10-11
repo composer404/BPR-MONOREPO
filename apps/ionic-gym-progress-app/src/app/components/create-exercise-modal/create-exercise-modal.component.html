@@ -1,0 +1,82 @@
+<ion-button id="open-modal" expand="block">Open</ion-button>
+<ion-modal trigger="open-modal" (willDismiss)="onWillDismissModal($event)">
+  <ng-template>
+    <div class="h-full flex items-center justify-center">
+      <div class="w-full p-5">
+        <div class="w-full text-center mb-10">
+          <div class="logo">CREATE AN EXERCISE</div>
+        </div>
+        <div class="card">
+          <form [formGroup]="exerciseForm" (ngSubmit)="createExercise()" novalidate>
+            <ion-item lines="full">
+              <ion-label position="floating">Title</ion-label>
+              <ion-input formControlName="title" type="text" required></ion-input>
+            </ion-item>
+
+            <ion-item lines="full">
+              <ion-label position="floating">Description</ion-label>
+              <ion-textarea [(ngModel)]="description"
+                            formControlName="description"
+                            type="text"
+                            rows="6"
+                            cols="10">
+              </ion-textarea>
+            </ion-item>
+
+            <ion-list>
+                <ion-item lines="full">
+                  <ion-label position="stacked">Exercise Type</ion-label>
+                  <ion-select interface="popover" placeholder="Select your exercise type"
+                  [(ngModel)]="selected">
+                    <ion-select-option value="cardio">Cardio</ion-select-option>
+                    <ion-select-option value="strength">Strength</ion-select-option>
+                    <ion-select-option value="flexibility">Flexibility</ion-select-option>
+                    <ion-select-option value="balance">Balance</ion-select-option>
+                    <ion-select-option value="coordination">Coordination</ion-select-option>
+                </ion-select>
+                </ion-item>
+            </ion-list>
+
+
+            <ion-list>
+                <ion-item lines="full">
+                  <ion-label position="stacked">Muscle Group</ion-label>
+                  <ion-select interface="popover" placeholder="Select your muscle group"
+                  [(ngModel)]="selected">
+                    <ion-select-option value="chest">Chest</ion-select-option>
+                    <ion-select-option value="back">Back</ion-select-option>
+                    <ion-select-option value="arms">Arms</ion-select-option>
+                    <ion-select-option value="shoulders">Shoulders</ion-select-option>
+                    <ion-select-option value="legs">Legs</ion-select-option>
+                    <ion-select-option value="calves">Calves</ion-select-option>
+                  </ion-select>
+                </ion-item>
+            </ion-list>
+
+            <ion-item lines="full">
+              <ion-label position="stacked">Quantity</ion-label>
+              <ion-input formControlName="quantity" type="number"></ion-input>
+            </ion-item>
+
+            <div class="w-full text-center px-5 mt-5">
+              <button
+                [disabled]="exerciseForm.invalid"
+                type="submit"
+                class="primary-button mb-2"
+              >
+                Confirm
+              </button>
+            </div>
+
+          </form>
+          <div class="px-5">
+            <button (click)="cancelExerciseCreation()" class="ion-activatable ripple-parent primary-button">Cancel
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
+
+
