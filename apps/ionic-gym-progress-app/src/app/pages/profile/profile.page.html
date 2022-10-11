@@ -7,4 +7,6 @@
         </ion-col>
     </ion-row>
     <div class="scan-box" [hidden]="!scanActive"></div>
+
+    <app-training-item *ngFor="let training of trainings" [training]="training"></app-training-item>
 </ion-content>

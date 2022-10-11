@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { SocketUser } from '../interfaces/interfaces';
 
 export interface WebsocketMessage {
     author: string;
