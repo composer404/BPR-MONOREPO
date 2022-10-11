@@ -31,26 +31,14 @@ const routes: Routes = [
         loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
     },
     {
-        path: 'list/list-exercises',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-            import('./pages/list/list-exercises/list-exercises.module').then((m) => m.ListExercisesPageModule),
+      path: 'training-list',
+      canActivate: [AuthGuard],
+      loadChildren: () => import('./pages/training-list/training-list.module').then((m) => m.TrainingListPageModule),
     },
     {
-        path: 'list/list-machines',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-            import('./pages/list/list-machines/list-machines.module').then((m) => m.ListMachinesPageModule),
-    },
-    {
-        path: 'list/list-gyms',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/list/list-gyms/list-gyms.module').then((m) => m.ListGymsPageModule),
-    },
-    {
-        path: 'list',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('./pages/list/list.module').then((m) => m.ListPageModule),
+      path: 'training-details',
+      canActivate: [AuthGuard],
+      loadChildren: () => import('./pages/training-details/training-details.module').then(m => m.TrainingDetailsPageModule)
     },
     {
         path: 'profile-tabs',
