@@ -65,6 +65,7 @@ export class TrainingMachinesListComponent implements OnInit {
 
     private async getTrainingMachinesByGymId() {
         this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
+        console.log(this.trainingMachines)
     }
 
     
@@ -102,16 +103,6 @@ export class TrainingMachinesListComponent implements OnInit {
             },
         });
 
-        // this.subscriptions.push(
-        //     // ref.onClose.subscribe((data) => {
-        //     //     if (data) {
-        //     //         this.getClientById(data);
-        //     //     }
-        //     // }),
-        //      ref.onClose.subscribe(() => {
-                
-        //     }),
-        // );
         this.subscriptions.push(
             ref.onClose.subscribe(() => {
                 this.getTrainingMachinesByGymId();

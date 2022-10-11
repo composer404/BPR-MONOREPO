@@ -1,3 +1,4 @@
+import { BPRApiCreatedObject, TrainingMachines } from 'src/app/interfaces/interfaces'
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -5,7 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { MessageService } from 'primeng/api';
-import { TrainingMachines } from 'src/app/interfaces/interfaces'
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 
@@ -19,8 +19,8 @@ export class EditTrainingMachineModalComponent implements OnInit {
     msg = '';
     editTrainingMacineState: boolean = true;
     trainingMachines:TrainingMachines[];
-    //id:`58ed0d35-351b-43ff-b3b9-46e6f8fed883`;
-
+    id=  `58ed0d35-351b-43ff-b3b9-46e6f8fed883`;
+   
     constructor(
         private readonly httpClient: HttpClient,
         private readonly messageService: MessageService,
@@ -42,8 +42,8 @@ export class EditTrainingMachineModalComponent implements OnInit {
         });
     }
     async onSave() {
-        console.log(this.trainingMachines);
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/{58ed0d35-351b-43ff-b3b9-46e6f8fed883}`;
+        //console.log(id);
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.id}`;
         const requestBody = {
             name: this.editTrainingMachineForm.get('name')?.value,
             description: this.editTrainingMachineForm.get('decription')?.value,
