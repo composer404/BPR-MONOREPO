@@ -1,17 +1,24 @@
 <!-- --------------------- ADD TRAINING MACHINE MODAL ---------------------- -->
 
-<button class="py-2 px-4 text-black rounded-md bg-white" (click)="openCreateModal()">Add new training machine</button>
+<!-- <button class="py-2 px-4 text-black rounded-md bg-white" (click)="openCreateModal()">Add new training machine</button> -->
+
+<!-- --------------------- REMOVE TRAINING MACHINE MODAL ---------------------- -->
+
+<!-- <button class="py-2 px-4 text-black rounded-md bg-white" (click)="removeTrainingMachinesFromGym()">Remove traning machine</button> -->
 
 <!-- ---------------------- DISPLAY TRAINING MACHINES ---------------------- -->
 
-<div class="px-6 mt-4">
-    <div class="uppercase text-sm font-bold text-dark-red">Training Machines</div>
+<!-- <div class="px-6 mt-4">
+    <div class="uppercase text-sm font-bold text-dark-red">Training Machines</div> -->
 
     <!-- maybe primeng table? -->
-
-    <div class="text-2xl" *ngFor="let trainingMachine of trainingMachines">
+<!-- <p-card class="w-2.5">
+    <div class="text-2xl " *ngFor="let trainingMachine of trainingMachines">
         {{ trainingMachine.name }}
+        
     </div>
+    <button class="py-2 px-4 text-black rounded-md bg-purple-800" (click)="onRemoveTrainingMachinesFromGym()">Remove traning machine</button> 
+</p-card> -->
 
     <!-- <app-machine-list-component></app-machine-list-component> -->
 
@@ -23,5 +30,49 @@
     <!-- (onRemove)="onRemoveTrainingMachine($event)"
             (onChanges)="getTrainingMachinesForGym()" -->
     <!-- </app-machine-list-component>  -->
-</div>
-<ng-container> </ng-container>
+<!-- </div> -->
+
+
+<!-- ------------------------------------------------------------------------------------------- -->
+<div class="card w-2/3 justify-center">
+    <p-toolbar styleClass="mb-4 ">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New Training Machine" icon="pi pi-plus" class="p-button-success mr-2" (click)="openCreateModal()"></button>
+        </ng-template>
+    </p-toolbar>
+
+        <p-table #dt [value]="trainingMachines" [rows]="10" [paginator]="true" [globalFilterFields]="['name']" responsiveLayout="scroll"[rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of training machines" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Training Machines</h5>
+                </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-trainingMachine>
+            <tr>
+                <td>{{trainingMachine.name}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="flex justify-end">
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="openEditTrainingMachineModal()"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="removeTrainingMachinesFromGym()" ></button> 
+                    <!-- (click)="" -->
+                </td>
+            </tr>
+        </ng-template>
+
+        
