@@ -33,14 +33,18 @@
     --primary-gradient: linear-gradient(90deg, rgba(200,47,129,1) 0%, rgba(123,39,164,1) 100%);
 }
 
+small {
+  color: white;
+}
+
 body {
     background-color: #252E37;
 }
 
 .card {
-    background-color: #323C45;
+    background-color: #1f1f1f;
     padding: 15px;
-    border-radius: 15px;
+    border-radius: 6px;
 }
 
 .logo {
@@ -73,9 +77,18 @@ body {
     border-radius: 4px;
 }
 
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
 ion-item{
     --background: transparent !important;
     --border-color: #ffffff
+}
+
+ion-icon {
+  color: white;
 }
 
 .list-md {

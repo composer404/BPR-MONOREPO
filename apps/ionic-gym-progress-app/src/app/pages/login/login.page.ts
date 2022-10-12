@@ -50,6 +50,10 @@ export class LoginPage implements OnInit {
             return;
         }
 
+        await this.navigateToProfilePage();
+    }
+
+    async navigateToProfilePage() {
         const profile = await this.authService.getProfile();
         this.router.navigateByUrl(`/profile-tabs/profile/${profile.id}`);
     }

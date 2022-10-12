@@ -29,15 +29,14 @@
                                 [disabled]="trainingForm.invalid"
                                 type="submit"
                                 class="primary-button mb-2"
-                                expand="block"
-                                type="submit"
                             >
                                 Confirm
                             </button>
                         </div>
                     </form>
                     <div class="px-5">
-                        <button (click)="cancelTrainingCreation()" class="primary-button" expand="block">Cancel</button>
+                      <button (click)="cancelTrainingCreation()" class="ion-activatable ripple-parent primary-button">Cancel
+                        <ion-ripple-effect type="unbounded"></ion-ripple-effect></button>
                     </div>
                 </div>
             </div>

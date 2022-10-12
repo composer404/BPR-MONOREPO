@@ -11,8 +11,14 @@
             </div>
         </div>
         <div>
-            <button [routerLink]="['/login']" type="submit" class="primary-button" expand="block">Log in</button>
-            <button [routerLink]="['/signup']" type="submit" class="mt-4 primary-button" expand="block">Sign up</button>
+            <button [routerLink]="['/login']" type="submit" class="ion-activatable ripple-parent primary-button">
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+              Log in
+            </button>
+            <button [routerLink]="['/signup']" type="submit" class="ion-activatable ripple-parent mt-4 primary-button">
+              <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+              Sign up
+            </button>
         </div>
     </div>
 </div>
