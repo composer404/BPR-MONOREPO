@@ -1,11 +1,9 @@
-import { BPRApiCreatedObject, BPR_ADMIN_ACTIONS, TrainingMachines } from 'src/app/interfaces/interfaces';
-import { EventEmitter, Injectable, Input, OnDestroy, Output } from '@angular/core';
+import { BPRApiCreatedObject, TrainingMachines } from 'src/app/interfaces/interfaces';
 
-import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
-import { DialogService } from 'primeng/dynamicdialog';
 import { HttpClient } from '@angular/common/http';
 import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
-import {InfoService} from './info.service'
+// import { InfoService } from './info.service';
+import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -16,16 +14,11 @@ import { firstValueFrom } from 'rxjs';
 })
 export class TrainingMachinesService implements ITrainingMachinesService {
     // !To change
-    gymId = `278e3def-aedf-4ccd-b4a1-0e2954b7f796`;
-    trainingMachines: TrainingMachines[];
-    @Output()
-    onRemove = new EventEmitter<string>();
+    gymId = `dd186798-23bb-4834-a989-9b81b4ff1304`;
+    trainingMachines: TrainingMachines[] = [];
     subscriptions: Subscription[] = [];
-    trainingMachine:TrainingMachines;
-   
 
-
-    constructor(private readonly httpClient: HttpClient,  private readonly infoService: InfoService,private readonly dialogService: DialogService) {}
+    constructor(private readonly httpClient: HttpClient) {}
 
     async getTrainingMachinesForGym(): Promise<TrainingMachines[]> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/gym/${this.gymId}`;
@@ -34,7 +27,7 @@ export class TrainingMachinesService implements ITrainingMachinesService {
         });
     }
 
-    async createTrainingMachine(body: TrainingMachines): Promise<BPRApiCreatedObject | null> {
+    async createTrainingMachine(body: Partial<TrainingMachines>): Promise<BPRApiCreatedObject | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.gymId}`;
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(url, {
@@ -45,25 +38,41 @@ export class TrainingMachinesService implements ITrainingMachinesService {
         });
     }
 
-    async removeTrainingMachinesById(): Promise<TrainingMachines[]> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.trainingMachine.id}`;
-        const reponse = await firstValueFrom(this.httpClient.delete<TrainingMachines[]>(url, {}));
-
-        if (!reponse) {
-            this.infoService.error('Cannot remove training machine. Try again later');
-            // return;
-        }
-
-        this.trainingMachines = this.trainingMachines.filter((element) => {
-            return element.gymId !== this.gymId;
+    async editTrainingMachine(
+        trainingMachineId: string,
+        trainingMachineBody: Partial<TrainingMachines>,
+    ): Promise<boolean> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${trainingMachineId}`;
+        const response = await firstValueFrom(
+            this.httpClient.put<boolean>(url, {
+                ...trainingMachineBody,
+            }),
+        ).catch(() => {
+            return null;
         });
-        return [];
+
+        if (!response) {
+            return false;
+        }
+        return true;
+    }
+
+    async removeTrainingMachinesById(trainingMachineId: string): Promise<boolean> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${trainingMachineId}`;
+        const response = await firstValueFrom(this.httpClient.delete<boolean>(url)).catch(() => {
+            return null;
+        });
+
+        if (!response) {
+            return false;
+        }
+        return true;
     }
 
     async getTrainingMachineById(id: string): Promise<TrainingMachines[]> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${id}`;
         return firstValueFrom(this.httpClient.get<TrainingMachines[]>(url)).catch(() => {
             return [];
-        });;
+        });
     }
 }

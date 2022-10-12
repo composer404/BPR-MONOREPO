@@ -11,7 +11,7 @@
 <!-- <div class="px-6 mt-4">
     <div class="uppercase text-sm font-bold text-dark-red">Training Machines</div> -->
 
-    <!-- maybe primeng table? -->
+<!-- maybe primeng table? -->
 <!-- <p-card class="w-2.5">
     <div class="text-2xl " *ngFor="let trainingMachine of trainingMachines">
         {{ trainingMachine.name }}
@@ -20,33 +20,49 @@
     <button class="py-2 px-4 text-black rounded-md bg-purple-800" (click)="onRemoveTrainingMachinesFromGym()">Remove traning machine</button> 
 </p-card> -->
 
-    <!-- <app-machine-list-component></app-machine-list-component> -->
+<!-- <app-machine-list-component></app-machine-list-component> -->
 
-    <!-- (onChanges)="getTrainingMachinesForGym($event)" -->
-    <!-- <app-machine-list-component> -->
-    <!-- [trainingMachines]="trainingMachines" -->
-    <!-- *ngFor="let trainingMachines of trainingMachines"
+<!-- (onChanges)="getTrainingMachinesForGym($event)" -->
+<!-- <app-machine-list-component> -->
+<!-- [trainingMachines]="trainingMachines" -->
+<!-- *ngFor="let trainingMachines of trainingMachines"
             (onChanges)="getTrainingMachinesForGym()" -->
-    <!-- (onRemove)="onRemoveTrainingMachine($event)"
+<!-- (onRemove)="onRemoveTrainingMachine($event)"
             (onChanges)="getTrainingMachinesForGym()" -->
-    <!-- </app-machine-list-component>  -->
+<!-- </app-machine-list-component>  -->
 <!-- </div> -->
-
 
 <!-- ------------------------------------------------------------------------------------------- -->
 <div class="card w-2/3 justify-center">
     <p-toolbar styleClass="mb-4 ">
         <ng-template pTemplate="left">
-            <button pButton pRipple label="New Training Machine" icon="pi pi-plus" class="p-button-success mr-2" (click)="openCreateModal()"></button>
+            <button
+                pButton
+                pRipple
+                label="New Training Machine"
+                icon="pi pi-plus"
+                class="p-button-success mr-2"
+                (click)="openCreateModal()"
+            ></button>
         </ng-template>
     </p-toolbar>
 
-        <p-table #dt [value]="trainingMachines" [rows]="10" [paginator]="true" [globalFilterFields]="['name']" responsiveLayout="scroll"[rowHover]="true" dataKey="id"
-        currentPageReportTemplate="Showing {first} to {last} of training machines" [showCurrentPageReport]="true">
+    <p-table
+        #dt
+        [value]="trainingMachines"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['name']"
+        responsiveLayout="scroll"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of training machines"
+        [showCurrentPageReport]="true"
+    >
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 <h5 class="m-0">Manage Training Machines</h5>
-                </div>
+            </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
@@ -61,18 +77,37 @@
         </ng-template>
         <ng-template pTemplate="body" let-trainingMachine>
             <tr>
-                <td>{{trainingMachine.name}}</td>
+                <td>{{ trainingMachine.name }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td class="flex justify-end">
-                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success" (click)="openEditTrainingMachineModal(trainingMachine)" ></button>
-                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="removeTrainingMachinesFromGym(trainingMachine)" ></button> 
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-print"
+                        class="p-button-rounded p-button-warning"
+                        (click)="printQrCode(trainingMachine)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-success"
+                        (click)="openEditTrainingMachineModal(trainingMachine)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning"
+                        (click)="removeTrainingMachinesFromGym(trainingMachine)"
+                    ></button>
                     <!-- (click)="" -->
                 </td>
             </tr>
         </ng-template>
-
-        
+    </p-table>
+</div>

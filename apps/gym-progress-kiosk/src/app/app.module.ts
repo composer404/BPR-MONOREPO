@@ -6,8 +6,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
+// import { InfoService } from './services/info.service';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
+import { ToastModule } from 'primeng/toast';
 import { TokenInterceptorService } from './helpers/http-interceptor';
 import { WebsocketService } from './services/websocket.service';
 import { environment } from 'src/environments/environment';
@@ -20,6 +22,7 @@ const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
         BrowserAnimationsModule,
         AppRoutingModule,
         HttpClientModule,
+        ToastModule,
         SocketIoModule.forRoot(config),
     ],
     providers: [

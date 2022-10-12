@@ -41,7 +41,7 @@ export interface AdminSignupInput {
 }
 
 export interface TrainingMachines {
-    id?: string;
+    id: string;
     name?: string;
     description?: string;
     location?: string;

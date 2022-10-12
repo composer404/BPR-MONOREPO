@@ -1,36 +1,40 @@
-<ng-container *ngIf="editTrainingMacineState">
-    <form [formGroup]="editTrainingMachineForm" (ngSubmit)="onSave()">
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="login">Name</label>
-            <input  formControlName="name" pInputText id="name" type="text" />
-        </div>
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="description">Description</label>
-            <input formControlName="description" pInputTextarea  id="description" type="text"/>
-        </div>
+<!-- <ng-container *ngIf="editTrainingMacineState"> -->
+<form [formGroup]="editTrainingMachineForm" (ngSubmit)="onSave()">
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="login">Name</label>
+        <input formControlName="name" pInputText id="name" type="text" />
+    </div>
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="description">Description</label>
+        <input formControlName="description" pInputTextarea id="description" type="text" />
+    </div>
 
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="location">Location</label>
-            <input formControlName="location" pInputText id="location" type="text" />
-        </div>
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="formula_for_calories">Formula for calories</label>
-            <input formControlName="formula_for_calories" pInputText id="formula_for_calories" type="text" />
-        </div>
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="video">Video</label>
-            <input formControlName="video" pInputText id="video" type="text" />
-        </div>
-        <div class="flex flex-col gap-2 mb-6">
-            <label for="class">Class</label>
-            <input formControlName="class" pInputText id="class" type="text" />
-        </div>
-        
-        <div class="text-right">
-            <button class="w-24 py-2 px-4 text-black rounded-md mr-2" [disabled]="editTrainingMachineForm.invalid" type="submit">
-                Save
-            </button>
-            <button (click)="close()" class="w-24 py-2 px-4 text-black rounded-md" type="submit">Cancel</button>
-        </div>
-    </form>
-</ng-container>
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="location">Location</label>
+        <input formControlName="location" pInputText id="location" type="text" />
+    </div>
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="formula_for_calories">Formula for calories</label>
+        <input formControlName="formula_for_calories" pInputText id="formula_for_calories" type="text" />
+    </div>
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="video">Video</label>
+        <input formControlName="video" pInputText id="video" type="text" />
+    </div>
+    <div class="flex flex-col gap-2 mb-6">
+        <label for="class">Class</label>
+        <input formControlName="class" pInputText id="class" type="text" />
+    </div>
+
+    <div class="text-right">
+        <button
+            class="w-24 py-2 px-4 text-black rounded-md mr-2"
+            [disabled]="editTrainingMachineForm.invalid"
+            type="submit"
+        >
+            Save
+        </button>
+        <button (click)="close()" class="w-24 py-2 px-4 text-black rounded-md" type="submit">Cancel</button>
+    </div>
+</form>
+<!-- </ng-container> -->
