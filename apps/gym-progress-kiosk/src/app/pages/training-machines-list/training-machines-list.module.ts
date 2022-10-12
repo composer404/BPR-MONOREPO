@@ -1,11 +1,11 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BPRSharedModule } from 'src/app/shared/bpr-shared.module';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import {ConfirmationModalComponent} from 'src/app/shared/confirmation-modal/confirmation-modal.component'
 import { ConfirmationService } from 'primeng/api';
 import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
 import { DialogModule } from 'primeng/dialog';
@@ -19,6 +19,25 @@ import { ToastModule } from 'primeng/toast';
 import {ToolbarModule} from 'primeng/toolbar';
 import { TrainingMachinesListComponent } from './training-machines-list.component';
 
+//import { BPRSharedModule } from 'src/app/shared/bpr-shared.module';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const routes: Routes = [
     {
         path: '',
@@ -27,13 +46,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    declarations: [CreateTrainingMachineModalComponent, TrainingMachinesListComponent,EditTrainingMachineModalComponent],
+    declarations: [CreateTrainingMachineModalComponent, TrainingMachinesListComponent,EditTrainingMachineModalComponent, ConfirmationModalComponent],
     imports: [
         CommonModule,
         ToolbarModule,
         RouterModule.forChild(routes),
         CardModule,
-        BPRSharedModule,
+       // BPRSharedModule,
         TableModule,
         DialogModule,
         ButtonModule,

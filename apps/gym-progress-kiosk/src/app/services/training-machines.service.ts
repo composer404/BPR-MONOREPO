@@ -21,6 +21,8 @@ export class TrainingMachinesService implements ITrainingMachinesService {
     @Output()
     onRemove = new EventEmitter<string>();
     subscriptions: Subscription[] = [];
+    trainingMachine:TrainingMachines;
+   
 
 
     constructor(private readonly httpClient: HttpClient,  private readonly infoService: InfoService,private readonly dialogService: DialogService) {}
@@ -43,12 +45,12 @@ export class TrainingMachinesService implements ITrainingMachinesService {
         });
     }
 
-    async removeTrainingMachinesByGymId(): Promise<TrainingMachines[]> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.gymId}`;
+    async removeTrainingMachinesById(): Promise<TrainingMachines[]> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.trainingMachine.id}`;
         const reponse = await firstValueFrom(this.httpClient.delete<TrainingMachines[]>(url, {}));
 
         if (!reponse) {
-            this.infoService.error('Cannot remove movie from the toplist. Try again later');
+            this.infoService.error('Cannot remove training machine. Try again later');
             // return;
         }
 
@@ -58,4 +60,10 @@ export class TrainingMachinesService implements ITrainingMachinesService {
         return [];
     }
 
+    async getTrainingMachineById(id: string): Promise<TrainingMachines[]> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${id}`;
+        return firstValueFrom(this.httpClient.get<TrainingMachines[]>(url)).catch(() => {
+            return [];
+        });;
+    }
 }

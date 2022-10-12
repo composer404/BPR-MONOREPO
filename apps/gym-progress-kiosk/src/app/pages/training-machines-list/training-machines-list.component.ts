@@ -1,5 +1,6 @@
 import { BPR_ADMIN_ACTIONS, TrainingMachines } from 'src/app/interfaces/interfaces';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { ConfirmationService } from 'primeng/api';
@@ -23,6 +24,7 @@ export class TrainingMachinesListComponent implements OnInit {
      gymId = `278e3def-aedf-4ccd-b4a1-0e2954b7f796`;
     subscriptions: Subscription[] = [];
     trainingMachines: TrainingMachines[]= [] ;
+    trainingMachine:TrainingMachines;
     
 
     @Output()
@@ -37,11 +39,13 @@ export class TrainingMachinesListComponent implements OnInit {
         private readonly trainingMachineService: TrainingMachinesService,
         // private messageService: MessageService,
         private confirmationService: ConfirmationService,
+        public config: DynamicDialogConfig,
     ) {}
 
     ngOnInit(): void {
         this.getTrainingMachinesByGymId();
-        //  this.removeTrainingMachinesByGymId();
+      //this.getTrainingMachineById(this.trainingMachines.id);
+      this.trainingMachine = this.config.data;
     }
 
     ngOnDestroy(): void {
@@ -69,21 +73,52 @@ export class TrainingMachinesListComponent implements OnInit {
     }
 
     
-     async removeTrainingMachinesFromGym() {
+     async removeTrainingMachinesFromGym(trainingMachine: TrainingMachines) {
         const ref = this.dialogService.open(ConfirmationModalComponent, {
                     header: `Confirm action`,
                     width: `40%`,
                 });
-        this.trainingMachines = await this.trainingMachineService.removeTrainingMachinesByGymId();
+        // this.trainingMachines = await this.trainingMachineService.removeTrainingMachinesById();
         
     }
 
-    // onEdit(data: any) {
-    //     const ref = this.dialogService.open(CreateTrainingMachineModalComponent, {
+
+    
+    openEditTrainingMachineModal(trainingMachine: TrainingMachines) {
+        const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
+            width: `40%`,
+            data: {
+               ...trainingMachine,
+            },
+        });
+
+        // this.subscriptions.push(
+        //     ref.onClose.subscribe(() => {
+        //         this.getTrainingMachinesByGymId();
+        //     }),
+        // );
+        // this.subscriptions.push(
+        //     ref.onClose.subscribe((data) => {
+        //         if (data) {
+        //             this.getTrainingMachineById(data);
+        //         }
+        //     }),
+        // );
+    }
+
+    async getTrainingMachineById(id: string) {
+        const response = await this.trainingMachineService.getTrainingMachineById(id);
+        if (response) {
+            this.trainingMachines = response;
+        }
+    }
+
+    // onClickTrainingMachine(data: any) {
+    //     const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
     //         header: `${data.name}`,
     //         width: `80%`,
     //         data: {
-    //             id: data.id,
+    //             id: data.id
     //         },
     //     });
 
@@ -93,22 +128,6 @@ export class TrainingMachinesListComponent implements OnInit {
     //         }),
     //     );
     // }
-
-    
-    openEditTrainingMachineModal() {
-        const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
-            width: `40%`,
-            data: {
-                ...this.trainingMachines,
-            },
-        });
-
-        this.subscriptions.push(
-            ref.onClose.subscribe(() => {
-                this.getTrainingMachinesByGymId();
-            }),
-        );
-    }
 
 }
 

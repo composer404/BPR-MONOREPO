@@ -1,11 +1,12 @@
 import { BPRApiCreatedObject, TrainingMachines } from 'src/app/interfaces/interfaces'
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { HttpClient } from '@angular/common/http';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { MessageService } from 'primeng/api';
+import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 
@@ -16,34 +17,33 @@ import { firstValueFrom } from 'rxjs';
 })
 export class EditTrainingMachineModalComponent implements OnInit {
     editTrainingMachineForm: FormGroup;
-    msg = '';
     editTrainingMacineState: boolean = true;
-    trainingMachines:TrainingMachines[];
-    id=  `58ed0d35-351b-43ff-b3b9-46e6f8fed883`;
+    trainingMachine:TrainingMachines;
+    @Input() id: string;
    
     constructor(
         private readonly httpClient: HttpClient,
         private readonly messageService: MessageService,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
+        private readonly trainingMachineService: TrainingMachinesService,
     ) {}
 
     ngOnInit(): void {
         this.initEditTrainingMachineForm();
 
-        const trainingMachine: TrainingMachines = this.config.data;
+        this.trainingMachine = this.config.data;
         this.editTrainingMachineForm.patchValue({
-         name: trainingMachine.name,
-         description: trainingMachine.description,
-         location: trainingMachine.location,
-         formulaForCalories: trainingMachine.formula_for_calories,
-         video: trainingMachine.video,
-         class: trainingMachine.class,
+         name: this.trainingMachine.name,
+         description: this.trainingMachine.description,
+         location: this.trainingMachine.location,
+         formulaForCalories: this.trainingMachine.formula_for_calories,
+         video: this.trainingMachine.video,
+         class: this.trainingMachine.class,
         });
     }
     async onSave() {
-        //console.log(id);
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.id}`;
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.trainingMachine.id}`;
         const requestBody = {
             name: this.editTrainingMachineForm.get('name')?.value,
             description: this.editTrainingMachineForm.get('decription')?.value,
@@ -72,11 +72,7 @@ export class EditTrainingMachineModalComponent implements OnInit {
         });
         this.ref.close(this.config.data.id);
         
-        // if (this.trainingMachine.name.trim()) {
-        //     if (this.trainingMachine.id) {
-        //         this.trainingMachine[this.findIndexById(this.trainingMachine.id)] = this.trainingMachine;
-        //         this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
-        //     }
+       
     }
 
     private initEditTrainingMachineForm() {
@@ -94,17 +90,6 @@ export class EditTrainingMachineModalComponent implements OnInit {
         this.ref.close(null);
     }
 
-    // findIndexById(id: string): number {
-    //     let index = -1;
-    //     for (let i = 0; i < this.trainingMachine.length; i++) {
-    //         if (this.trainingMachine[i].id === id) {
-    //             index = i;
-    //             break;
-    //         }
-    //     }
-
-    //     return index;
-    // }
   
 }
 
