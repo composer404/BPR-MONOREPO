@@ -70,7 +70,9 @@ export class TrainingMachinesListComponent implements OnInit {
         );
     }
 
-    printQrCode(trainingMachine: TrainingMachines) {}
+    printQrCode(trainingMachine: TrainingMachines) {
+        this.electronService.print();
+    }
 
     async removeTrainingMachinesFromGym(trainingMachine: TrainingMachines) {
         const ref = this.dialogService.open(ConfirmationModalComponent, {
