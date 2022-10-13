@@ -105,7 +105,18 @@
                         class="p-button-rounded p-button-warning"
                         (click)="removeTrainingMachinesFromGym(trainingMachine)"
                     ></button>
-                    <!-- (click)="" -->
+
+                    <!-- ----------------------- ONLY FOR GENERATING QR DONT REMOVE------------------------ -->
+
+                    <qrcode
+                        style="display: none"
+                        [id]="trainingMachine.id"
+                        [elementType]="'img'"
+                        (qrCodeURL)="onQRGenerated(trainingMachine.id)"
+                        [qrdata]="trainingMachine.id"
+                        [width]="256"
+                        [errorCorrectionLevel]="'M'"
+                    ></qrcode>
                 </td>
             </tr>
         </ng-template>

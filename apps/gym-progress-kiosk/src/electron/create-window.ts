@@ -55,7 +55,11 @@ export const createWindow = (options: ElectronOptions) => {
 const initListeners = () => {
     ipcMain.on(`print`, async (event, ...args) => {
         createTempDocumentsDirectory();
-        generateFileFromEJS(args);
+        const result = await generateFileFromEJS(args);
+
+        event.sender.send(`print-reply`, {
+            result,
+        });
     });
 };
 
@@ -69,13 +73,13 @@ const generateFileFromEJS = async (args: any) => {
     const promises = await Promise.all([wkHtmlToPdfWithFile(args)]);
     const [file] = promises;
     const printingResult = await print((file as any).filePath).catch((err: any) => {
-        return undefined;
+        return err;
     });
 
     if (printingResult === undefined) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 };
 
 const wkHtmlToPdfWithFile = async (args: any) => {
@@ -98,7 +102,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
     });
 
     const template = ejs.render(ejsFile, {
-        data: args.data,
+        data: args[0].data,
     });
 
     try {
@@ -110,7 +114,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
     const result = execPromise(`more ${htmlFilePath} | "${wkhtmltopdfPath}" -B 25mm - ${pdfFilePath}`)
         .then(() => {
             return fs.readFile(pdfFilePath, {}, (err) => {
-                console.log(`READFILE ERR`, err);
+                // console.log(`READFILE ERR`, err);
             });
         })
         .then((file) => {
@@ -120,7 +124,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
             };
         })
         .catch((err) => {
-            console.log(`ERROR`, err);
+            // console.log(`ERROR`, err);
         });
     return result;
 };

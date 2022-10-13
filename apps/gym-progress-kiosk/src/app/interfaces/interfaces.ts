@@ -50,6 +50,7 @@ export interface TrainingMachines {
     availability?: string;
     gymId?: string;
     class: string;
+    qrBase64?: string;
 }
 
 export interface BPRApiCreatedObject {

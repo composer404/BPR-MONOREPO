@@ -70,8 +70,13 @@ export class TrainingMachinesListComponent implements OnInit {
         );
     }
 
-    printQrCode(trainingMachine: TrainingMachines) {
-        this.electronService.print();
+    async printQrCode(trainingMachine: TrainingMachines) {
+        const result = await this.electronService.print(trainingMachine);
+        if (!result) {
+            this.infoService.error(`Cannot print identifier. Try again later`);
+            return;
+        }
+        this.infoService.success(`Identifier has been successfully printed`);
     }
 
     async removeTrainingMachinesFromGym(trainingMachine: TrainingMachines) {
@@ -123,6 +128,24 @@ export class TrainingMachinesListComponent implements OnInit {
     //         this.trainingMachines = response;
     //     }
     // }
+
+    onQRGenerated(trainingMachineId: string) {
+        const qrElement = document.getElementById(trainingMachineId);
+        const qrImg = qrElement?.getElementsByTagName(`img`);
+
+        if (!qrImg?.length) {
+            this.infoService.error(`Error while generating machine identifiers. Try again later`);
+            return;
+        }
+
+        const base64 = qrImg[0]?.src;
+
+        this.trainingMachines.map((element) => {
+            if (element.id === trainingMachineId) {
+                element.qrBase64 = base64;
+            }
+        });
+    }
 
     private async getTrainingMachinesByGymId() {
         this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
