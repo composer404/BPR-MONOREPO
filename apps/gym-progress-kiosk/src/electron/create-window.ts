@@ -87,9 +87,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
         fs.mkdirSync(path.resolve(app.getPath(`temp`), `./gym-progress/files`), { recursive: true });
     }
 
-    // const ejsTemplateName = args.templateName || `index`;
     const fileName = Date.now();
-    // const { options } = args;
 
     const pdfFilePath = path.resolve(app.getPath(`temp`), `./files/${fileName}.pdf`);
     const htmlFilePath = path.resolve(app.getPath(`temp`), `./generated/${fileName}.html`);
@@ -108,11 +106,6 @@ const wkHtmlToPdfWithFile = async (args: any) => {
     } catch (err) {
         console.log(`ERROR`, err);
     }
-
-    // const pdfOptions = buildPdfOptions(options);
-    console.log(`htmlFilePath`, htmlFilePath);
-    console.log(`wkhtmltopdfPath`, wkhtmltopdfPath);
-    console.log(`pdfFilePath`, pdfFilePath);
 
     const result = execPromise(`more ${htmlFilePath} | "${wkhtmltopdfPath}" -B 25mm - ${pdfFilePath}`)
         .then(() => {
