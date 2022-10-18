@@ -41,10 +41,17 @@ const routes: Routes = [
       loadChildren: () => import('./pages/training-details/training-details.module').then(m => m.TrainingDetailsPageModule)
     },
     {
+      path: 'training-machine-details',
+      canActivate: [AuthGuard],
+      loadChildren:
+        () => import('./pages/training-machine-details/training-machine-details.module').then( m => m.TrainingMachineDetailsPageModule)
+    },
+    {
         path: 'profile-tabs',
         canActivate: [AuthGuard],
         loadChildren: () => import('./pages/profile-tabs/profile-tabs.module').then((m) => m.ProfileTabsPageModule),
     },
+
 ];
 
 @NgModule({
