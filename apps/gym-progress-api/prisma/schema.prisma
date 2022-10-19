@@ -55,11 +55,6 @@ model TrainingMachine {
     Gym   Gym    @relation(fields: [gymId], references: [id])
     gymId String
 
-    // Exercise   Exercise? @relation(fields: [exerciseId], references: [id])
-    // exerciseId String?
-
-    exercises Exercise[]
-
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -107,9 +102,7 @@ model Exercise {
     training   Training @relation(fields: [trainingId], references: [id])
     trainingId String
 
-    trainingMachine   TrainingMachine @relation(fields: [trainingMachineId], references: [id])
-    trainingMachineId String
-    // trainingMachine TrainingMachine[]
+    trainingMachineId String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

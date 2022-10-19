@@ -16,7 +16,7 @@ export class GymSelectionComponent {
     @Output()
     gymSelected = new EventEmitter<Gym>();
 
-    insertedName: string;
+    insertedName = ``;
     gyms: Gym[] = [];
 
     constructor(private readonly gymService: GymService, private readonly toastService: ToastService) {}
@@ -26,14 +26,12 @@ export class GymSelectionComponent {
             this.gyms = [];
             return;
         }
-
         const response = await this.gymService.getGymsByName(this.insertedName);
 
         if (!response) {
             this.toastService.error(`Cannot load gyms. Try again later.`);
             return;
         }
-
         this.gyms = response;
     }
 }

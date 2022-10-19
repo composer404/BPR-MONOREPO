@@ -15,13 +15,18 @@ const routes: Routes = [
                 loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
             },
             {
-                path: 'profile/edit/:id',
+                path: 'profile/:id/edit',
                 loadChildren: () => import('../edit-account/edit-account.module').then((m) => m.EditPageModule),
             },
             {
-                path: 'profile/training-list/:id',
+                path: 'profile/:id/training-list',
                 loadChildren: () =>
                     import('../training-list/training-list.module').then((m) => m.TrainingListPageModule),
+            },
+            {
+                path: 'profile/:id/training-list/:trainingId/gym/:gymId',
+                loadChildren: () =>
+                    import('../training-details/training-details.module').then((m) => m.TrainingDetailsPageModule),
             },
         ],
     },

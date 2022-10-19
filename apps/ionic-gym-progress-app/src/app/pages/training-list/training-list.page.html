@@ -8,11 +8,15 @@
     <!-- ------------------------- AFTER GYM SELECTION ------------------------- -->
 
     <ng-container *ngIf="selectedGym">
-        <button class="ion-activatable ripple-parent" (click)="selectedGym = null">back
-          <ion-ripple-effect type="unbounded"></ion-ripple-effect></button>
+        <button class="ion-activatable ripple-parent" (click)="selectedGym = null">
+            back <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+        </button>
         <app-create-training-modal [gymId]="selectedGym.id"></app-create-training-modal>
 
-        <app-training-item *ngFor="let training of trainings" [training]="training" (click)="goToTrainingDetails()"
+        <app-training-item
+            *ngFor="let training of trainings"
+            [training]="training"
+            (click)="goToTrainingDetails(training.id)"
             >{{ training.title }}</app-training-item
         >
     </ng-container>

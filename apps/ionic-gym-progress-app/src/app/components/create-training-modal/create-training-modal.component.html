@@ -1,5 +1,5 @@
-<ion-button id="open-modal" expand="block">Open</ion-button>
-<ion-modal trigger="open-modal" (willDismiss)="onWillDismissModal($event)">
+<ion-button id="open-create-training-modal" expand="block">Open</ion-button>
+<ion-modal trigger="open-create-training-modal" (willDismiss)="onWillDismissModal($event)">
     <ng-template>
         <div class="h-full flex items-center justify-center">
             <div class="w-full p-5">
@@ -25,18 +25,15 @@
                             <ion-input formControlName="comment" type="text"></ion-input>
                         </ion-item>
                         <div class="w-full text-center px-5 mt-5">
-                            <button
-                                [disabled]="trainingForm.invalid"
-                                type="submit"
-                                class="primary-button mb-2"
-                            >
+                            <button [disabled]="trainingForm.invalid" type="submit" class="primary-button mb-2">
                                 Confirm
                             </button>
                         </div>
                     </form>
                     <div class="px-5">
-                      <button (click)="cancelTrainingCreation()" class="ion-activatable ripple-parent primary-button">Cancel
-                        <ion-ripple-effect type="unbounded"></ion-ripple-effect></button>
+                        <button (click)="cancelTrainingCreation()" class="ion-activatable ripple-parent primary-button">
+                            Cancel <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                        </button>
                     </div>
                 </div>
             </div>

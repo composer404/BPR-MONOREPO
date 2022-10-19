@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Gym, Training } from 'src/app/interfaces/interfaces';
+
+import { Component } from '@angular/core';
 import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
@@ -10,13 +11,17 @@ import { TrainingService } from 'src/app/services/api/trainings.service';
     styleUrls: ['./training-list.page.scss'],
 })
 export class TrainingListPage {
-
     trainingForm: FormGroup;
-    trainings: Training[];
+    userId: string;
+    trainings: Training[] = [];
     selectedGym: Gym;
 
-    constructor(private router: Router,
-                private readonly trainingService: TrainingService) {
+    constructor(
+        private readonly router: Router,
+        private readonly route: ActivatedRoute,
+        private readonly trainingService: TrainingService,
+    ) {
+        this.userId = this.route.snapshot.params.id;
         this.trainingForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             type: new FormControl(``, [Validators.required]),
@@ -25,8 +30,10 @@ export class TrainingListPage {
         });
     }
 
-    public goToTrainingDetails(): void {
-        this.router.navigate(['training-list']);
+    public goToTrainingDetails(trainingId: string): void {
+        void this.router.navigate([
+            `/profile-tabs/profile/${this.userId}/training-list/${trainingId}/gym/${this.selectedGym.id}`,
+        ]);
     }
 
     async onGymSelected(gym: Gym) {
