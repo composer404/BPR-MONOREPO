@@ -3,6 +3,20 @@
     <div class="flex flex-col gap-2 mb-6">
         <label for="login">Name</label>
         <input formControlName="name" pInputText id="name" type="text" />
+        <small
+                *ngIf="
+                    editTrainingMachineForm.get('name')?.invalid &&
+                    (editTrainingMachineForm.get('name')?.dirty || editTrainingMachineForm.get('name')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="editTrainingMachineForm.get('name')?.errors?.['required']">
+                    A name of the movie is required.
+                </div>
+                <div *ngIf="editTrainingMachineForm.get('name')?.errors?.['minlength']">
+                    A title must be at least 1 character long.
+                </div>
+            </small>
     </div>
     <div class="flex flex-col gap-2 mb-6">
         <label for="description">Description</label>
@@ -12,6 +26,17 @@
     <div class="flex flex-col gap-2 mb-6">
         <label for="location">Location</label>
         <input formControlName="location" pInputText id="location" type="text" />
+        <small
+                *ngIf="
+                editTrainingMachineForm.get('location')?.invalid &&
+                    (editTrainingMachineForm.get('location')?.dirty || editTrainingMachineForm.get('location')?.touched)
+                "
+                id="login-help"
+                class="p-error"
+                ><div *ngIf="editTrainingMachineForm.get('location')?.errors?.['required']">
+                    The location is required.
+                </div>
+            </small>
     </div>
     <div class="flex flex-col gap-2 mb-6">
         <label for="formula_for_calories">Formula for calories</label>

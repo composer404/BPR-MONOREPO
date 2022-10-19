@@ -2,19 +2,26 @@ import { BPRApiCreatedObject, TrainingMachines } from 'src/app/interfaces/interf
 
 import { HttpClient } from '@angular/common/http';
 import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
-// import { InfoService } from './info.service';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
 
+// import { InfoService } from './info.service';
+
+
+
+
+
+
 @Injectable({
     providedIn: 'root',
 })
 export class TrainingMachinesService implements ITrainingMachinesService {
     // !To change
-    gymId = `dd186798-23bb-4834-a989-9b81b4ff1304`;
+    gymId = `278e3def-aedf-4ccd-b4a1-0e2954b7f796`;
+    //`dd186798-23bb-4834-a989-9b81b4ff1304`;
     trainingMachines: TrainingMachines[] = [];
     subscriptions: Subscription[] = [];
 

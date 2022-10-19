@@ -19,20 +19,20 @@
             </small>
             <div class="flex mt-2"></div>
             <label for="description">Description</label>
-            <textarea formControlName="description" pInputTextarea [rows]="5" id="description" name="text"></textarea>
+            <textarea formControlName="description" pInputTextarea [rows]="3" id="description" name="text"></textarea>
+            <label for="location">Location</label>
+            <input formControlName="location" pInputText id="location" type="text" />
             <small
                 *ngIf="
-                    trainingMachineForm.get('description')?.invalid &&
-                    (trainingMachineForm.get('description')?.dirty || trainingMachineForm.get('description')?.touched)
+                trainingMachineForm.get('location')?.invalid &&
+                    ( trainingMachineForm.get('location')?.dirty ||  trainingMachineForm.get('location')?.touched)
                 "
                 id="login-help"
                 class="p-error"
-                ><div *ngIf="trainingMachineForm.get('description')?.errors?.['required']">
-                    The description is required.
+                ><div *ngIf=" trainingMachineForm.get('location')?.errors?.['required']">
+                    The location is required.
                 </div>
             </small>
-            <label for="location">Location</label>
-            <input formControlName="location" pInputText id="location" type="text" />
             <label for="formulaForCalories">Formula For Calories</label>
             <input formControlName="formulaForCalories" pInputText id="formulaForCalories" type="text" />
             <label for="video">video</label>

@@ -18,8 +18,8 @@ export class CreateTrainingMachineModalComponent implements OnInit {
     ) {
         this.trainingMachineForm = new FormGroup({
             name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
-            description: new FormControl(``, [Validators.required]),
-            location: new FormControl(``),
+            description: new FormControl(``),
+            location: new FormControl(``, [Validators.required]),
             formulaForCalories: new FormControl(``),
             video: new FormControl(``),
             class: new FormControl(``),

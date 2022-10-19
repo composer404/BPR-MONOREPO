@@ -18,32 +18,27 @@ import { firstValueFrom } from 'rxjs';
 })
 export class EditTrainingMachineModalComponent implements OnInit {
     editTrainingMachineForm: FormGroup;
-    // editTrainingMacineState: boolean = true;
     trainingMachine: TrainingMachines;
-    // @Input() id: string;
+   
 
     constructor(
-        // private readonly httpClient: HttpClient,
         private readonly infoService: InfoService,
-        // private readonly messageService: MessageService,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
         private readonly trainingMachineService: TrainingMachinesService,
     ) {
         this.trainingMachine = this.config.data;
         this.editTrainingMachineForm = new FormGroup({
-            name: new FormControl(``),
+            name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
             description: new FormControl(``),
-            location: new FormControl(``),
             formula_for_calories: new FormControl(``),
+            location:new FormControl(``,[Validators.required]),
             video: new FormControl(``),
             class: new FormControl(``),
         });
     }
 
     ngOnInit(): void {
-        // this.initEditTrainingMachineForm();
-
         this.trainingMachine = this.config.data;
         this.editTrainingMachineForm.patchValue({
             name: this.trainingMachine.name,
@@ -65,40 +60,15 @@ export class EditTrainingMachineModalComponent implements OnInit {
             class: this.editTrainingMachineForm.get('class')?.value,
         };
         const response = this.trainingMachineService.editTrainingMachine(this.trainingMachine.id, body);
-        // const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${this.trainingMachine.id}`;
-
-        // const response = await firstValueFrom(this.httpClient.put<boolean>(url, requestBody));
 
         if (!response) {
             this.infoService.error(`Training Machine update failed. Try again later`);
-            // this.messageService.add({
-            //     severity: 'error',
-            //     summary: 'Error',
-            //     detail: 'Training Machine update failed. Try again later',
-            // });
-            // this.ref.close(false);
             return;
         }
-        // this.messageService.add({
-        //     severity: 'success',
-        //     summary: 'Success',
-        //     detail: 'Training Machine has been succesfully updated',
-        // });
-        // console.log(`here`);
         this.infoService.success(`Training Machine has been succesfully updated`);
         this.ref.close();
     }
 
-    // private initEditTrainingMachineForm() {
-    //     this.editTrainingMachineForm = new FormGroup({
-    //         name: new FormControl(``),
-    //         description: new FormControl(``),
-    //         location: new FormControl(``),
-    //         formula_for_calories: new FormControl(``),
-    //         video: new FormControl(``),
-    //         class: new FormControl(``),
-    //     });
-    // }
 
     close(): void {
         this.ref.close();
