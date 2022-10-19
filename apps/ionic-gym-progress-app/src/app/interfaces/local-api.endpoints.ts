@@ -19,5 +19,8 @@ export enum LOCAL_API_SERVICES {
     gyms = `/gyms`,
 
     /* ---------------------------------- EXERCISES --------------------------------- */
-    exercises = `/exercises`
+    exercises = `/exercises`,
+
+    /* ---------------------------------- EXERCISES --------------------------------- */
+    trainingMachines = `/training-machines`
 }

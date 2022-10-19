@@ -14,7 +14,12 @@
     <app-create-exercise-modal [trainingId]="selectedTraining.id"></app-create-exercise-modal>
 
     <app-exercise-item  *ngFor="let exercise of exercises" [exercise]="exercise"
-    >{{ exercise.title }}</app-exercise-item
+    >{{ exercise.title }}
+      {{ exercise.type }}
+      {{ exercise.description }}
+      {{ exercise.exercise_type }}
+      {{ exercise.muscle_group }}
+      {{ exercise.quantity }}</app-exercise-item
     >
   </ng-container>
 </ion-content>
