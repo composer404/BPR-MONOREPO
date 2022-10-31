@@ -1,4 +1,4 @@
-import { BPRApiCreatedObject, Exercise, Training } from '../../interfaces/interfaces';
+import { BPRApiCreatedObject, Exercise } from '../../interfaces/interfaces';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,7 +12,6 @@ import { firstValueFrom } from 'rxjs';
 export class ExerciseService {
     constructor(private readonly httpClient: HttpClient) {}
 
-    //! training id is required in url
     async createExercise(trainingId: string, body: Partial<Exercise>) {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/${trainingId}`;
         return firstValueFrom(
@@ -21,20 +20,6 @@ export class ExerciseService {
             }),
         ).catch(() => null);
     }
-
-    // addExercise(trainingId: string, config: any): Promise<BPRApiCreatedObject> {
-    //   const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/exercises/${trainingId}`;
-    //   return firstValueFrom(
-    //     this.httpClient.post<BPRApiCreatedObject>(url, {
-    //       title: config.data.title,
-    //       description: config.data.description,
-    //       training_type: config.data.type,
-    //       quantity: config.data.quantity,
-    //       muscle_group: config.data.group,
-    //       trainingMachineId: config.data.trainingMachineId
-    //     }),
-    //   );
-    // }
 
     async getExercisesForTrainings(trainingId: string): Promise<Exercise[] | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/training/${trainingId}`;
@@ -45,16 +30,4 @@ export class ExerciseService {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/${id}`;
         return firstValueFrom(this.httpClient.get<Exercise>(url)).catch(() => null);
     }
-
-    // loadTrainingExercises() {
-    //   const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}`;
-    //   this.httpClient.get<Exercise[]>(url).subscribe((response) => {
-    //     if (!response) {
-    //       this.toastService.error('The exercises were not successfully added to the training', 'bottom');
-    //       return;
-    //     }
-    //     this.toastService.success('The exercises were successfully added to the training');
-    //     this.exercises = response;
-    //   });
-    // }
 }

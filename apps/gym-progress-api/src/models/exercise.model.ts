@@ -15,4 +15,6 @@ export class ExerciseInput {
     muscle_group: string;
     @ApiProperty()
     trainingMachineId: string;
+    @ApiProperty()
+    estimatedTimeInMinutes: number;
 }

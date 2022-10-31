@@ -18,7 +18,6 @@ export class CreateExerciseModalComponent {
     @Input()
     trainingId: string;
 
-    //! we can pass training machine by input, so that we dont nedd to load it every time we open modal
     @Input()
     trainingMachines: TrainingMachine[];
 
@@ -33,6 +32,8 @@ export class CreateExerciseModalComponent {
             exercise_type: new FormControl(``),
             muscle_group: new FormControl(``),
             quantity: new FormControl(``),
+            trainingMachineId: new FormControl(``, [Validators.required]),
+            estimatedTime: new FormControl(null, [Validators.required]),
         });
     }
 
@@ -40,8 +41,32 @@ export class CreateExerciseModalComponent {
         this.ionModal.dismiss(null, 'cancel');
     }
 
+    timeSliderFormater(value: number) {
+        return `${value}min`;
+    }
+
     createExercise() {
         this.ionModal.dismiss(null, 'confirm');
+    }
+
+    onTrainingMachineChange(event: any) {
+        const trainingMachineId = event?.detail?.value;
+
+        if (trainingMachineId) {
+            this.exerciseForm.patchValue({
+                trainingMachineId,
+            });
+        }
+    }
+
+    onEstimatedTimeChange(event: any) {
+        const estimatedTime = event?.detail?.value;
+
+        if (estimatedTime) {
+            this.exerciseForm.patchValue({
+                estimatedTime,
+            });
+        }
     }
 
     onWillDismissModal(event: any) {
@@ -55,6 +80,8 @@ export class CreateExerciseModalComponent {
             exercise_type: this.exerciseForm.get(`exercise_type`).value,
             muscle_group: this.exerciseForm.get(`muscle_group`).value,
             quantity: this.exerciseForm.get('quantity').value,
+            trainingMachineId: this.exerciseForm.get(`trainingMachineId`).value,
+            estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`).value,
         });
 
         if (!result) {

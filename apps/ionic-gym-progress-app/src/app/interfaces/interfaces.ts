@@ -117,10 +117,12 @@ export interface Exercise {
     quantity: number;
     createdAt?: string;
     updatedAt?: string;
-    trainingMachine: TrainingMachine;
+    estimatedTimeInMinutes?: number;
+    trainingMachineId?: string;
 }
 
 export interface TrainingMachine {
+    id?: string;
     name?: string;
     description?: string;
     location?: string;
