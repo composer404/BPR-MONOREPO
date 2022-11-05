@@ -80,6 +80,14 @@ export class SessionsGateway {
         });
     }
 
+    getNumberOfParticipants(gymId: string) {
+        return this.gymWithUsers.get(gymId).values.length;
+    }
+
+    getNumberOfUsedTrainingMachines(gymId: string) {
+        return this.gymWithUsedTrainigMachines.get(gymId).values.length;
+    }
+
     notifyAboutChangeOfTrainingMachine(gymId: string, userId: string, trainingMachine: UsedTrainingMachine) {
         if (trainingMachine.status) {
             this.addUsedTrainingMachine(gymId, trainingMachine);

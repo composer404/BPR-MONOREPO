@@ -4,9 +4,5 @@
         [trainingId]="trainingId"
     ></app-create-exercise-modal>
 
-    <app-exercise-item
-        *ngFor="let exercise of exercises"
-        [incommingValue]="trainingMachineIncommingValue"
-        [exercise]="exercise"
-    ></app-exercise-item>
+    <app-exercise-item *ngFor="let exercise of exercises" [exercise]="exercise"></app-exercise-item>
 </ion-content>

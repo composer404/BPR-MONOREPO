@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { Exercise } from '../../interfaces/interfaces';
 
@@ -7,14 +7,7 @@ import { Exercise } from '../../interfaces/interfaces';
     templateUrl: './exercise-item.component.html',
     styleUrls: ['./exercise-item.component.scss'],
 })
-export class ExerciseItemComponent implements OnChanges {
+export class ExerciseItemComponent {
     @Input()
     exercise: Exercise;
-
-    @Input()
-    incommingValue: any;
-
-    ngOnChanges(changes: SimpleChanges): void {
-        throw new Error('Method not implemented.');
-    }
 }

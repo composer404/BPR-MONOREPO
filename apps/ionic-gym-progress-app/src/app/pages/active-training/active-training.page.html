@@ -1,0 +1,9 @@
+<ng-container *ngIf="exercises.length">
+    <app-active-training-exercise
+        *ngFor="let exercise in exercises"
+        [statusChange]="trainingMachineIncommingValue"
+        [exercise]="exercise"
+    ></app-active-training-exercise>
+</ng-container>
+
+<button (click)="finishTrainig()">Finish</button>

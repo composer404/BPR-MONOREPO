@@ -30,7 +30,7 @@ export class TrainingListPage {
         });
     }
 
-    public goToTrainingDetails(trainingId: string): void {
+    goToTrainingDetails(trainingId: string): void {
         void this.router.navigate([
             `/profile-tabs/profile/${this.userId}/training-list/${trainingId}/gym/${this.selectedGym.id}`,
         ]);

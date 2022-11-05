@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export enum LOCAL_API_SERVICES {
     /* ---------------------------------- AUTH ---------------------------------- */
 
@@ -22,5 +23,10 @@ export enum LOCAL_API_SERVICES {
     exercises = `/exercises`,
 
     /* ---------------------------------- EXERCISES --------------------------------- */
-    trainingMachines = `/training-machines`
+
+    trainingMachines = `/training-machines`,
+
+    /* -------------------------------- SESSIONS -------------------------------- */
+
+    sessions = `/sessions`,
 }

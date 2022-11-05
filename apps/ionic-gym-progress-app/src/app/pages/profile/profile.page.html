@@ -8,5 +8,13 @@
     </ion-row>
     <div class="scan-box" [hidden]="!scanActive"></div>
 
-    <app-training-item *ngFor="let training of trainings" [training]="training"></app-training-item>
+    <ng-container *ngIf="currentGymId && trainings.length">
+        <app-training-item
+            *ngFor="let training of trainings"
+            (click)="goToTrainingDetails(training.id)"
+            [gymId]="currentGymId"
+            [activeTraining]="true"
+            [training]="training"
+        ></app-training-item>
+    </ng-container>
 </ion-content>

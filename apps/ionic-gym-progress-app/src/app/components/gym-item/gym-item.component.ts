@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Gym, WEBSOCKET_EVENTS } from 'src/app/interfaces/interfaces';
 
-import { WebsocketService } from 'src/app/services/api/websocket.service';
+import { Gym } from 'src/app/interfaces/interfaces';
 
 @Component({
     selector: 'app-gym-item',
@@ -15,9 +14,7 @@ export class GymItemComponent implements OnInit {
     @Output()
     gymSelected = new EventEmitter<Gym>();
 
-    constructor(private readonly websocketService: WebsocketService) {}
+    constructor() {}
 
-    ngOnInit() {
-        // this.websocketService.sendMessage(WEBSOCKET_EVENTS.connect_to_gym, this.gym.id);
-    }
+    ngOnInit() {}
 }

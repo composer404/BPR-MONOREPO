@@ -1,6 +1,6 @@
-import { Training, WEBSOCKET_EVENTS } from 'src/app/interfaces/interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Training, WEBSOCKET_REQUEST_EVENT } from 'src/app/interfaces/interfaces';
 
-import { ActivatedRoute } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Component } from '@angular/core';
 import { ScannerService } from 'src/app/services/common/scanner.service';
@@ -28,6 +28,7 @@ export class ProfilePage {
         private readonly websocketService: WebsocketService,
         private readonly scannerService: ScannerService,
         private readonly route: ActivatedRoute,
+        private readonly router: Router,
     ) {
         this.userId = this.route.snapshot.params.id;
     }
@@ -49,13 +50,17 @@ export class ProfilePage {
         this.trainings = await this.trainingService.getUserTrainingForGym(this.currentGymId);
     }
 
+    goToTrainingDetails(trainingId: string) {
+        void this.router.navigate([`/active-training/gym/${this.currentGymId}/training/${trainingId}`]);
+    }
+
     notifyAboutConnection(): void {
         const body = {
             gymId: this.currentGymId,
             userId: this.userId,
         };
 
-        this.websocketService.sendMessage(WEBSOCKET_EVENTS.connect_user_to_gym, JSON.stringify(body));
+        this.websocketService.sendMessage(WEBSOCKET_REQUEST_EVENT.connect_user_to_gym, JSON.stringify(body));
     }
 
     // ! REPLACE WITH SCANNER SERVICE

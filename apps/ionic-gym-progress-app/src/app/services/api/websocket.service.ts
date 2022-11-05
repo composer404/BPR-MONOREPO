@@ -1,3 +1,5 @@
+import { WEBSOCKET_REQUEST_EVENT, WEBSOCKET_RESPONSE_EVENT } from 'src/app/interfaces/interfaces';
+
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 
@@ -20,11 +22,11 @@ export class WebsocketService {
         this.socket.disconnect();
     }
 
-    listenForEvent(event: string, callback: any): void {
+    listenForEvent(event: WEBSOCKET_RESPONSE_EVENT, callback: any): void {
         this.socket.on(event, callback);
     }
 
-    sendMessage(event: string, message: string): void {
+    sendMessage(event: WEBSOCKET_REQUEST_EVENT, message: string): void {
         this.socket.emit(event, message);
     }
 

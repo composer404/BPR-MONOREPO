@@ -1,4 +1,3 @@
-import { ActivatedRoute, ActivatedRouteSnapshot, RouteReuseStrategy } from '@angular/router';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
@@ -9,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
+import { RouteReuseStrategy } from '@angular/router';
 import { TokenInterceptorService } from './helpers/http-interceptor';
 import { WebsocketService } from './services/api/websocket.service';
 import { environment } from 'src/environments/environment';

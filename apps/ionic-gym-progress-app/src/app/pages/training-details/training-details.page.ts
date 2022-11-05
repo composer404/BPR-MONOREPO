@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Exercise, Training, TrainingMachine, WEBSOCKET_EVENTS } from '../../interfaces/interfaces';
+import { Exercise, Training, TrainingMachine } from '../../interfaces/interfaces';
 
 import { ActivatedRoute } from '@angular/router';
 import { ExerciseService } from '../../services/api/exercise.service';
@@ -14,16 +14,13 @@ import { WebsocketService } from 'src/app/services/api/websocket.service';
     templateUrl: './training-details.page.html',
     styleUrls: ['./training-details.page.scss'],
 })
-export class TrainingDetailsPage implements OnInit, OnDestroy {
+export class TrainingDetailsPage implements OnInit {
     exercises: Exercise[] = [];
     trainingMachines: TrainingMachine[] = [];
 
     selectedTraining: Training;
     trainingId: string;
     gymId: string;
-
-    trainingMachineChangeListener: any;
-    trainingMachineIncommingValue: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -41,11 +38,6 @@ export class TrainingDetailsPage implements OnInit, OnDestroy {
         this.loadTrainingData();
         this.loadExercises();
         this.loadTrainingMachines();
-        this.listenForTrainingMachineChangeState();
-    }
-
-    ngOnDestroy(): void {
-        this.websocektService.removeListener(this.trainingMachineChangeListener);
     }
 
     async loadTrainingData(): Promise<void> {
@@ -81,16 +73,5 @@ export class TrainingDetailsPage implements OnInit, OnDestroy {
                 this.trainingMachines = result;
             }
         });
-    }
-
-    listenForTrainingMachineChangeState() {
-        this.trainingMachineChangeListener = (data) => {
-            console.log(`Training machine state changes`, data);
-            this.trainingMachineIncommingValue = data;
-        };
-        this.websocektService.listenForEvent(
-            WEBSOCKET_EVENTS.training_machine_change,
-            this.trainingMachineChangeListener,
-        );
     }
 }
