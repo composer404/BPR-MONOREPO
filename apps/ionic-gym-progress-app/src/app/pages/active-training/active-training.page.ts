@@ -14,7 +14,7 @@ export class ActiveTrainingPage implements OnInit {
     gymId: string;
     trainingId: string;
 
-    exercises: Exercise[];
+    exercises: Exercise[] = [];
 
     trainingMachineChangeListener: any;
     trainingMachineIncommingValue: ExerciseStatusChange;

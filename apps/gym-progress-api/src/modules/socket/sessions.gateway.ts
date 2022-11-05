@@ -30,6 +30,8 @@ export class SessionsGateway {
             socket,
         });
 
+        this.logger.log(`current users: ${[...this.gymWithUsers.get(message.gymId).keys()]}`);
+
         this.emitForParticipantsCount(message.gymId);
     }
 
@@ -89,6 +91,9 @@ export class SessionsGateway {
     }
 
     notifyAboutChangeOfTrainingMachine(gymId: string, userId: string, trainingMachine: UsedTrainingMachine) {
+        this.logger.log(
+            `Training machine ${trainingMachine.trainingMachineId} status changed for ${trainingMachine.status}`,
+        );
         if (trainingMachine.status) {
             this.addUsedTrainingMachine(gymId, trainingMachine);
         }
@@ -99,12 +104,12 @@ export class SessionsGateway {
 
         const gym = this.gymWithUsers.get(gymId);
         for (const [key, value] of gym) {
-            if (key === userId) {
-                return;
+            if (key !== userId) {
+                this.logger.log(`EMIT TRAINING MACHINE CHANGE FOR USER: ${key}`);
+                value.socket.emit(RESPONSE_EVENT.trainign_machine_status_changed, {
+                    trainingMachine,
+                });
             }
-            value.socket.emit(RESPONSE_EVENT.trainign_machine_status_changed, {
-                trainingMachine,
-            });
         }
 
         this.emitUsedTrainingMachinesCount(gymId);

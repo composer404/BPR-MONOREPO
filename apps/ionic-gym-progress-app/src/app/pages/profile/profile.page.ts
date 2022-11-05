@@ -20,7 +20,7 @@ export class ProfilePage {
     scanActive = false;
     userId: string;
     currentGymId: string;
-    trainings: Training[];
+    trainings: Training[] = [];
 
     constructor(
         private readonly trainingService: TrainingService,
@@ -65,7 +65,7 @@ export class ProfilePage {
 
     // ! REPLACE WITH SCANNER SERVICE
     async startScanner() {
-        const result = await this.scannerService.startScanner();
+        this.currentGymId = await this.scannerService.startScanner();
         void this.loadTrainings();
         this.notifyAboutConnection();
     }

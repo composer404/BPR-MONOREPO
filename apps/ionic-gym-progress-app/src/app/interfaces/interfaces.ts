@@ -133,10 +133,12 @@ export interface Exercise {
 }
 
 export interface ExerciseStatusChange {
-    trainingMachineId?: string;
-    stringStartedTimestamp?: string;
-    timeframe?: number;
-    status?: boolean;
+    trainingMachine: {
+        trainingMachineId?: string;
+        stringStartedTimestamp?: string;
+        timeframeInMinutes?: number;
+        status?: boolean;
+    };
 }
 
 export interface TrainingMachine {

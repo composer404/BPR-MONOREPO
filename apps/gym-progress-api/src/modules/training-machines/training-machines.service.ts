@@ -66,7 +66,7 @@ export class TrainingMachinesService {
     ): Promise<boolean> {
         const selectedExercise = await this.exerciseService.getExerciseById(exerciseId);
         this.sessionsGateway.notifyAboutChangeOfTrainingMachine(gymId, userId, {
-            timeframe: selectedExercise.estimatedTimeInMinutes * 60 * 1000,
+            timeframeInMinutes: selectedExercise.estimatedTimeInMinutes,
             trainingMachineId: id,
             stringStartedTimestamp: DateTime.now().toISO(),
             status,

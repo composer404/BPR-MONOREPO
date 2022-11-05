@@ -29,6 +29,6 @@ export interface GymSession {
 export interface UsedTrainingMachine {
     trainingMachineId?: string;
     stringStartedTimestamp?: string;
-    timeframe?: number;
+    timeframeInMinutes?: number;
     status?: boolean;
 }

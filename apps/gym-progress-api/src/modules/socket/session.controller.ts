@@ -19,4 +19,10 @@ export class SessionsController {
     getGymUsedTrainingMachinesNumber(@Param() params: any): number {
         return this.sessionGateway.getNumberOfUsedTrainingMachines(params.gymId);
     }
+
+    // @UseGuards(JwtAuthGuard)
+    // @Get(`/currentMachines/:gymId`)
+    // getCurrentUsedTrainingMachines(@Param() params: any): UsedTrainingMachine[] {
+    //     return this.sessionGateway.getNumberOfUsedTrainingMachines(params.gymId);
+    // }
 }

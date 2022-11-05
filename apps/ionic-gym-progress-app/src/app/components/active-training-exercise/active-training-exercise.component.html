@@ -1,0 +1,12 @@
+<div [class]="exerciseCardStyle">
+    <div>
+        {{ exercise.title }}
+        {{ exercise.id }}
+    </div>
+    <div *ngIf="showTimer">
+        {{ currentTime | date: 'mm:ss' }}
+    </div>
+
+    <button *ngIf="!exerciseStarted" (click)="startExercise()">Start exercise</button>
+    <button *ngIf="exerciseStarted" (click)="finishExercise()">Finish exercise</button>
+</div>
