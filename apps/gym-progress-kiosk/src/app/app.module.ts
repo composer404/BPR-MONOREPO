@@ -42,5 +42,12 @@ const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
 export class AppModule {
     constructor(private readonly websocketService: WebsocketService) {
         this.websocketService.connect();
+        this.websocketService.sendMessage(
+            `connect_kiosk_to_gym`,
+            JSON.stringify({
+                //! MOCK FOR NOW
+                id: `dd186798-23bb-4834-a989-9b81b4ff1304`,
+            }),
+        );
     }
 }

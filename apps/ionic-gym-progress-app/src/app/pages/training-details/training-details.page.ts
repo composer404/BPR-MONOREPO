@@ -1,19 +1,20 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
-import { Exercise, Training, TrainingMachine } from '../../interfaces/interfaces';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Exercise, Training, TrainingMachine, WEBSOCKET_EVENTS } from '../../interfaces/interfaces';
 
 import { ActivatedRoute } from '@angular/router';
 import { ExerciseService } from '../../services/api/exercise.service';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 import { TrainingService } from '../../services/api/trainings.service';
+import { WebsocketService } from 'src/app/services/api/websocket.service';
 
 @Component({
     selector: 'app-training-details',
     templateUrl: './training-details.page.html',
     styleUrls: ['./training-details.page.scss'],
 })
-export class TrainingDetailsPage implements OnInit {
+export class TrainingDetailsPage implements OnInit, OnDestroy {
     exercises: Exercise[] = [];
     trainingMachines: TrainingMachine[] = [];
 
@@ -21,12 +22,16 @@ export class TrainingDetailsPage implements OnInit {
     trainingId: string;
     gymId: string;
 
+    trainingMachineChangeListener: any;
+    trainingMachineIncommingValue: any;
+
     constructor(
         private route: ActivatedRoute,
         private readonly exerciseService: ExerciseService,
         private readonly trainingService: TrainingService,
         private readonly trainingMachinesService: TrainingMachineService,
         private readonly toastService: ToastService,
+        private readonly websocektService: WebsocketService,
     ) {
         this.trainingId = this.route.snapshot.params.trainingId;
         this.gymId = this.route.snapshot.params.gymId;
@@ -36,6 +41,11 @@ export class TrainingDetailsPage implements OnInit {
         this.loadTrainingData();
         this.loadExercises();
         this.loadTrainingMachines();
+        this.listenForTrainingMachineChangeState();
+    }
+
+    ngOnDestroy(): void {
+        this.websocektService.removeListener(this.trainingMachineChangeListener);
     }
 
     async loadTrainingData(): Promise<void> {
@@ -71,5 +81,16 @@ export class TrainingDetailsPage implements OnInit {
                 this.trainingMachines = result;
             }
         });
+    }
+
+    listenForTrainingMachineChangeState() {
+        this.trainingMachineChangeListener = (data) => {
+            console.log(`Training machine state changes`, data);
+            this.trainingMachineIncommingValue = data;
+        };
+        this.websocektService.listenForEvent(
+            WEBSOCKET_EVENTS.training_machine_change,
+            this.trainingMachineChangeListener,
+        );
     }
 }

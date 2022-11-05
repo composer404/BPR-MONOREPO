@@ -1,6 +1,7 @@
 import { AuthModule } from './modules/auth';
 import { ExercisesModule } from './modules/exercises';
 import { GymsModule } from './modules/gyms/gyms.module';
+import { LoggerModule } from './modules/logger/logger.module';
 import { Module } from '@nestjs/common';
 import { SessionsModule } from './modules/socket/sessions.module';
 import { TrainingMachinesModule } from './modules/training-machines';
@@ -15,6 +16,7 @@ import { UsersModule } from './modules/users';
         SessionsModule,
         TrainingsModule,
         ExercisesModule,
+        LoggerModule,
     ],
 })
 export class AppModule {}

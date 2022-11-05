@@ -27,4 +27,8 @@ export class WebsocketService {
     sendMessage(event: string, message: string): void {
         this.socket.emit(event, message);
     }
+
+    removeListener(listener: any) {
+        this.socket.removeListener(listener);
+    }
 }

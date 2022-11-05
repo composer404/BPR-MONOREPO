@@ -13,7 +13,8 @@ export enum BPR_ERROR_CODES {
 }
 
 export enum WEBSOCKET_EVENTS {
-    connect_to_gym = `connect_to_gym`,
+    connect_user_to_gym = `connect_user_to_gym`,
+    training_machine_change = `machine_state_changed`,
 }
 
 /* ------------------------------- INTERFACES ------------------------------- */

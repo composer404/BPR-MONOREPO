@@ -1,15 +1,21 @@
 import { Prisma, TrainingMachine } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
+import { DateTime } from 'luxon';
+import { ExercisesService } from '../exercises';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
+import { SessionsGateway } from '../socket/sessions.gateway';
 import { TraininMachineInput } from 'src/models/training-machines.model';
 
 @Injectable()
 export class TrainingMachinesService {
     private database: Prisma.TrainingMachineDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
-
-    constructor(private readonly prismaService: PrismaService) {
+    constructor(
+        private readonly prismaService: PrismaService,
+        private readonly exerciseService: ExercisesService,
+        private readonly sessionsGateway: SessionsGateway,
+    ) {
         this.database = this.prismaService.trainingMachine;
     }
 
@@ -51,14 +57,28 @@ export class TrainingMachinesService {
         };
     }
 
-    async toggleTrainingMachineState(id: any, state: boolean): Promise<boolean> {
+    async toggleTrainingMachineState(
+        id: string,
+        exerciseId: string,
+        status: boolean,
+        gymId: string,
+        userId: string,
+    ): Promise<boolean> {
+        const selectedExercise = await this.exerciseService.getExerciseById(exerciseId);
+        this.sessionsGateway.notifyAboutChangeOfTrainingMachine(gymId, userId, {
+            timeframe: selectedExercise.estimatedTimeInMinutes * 60 * 1000,
+            trainingMachineId: id,
+            stringStartedTimestamp: DateTime.now().toISO(),
+            status,
+        });
+
         const result = await this.database
             .update({
                 where: {
                     id,
                 },
                 data: {
-                    availability: state,
+                    availability: status,
                 },
             })
             .catch((err) => {

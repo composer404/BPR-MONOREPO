@@ -16,3 +16,8 @@ export class TraininMachineInput {
     @ApiProperty()
     class: string;
 }
+
+export class TrainingMachineChangeInput {
+    @ApiProperty()
+    exerciseId: string;
+}

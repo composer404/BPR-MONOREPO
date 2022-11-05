@@ -1,11 +1,11 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Request, Post, Put, UseGuards } from '@nestjs/common';
 import { TrainingMachinesService } from './training-machines.service';
-import { TraininMachineInput } from 'src/models/training-machines.model';
+import { TrainingMachineChangeInput, TraininMachineInput } from 'src/models/training-machines.model';
 import { AdminJwtGuard } from '../auth/guards/admin-jwt.guard';
 import { JwtAuthGuard } from '../auth/guards';
 import { TrainingMachine } from '@prisma/client';
-import { CreatedObjectResponse } from 'src/models';
+import { BPRRequest, CreatedObjectResponse } from 'src/models';
 
 @ApiTags(`TRAINING MACHINES ACTIONS`)
 @Controller(`training-machines`)
@@ -34,15 +34,35 @@ export class TrainingMachinesController {
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put(`/enable/:id`)
-    async enableTrainingMachine(@Param() params: any): Promise<boolean> {
-        return this.trainingMachinesService.toggleTrainingMachineState(params.id, true);
+    @Put(`:gymId/enable/:id`)
+    async enableTrainingMachine(
+        @Param() params: any,
+        @Request() req: BPRRequest,
+        @Body() body: TrainingMachineChangeInput,
+    ): Promise<boolean> {
+        return this.trainingMachinesService.toggleTrainingMachineState(
+            params.id,
+            body.exerciseId,
+            true,
+            params.gymId,
+            req.user.id,
+        );
     }
 
     @UseGuards(JwtAuthGuard)
-    @Put(`/disable/:id`)
-    async disableTrainingMachine(@Param() params: any): Promise<boolean> {
-        return this.trainingMachinesService.toggleTrainingMachineState(params.id, false);
+    @Put(`:gymId/disable/:id`)
+    async disableTrainingMachine(
+        @Param() params: any,
+        @Request() req: BPRRequest,
+        @Body() body: TrainingMachineChangeInput,
+    ): Promise<boolean> {
+        return this.trainingMachinesService.toggleTrainingMachineState(
+            params.id,
+            body.exerciseId,
+            false,
+            params.gymId,
+            req.user.id,
+        );
     }
 
     @UseGuards(AdminJwtGuard)
