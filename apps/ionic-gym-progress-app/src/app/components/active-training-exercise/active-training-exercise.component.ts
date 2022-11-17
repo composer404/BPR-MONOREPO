@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core';
 import { Exercise, ExerciseStatusChange } from 'src/app/interfaces/interfaces';
 
 import { DateTime } from 'luxon';
+import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 
 @Component({
@@ -26,7 +27,10 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
     currentTime: string;
     exerciseStarted: boolean;
 
-    constructor(private readonly trainingMachineService: TrainingMachineService) {}
+    constructor(
+        private readonly trainingMachineService: TrainingMachineService,
+        private readonly toastService: ToastService,
+    ) {}
 
     ngOnChanges() {
         if (this.statusChange?.trainingMachine.trainingMachineId === this.exercise.trainingMachineId) {
@@ -46,7 +50,7 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
             this.exercise.id,
         );
         if (!response) {
-            //eror
+            this.toastService.error(`Cannot start exercise. Try again in a few seconds`);
             return;
         }
         this.exerciseStarted = true;
@@ -60,7 +64,7 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
             this.exercise.id,
         );
         if (!response) {
-            //err
+            this.toastService.error(`Cannot finish exercise. Try again in a few seconds`);
             return;
         }
         this.exerciseStarted = false;
