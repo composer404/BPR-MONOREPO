@@ -155,3 +155,13 @@ export interface TrainingMachine {
     gymId: string;
     exercises?: Exercise[];
 }
+
+
+/* ------------------------- STATISTICS ------------------------ */
+
+export interface BurnedCalories {
+    activityid?: string;
+    activitymin?: number;
+    weight?: number;
+}
+

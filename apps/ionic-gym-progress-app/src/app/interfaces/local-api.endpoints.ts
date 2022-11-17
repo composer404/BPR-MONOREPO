@@ -29,4 +29,8 @@ export enum LOCAL_API_SERVICES {
     /* -------------------------------- SESSIONS -------------------------------- */
 
     sessions = `/sessions`,
+
+    /* -------------------------------- SESSIONS -------------------------------- */
+    
+    calories = `/burnedcalorie`
 }
