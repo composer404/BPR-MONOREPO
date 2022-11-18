@@ -8,6 +8,6 @@ export enum API_RESOURCES {
 
 
 export const buildUrl = (resource: API_RESOURCES) => {
-    return `${API_URL}${resource}?api_key=${environment.API_KEY}`;
+    return `${API_URL}${resource}`;
 };
 
