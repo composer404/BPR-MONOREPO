@@ -83,6 +83,9 @@ export class SessionsGateway {
     }
 
     getNumberOfParticipants(gymId: string) {
+        if (!this.gymWithUsers.get(gymId)) {
+            return 0;
+        }
         return this.gymWithUsers.get(gymId).values.length;
     }
 

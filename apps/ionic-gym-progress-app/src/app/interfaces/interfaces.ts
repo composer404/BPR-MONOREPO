@@ -33,6 +33,11 @@ export interface Token {
     accessToken: string;
 }
 
+export interface ModalCloseResult {
+    type: `Close` | `Confirm`;
+    data?: any;
+}
+
 export interface UserProfile {
     id: string;
     email: string;
@@ -156,7 +161,6 @@ export interface TrainingMachine {
     exercises?: Exercise[];
 }
 
-
 /* ------------------------- STATISTICS ------------------------ */
 
 export interface BurnedCalories {
@@ -164,4 +168,3 @@ export interface BurnedCalories {
     activitymin?: number;
     weight?: number;
 }
-

@@ -1,13 +1,13 @@
+import { ActivatedRoute, Router } from '@angular/router';
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Exercise, Training, TrainingMachine } from '../../interfaces/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Exercise, ModalCloseResult, Training, TrainingMachine } from '../../interfaces/interfaces';
 
-import { ActivatedRoute } from '@angular/router';
+import { DialogService } from 'src/app/services/common/dialog.service';
 import { ExerciseService } from '../../services/api/exercise.service';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 import { TrainingService } from '../../services/api/trainings.service';
-import { WebsocketService } from 'src/app/services/api/websocket.service';
 
 @Component({
     selector: 'app-training-details',
@@ -19,17 +19,20 @@ export class TrainingDetailsPage implements OnInit {
     trainingMachines: TrainingMachine[] = [];
 
     selectedTraining: Training;
+    profileId: string;
     trainingId: string;
     gymId: string;
 
     constructor(
         private route: ActivatedRoute,
+        private router: Router,
         private readonly exerciseService: ExerciseService,
         private readonly trainingService: TrainingService,
         private readonly trainingMachinesService: TrainingMachineService,
         private readonly toastService: ToastService,
-        private readonly websocektService: WebsocketService,
+        private readonly dialogService: DialogService,
     ) {
+        this.profileId = this.route.snapshot.params.id;
         this.trainingId = this.route.snapshot.params.trainingId;
         this.gymId = this.route.snapshot.params.gymId;
     }
@@ -60,6 +63,28 @@ export class TrainingDetailsPage implements OnInit {
                 this.exercises = result;
             }
         });
+    }
+
+    async deleteTraining() {
+        await this.dialogService.openConfirmationDialog({
+            header: `Are you sure?`,
+            confirmFn: async () => {
+                const result = await this.trainingService.deleteTraining(this.trainingId);
+                if (!result) {
+                    this.toastService.error(`Cannot delete selected training. Try again later.`);
+                    return;
+                }
+                this.toastService.success(`Selected training has been successfully deleted`);
+                this.router.navigateByUrl(`/profile-tabs/profile/${this.profileId}/training-list`);
+            },
+        });
+        // this.dialogService.openConfirmationDialog()
+    }
+
+    async onTrainingCreation(event: ModalCloseResult) {
+        if (event.type === `Confirm`) {
+            await this.loadTrainingData();
+        }
     }
 
     loadTrainingMachines(): void {

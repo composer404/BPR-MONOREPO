@@ -1,8 +1,33 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="selectedTraining">
+    <div class="w-100 flex justify-end p-2">
+        <div>
+            <app-create-training-modal
+                [gymId]="gymId"
+                [trainingId]="trainingId"
+                [title]="'Edit'"
+                [id]="'create-trainig-modal'"
+                [buttonTemplate]="editButton"
+                (closeEvent)="onTrainingCreation($event)"
+            ></app-create-training-modal>
+            <ng-template #editButton>
+                <ion-icon [id]="'create-trainig-modal'" class="text-4xl ml-2" name="brush"></ion-icon>
+            </ng-template>
+        </div>
+        <ion-icon (click)="deleteTraining()" class="text-4xl ml-2" name="trash"></ion-icon>
+    </div>
     <app-create-exercise-modal
+        [id]="'edit-trainig-modal'"
         [trainingMachines]="trainingMachines"
         [trainingId]="trainingId"
     ></app-create-exercise-modal>
+
+    <div class="w-full p-5">
+        <div class="w-full text-center mb-10">
+            <div class="title text-3xl mb-2">{{selectedTraining.title}}</div>
+            <div class="mb-2 muted">(Type: {{selectedTraining.type}})</div>
+            <div class="px-3">{{selectedTraining.description}}</div>
+        </div>
+    </div>
 
     <app-exercise-item *ngFor="let exercise of exercises" [exercise]="exercise"></app-exercise-item>
 </ion-content>

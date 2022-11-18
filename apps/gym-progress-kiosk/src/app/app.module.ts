@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-// import { InfoService } from './services/info.service';
 import { MessageService } from 'primeng/api';
 import { NgModule } from '@angular/core';
 import { ToastModule } from 'primeng/toast';

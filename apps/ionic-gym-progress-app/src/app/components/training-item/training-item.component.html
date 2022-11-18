@@ -1,8 +1,24 @@
 <ion-card>
-    <ion-card-header>
-        <ion-card-subtitle>{{ training.type }}</ion-card-subtitle>
-        <ion-card-title>{{ training.title }}</ion-card-title>
-        Participants: {{ numberOfParticipants }}
+    <ion-card-header class="text-center">
+        <ion-card-title class="mt-1 text font-bold">{{ training.title }}</ion-card-title>
+        <ion-card-subtitle class="">({{ training.type }})</ion-card-subtitle>
     </ion-card-header>
-    <ion-card-content>{{ training.description }}</ion-card-content>
+    <ion-card-content>
+        <div class="mb-2">
+            <div class="text-sm text-white">Description</div>
+            <div>
+                {{ training.description || 'No description' }}
+            </div>
+        </div>
+        <div>
+            <div class="text-sm text-white">Comments</div>
+            <div>
+                {{ training.comment || 'No comments' }}
+            </div>
+        </div>
+    </ion-card-content>
+
+    <div class="px-10 mb-4">
+        <button class="primary-button-sm">Open</button>
+    </div>
 </ion-card>

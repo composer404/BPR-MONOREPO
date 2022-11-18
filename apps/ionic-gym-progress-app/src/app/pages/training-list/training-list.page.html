@@ -11,7 +11,10 @@
         <button class="ion-activatable ripple-parent" (click)="selectedGym = null">
             back <ion-ripple-effect type="unbounded"></ion-ripple-effect>
         </button>
-        <app-create-training-modal [gymId]="selectedGym.id"></app-create-training-modal>
+        <app-create-training-modal
+            (closeEvent)="onTrainingCreation($event)"
+            [gymId]="selectedGym.id"
+        ></app-create-training-modal>
 
         <app-training-item
             *ngFor="let training of trainings"

@@ -99,7 +99,7 @@ model Exercise {
     quantity      Float?
     muscle_group  String
 
-    training   Training @relation(fields: [trainingId], references: [id])
+    training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
     trainingId String
 
     trainingMachineId      String?

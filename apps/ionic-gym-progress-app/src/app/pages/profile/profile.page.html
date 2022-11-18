@@ -1,4 +1,4 @@
-<ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':'#ffffff'">
+<!-- <ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':'#ffffff'">
     <ion-button expand="full" (click)="startScanner()" [hidden]="scanActive"> SCAN QR </ion-button>
 
     <ion-row class="scan-button" [hidden]="!scanActive">
@@ -17,4 +17,40 @@
             [training]="training"
         ></app-training-item>
     </ng-container>
+</ion-content> -->
+
+<ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':''">
+    <div class="flex items-center justify-center" [class]="trainings.length ? '' : 'h-full'">
+        <div class="w-full p-5">
+            <div class="w-full text-center mb-10">
+                <div class="logo">Welcome!</div>
+                <div class="px-10">
+                    <small>Start your workout, see your achievements or manage your account and workouts</small>
+                </div>
+            </div>
+            <div>
+                <button (click)="startScanner()" [hidden]="scanActive" class="primary-button" expand="block">
+                    Scan QR Code
+                </button>
+
+                <ion-row class="scan-button" [hidden]="!scanActive">
+                    <ion-col class="ion-no-padding">
+                        <button expand="full" (click)="stopScanner()" class="primary-button" expand="block">
+                            Stop
+                        </button>
+                    </ion-col>
+                </ion-row>
+                <div class="scan-box" [hidden]="!scanActive"></div>
+            </div>
+            <div class="mt-10" *ngIf="currentGymId && trainings.length">
+                <app-training-item
+                    *ngFor="let training of trainings"
+                    (click)="goToTrainingDetails(training.id)"
+                    [gymId]="currentGymId"
+                    [activeTraining]="false"
+                    [training]="training"
+                ></app-training-item>
+            </div>
+        </div>
+    </div>
 </ion-content>

@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Gym, Training } from 'src/app/interfaces/interfaces';
+import { Gym, ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
 
 import { Component } from '@angular/core';
 import { TrainingService } from 'src/app/services/api/trainings.service';
@@ -34,6 +34,13 @@ export class TrainingListPage {
         void this.router.navigate([
             `/profile-tabs/profile/${this.userId}/training-list/${trainingId}/gym/${this.selectedGym.id}`,
         ]);
+    }
+
+    async onTrainingCreation(event: ModalCloseResult) {
+        if (event.type === `Confirm`) {
+            const newTraining = await this.trainingService.getTrainingById(event.data.trainingId);
+            this.trainings.push(newTraining);
+        }
     }
 
     async onGymSelected(gym: Gym) {

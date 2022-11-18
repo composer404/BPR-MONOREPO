@@ -38,7 +38,24 @@ export class TrainingService {
         });
     }
 
-    async deleteTraining(trainingId: string) {}
+    async deleteTraining(trainingId: string) {
+        return firstValueFrom(
+            this.httpClient.delete<boolean>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`),
+        ).catch((err) => {
+            console.log(`[API ERR - GET TRAINING]`, err);
+            return null;
+        });
+    }
 
-    async editTraining(trainingId: string, body: Partial<Training>) {}
+    async editTraining(trainingId: string, body: Partial<Training>) {
+        return firstValueFrom(
+            this.httpClient.put<boolean>(
+                `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`,
+                body,
+            ),
+        ).catch((err) => {
+            console.log(`[API ERR - GET TRAINING]`, err);
+            return null;
+        });
+    }
 }
