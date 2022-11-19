@@ -65,9 +65,26 @@ export class TrainingDetailsPage implements OnInit {
         });
     }
 
-    async deleteTraining() {
+    async onExerciseDelete(exerciseId: string) {
         await this.dialogService.openConfirmationDialog({
             header: `Are you sure?`,
+
+            confirmFn: async () => {
+                const result = await this.exerciseService.deleteExercise(exerciseId);
+                if (!result) {
+                    this.toastService.error(`Cannot delete selected exercise. Try again later.`);
+                    return;
+                }
+                this.toastService.success(`Selected exercise has been successfully deleted`);
+                this.exercises = this.exercises.filter((exercise) => exercise.id !== exerciseId);
+            },
+        });
+    }
+
+    async deleteTraining(): Promise<void> {
+        await this.dialogService.openConfirmationDialog({
+            header: `Are you sure?`,
+
             confirmFn: async () => {
                 const result = await this.trainingService.deleteTraining(this.trainingId);
                 if (!result) {
@@ -78,7 +95,20 @@ export class TrainingDetailsPage implements OnInit {
                 this.router.navigateByUrl(`/profile-tabs/profile/${this.profileId}/training-list`);
             },
         });
-        // this.dialogService.openConfirmationDialog()
+    }
+
+    async onExerciseCreated(event: ModalCloseResult) {
+        if (event.type === `Confirm`) {
+            const exercise = await this.exerciseService.getExerciseById(event.data.exerciseId);
+            this.exercises.push(exercise);
+        }
+    }
+
+    async onExerciseEdited(event: ModalCloseResult) {
+        if (event.type === `Confirm`) {
+            const exercise = await this.exerciseService.getExerciseById(event.data.exerciseId);
+            this.exercises = this.exercises.map((e) => (e.id !== exercise.id ? e : exercise));
+        }
     }
 
     async onTrainingCreation(event: ModalCloseResult) {

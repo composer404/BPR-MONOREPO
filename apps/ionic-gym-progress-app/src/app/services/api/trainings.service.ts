@@ -12,7 +12,7 @@ import { firstValueFrom } from 'rxjs';
 export class TrainingService {
     constructor(private readonly httpClient: HttpClient) {}
 
-    async createTraining(body: Partial<Training>) {
+    async createTraining(body: Partial<Training>): Promise<BPRApiCreatedObject | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}`;
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(url, {

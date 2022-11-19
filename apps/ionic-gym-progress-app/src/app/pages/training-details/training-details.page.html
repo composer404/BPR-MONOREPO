@@ -1,4 +1,8 @@
 <ion-content class="ion-padding" *ngIf="selectedTraining">
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 HEADER                                  -->
+    <!-- ----------------------------------------------------------------------- -->
+
     <div class="w-100 flex justify-end p-2">
         <div>
             <app-create-training-modal
@@ -15,19 +19,48 @@
         </div>
         <ion-icon (click)="deleteTraining()" class="text-4xl ml-2" name="trash"></ion-icon>
     </div>
-    <app-create-exercise-modal
-        [id]="'edit-trainig-modal'"
-        [trainingMachines]="trainingMachines"
-        [trainingId]="trainingId"
-    ></app-create-exercise-modal>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 CONTENT                                 -->
+    <!-- ----------------------------------------------------------------------- -->
 
     <div class="w-full p-5">
-        <div class="w-full text-center mb-10">
+        <div class="w-full text-center mb-3">
             <div class="title text-3xl mb-2">{{selectedTraining.title}}</div>
             <div class="mb-2 muted">(Type: {{selectedTraining.type}})</div>
             <div class="px-3">{{selectedTraining.description}}</div>
         </div>
+
+        <app-create-exercise-modal
+            [id]="'create-exercise-modal'"
+            [trainingMachines]="trainingMachines"
+            [trainingId]="trainingId"
+            (closeEvent)="onExerciseCreated($event)"
+            [buttonTemplate]="createButton"
+        ></app-create-exercise-modal>
+        <ng-template #createButton>
+            <button [id]="'create-exercise-modal'" class="primary-button">Add exercise</button>
+        </ng-template>
     </div>
 
-    <app-exercise-item *ngFor="let exercise of exercises" [exercise]="exercise"></app-exercise-item>
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                              EXERCISE LIST                              -->
+    <!-- ----------------------------------------------------------------------- -->
+
+    <div *ngIf="exercises && exercises.length; else noData" class="grid grid-cols-2">
+        <ng-container *ngFor="let exercise of exercises">
+            <app-exercise-item
+                *ngIf="exercise"
+                (deleteEvent)="onExerciseDelete(exercise.id)"
+                (editEvent)="onExerciseEdited($event)"
+                [trainingMachines]="trainingMachines"
+                [trainingId]="trainingId"
+                [exercise]="exercise"
+            ></app-exercise-item>
+        </ng-container>
+    </div>
+
+    <ng-template #noData>
+        <div class="mt-10 text-center text-lg font-bold">No created exercises</div>
+    </ng-template>
 </ion-content>

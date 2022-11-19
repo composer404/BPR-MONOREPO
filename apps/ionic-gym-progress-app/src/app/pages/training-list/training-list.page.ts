@@ -1,8 +1,9 @@
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Gym, ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
 
-import { Component } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
@@ -10,11 +11,12 @@ import { TrainingService } from 'src/app/services/api/trainings.service';
     templateUrl: './training-list.page.html',
     styleUrls: ['./training-list.page.scss'],
 })
-export class TrainingListPage {
+export class TrainingListPage implements OnDestroy {
     trainingForm: FormGroup;
     userId: string;
     trainings: Training[] = [];
     selectedGym: Gym;
+    subs = new Subscription();
 
     constructor(
         private readonly router: Router,
@@ -28,12 +30,28 @@ export class TrainingListPage {
             description: new FormControl(``),
             comment: new FormControl(``),
         });
+
+        this.subs.add(
+            route.params.subscribe((val) => {
+                if (this.selectedGym) {
+                    this.loadTrainings();
+                }
+            }),
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.subs.unsubscribe();
     }
 
     goToTrainingDetails(trainingId: string): void {
         void this.router.navigate([
             `/profile-tabs/profile/${this.userId}/training-list/${trainingId}/gym/${this.selectedGym.id}`,
         ]);
+    }
+
+    async loadTrainings() {
+        this.trainings = await this.trainingService.getUserTrainingForGym(this.selectedGym.id);
     }
 
     async onTrainingCreation(event: ModalCloseResult) {

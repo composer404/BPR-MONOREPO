@@ -107,8 +107,8 @@ export class CreateTrainingModalComponent implements OnInit {
             this.closeModalWithConfirm();
             return;
         }
-        await this.createTraining(requestBody);
-        this.closeModalWithConfirm();
+        const result = await this.createTraining(requestBody);
+        this.closeModalWithConfirm(result);
     }
 
     closeModalWithConfirm(trainingId?: string) {
@@ -129,7 +129,7 @@ export class CreateTrainingModalComponent implements OnInit {
             return;
         }
         this.toastService.success(`Successfully created new training`);
-        return result;
+        return result.id;
     }
 
     async editTraining(body: Partial<Training>) {

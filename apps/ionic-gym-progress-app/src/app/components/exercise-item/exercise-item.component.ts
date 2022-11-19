@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
-
-import { Exercise } from '../../interfaces/interfaces';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Exercise, ModalCloseResult, TrainingMachine } from '../../interfaces/interfaces';
 
 @Component({
     selector: 'app-exercise-item',
@@ -10,4 +9,16 @@ import { Exercise } from '../../interfaces/interfaces';
 export class ExerciseItemComponent {
     @Input()
     exercise: Exercise;
+
+    @Input()
+    trainingMachines: TrainingMachine[];
+
+    @Input()
+    trainingId: string;
+
+    @Output()
+    deleteEvent = new EventEmitter<void>();
+
+    @Output()
+    editEvent = new EventEmitter<ModalCloseResult>();
 }
