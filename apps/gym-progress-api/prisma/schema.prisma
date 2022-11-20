@@ -108,3 +108,13 @@ model Exercise {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
+
+model TrainingType {
+    id String @id @default(uuid())
+
+    activityId String
+    name       String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
