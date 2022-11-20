@@ -135,6 +135,7 @@ export interface Exercise {
     updatedAt?: string;
     estimatedTimeInMinutes?: number;
     trainingMachineId?: string;
+    activity?:string
 }
 
 export interface ExerciseStatusChange {
@@ -167,4 +168,12 @@ export interface BurnedCalories {
     activityid?: string;
     activitymin?: number;
     weight?: number;
+}
+
+export interface TrainingType {
+    id?:string;
+    activityId?:string,
+    name?: string,
+    createdAt?: string;
+    updatedAt?: string;
 }

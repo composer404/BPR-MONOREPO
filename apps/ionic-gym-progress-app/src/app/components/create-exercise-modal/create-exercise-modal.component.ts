@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Exercise, ModalCloseResult, TrainingMachine } from 'src/app/interfaces/interfaces';
+import { Exercise, ModalCloseResult, TrainingMachine, TrainingType } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ExerciseService } from '../../services/api/exercise.service';
@@ -28,6 +29,9 @@ export class CreateExerciseModalComponent implements OnInit {
     trainingMachines: TrainingMachine[];
 
     @Input()
+    activities: TrainingType[];
+
+    @Input()
     id: string;
 
     @Output()
@@ -46,6 +50,7 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: new FormControl(``),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),
+            activity:new FormControl(null, [Validators.required]),
         });
     }
 
@@ -64,6 +69,7 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: new FormControl(this.exercise.quantity),
             trainingMachineId: new FormControl(this.exercise.trainingMachineId, [Validators.required]),
             estimatedTime: new FormControl(this.exercise.estimatedTimeInMinutes, [Validators.required]),
+            activity: new FormControl(this.exercise.activity, [Validators.required]),
         });
     }
 
@@ -76,6 +82,7 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: this.exerciseForm.get('quantity').value,
             trainingMachineId: this.exerciseForm.get(`trainingMachineId`).value,
             estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`).value,
+            activity: this.exerciseForm.get(`activity`).value,
         };
 
         if (this.exercise) {
@@ -141,6 +148,16 @@ export class CreateExerciseModalComponent implements OnInit {
         }
     }
 
+    onActivityChange(event: any) {
+        const activityId = event?.detail?.value;
+
+        if (activityId) {
+            this.exerciseForm.patchValue({
+                activityId,
+            });
+        }
+    }
+
     onEstimatedTimeChange(event: any) {
         const estimatedTime = event?.detail?.value;
 
@@ -164,6 +181,7 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: this.exerciseForm.get('quantity').value,
             trainingMachineId: this.exerciseForm.get(`trainingMachineId`).value,
             estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`).value,
+            activity: this.exerciseForm.get(`activity`).value,
         });
 
         if (!result) {

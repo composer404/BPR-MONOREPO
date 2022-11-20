@@ -40,4 +40,9 @@ export class ExerciseService {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/${id}`;
         return firstValueFrom(this.httpClient.put<boolean>(url, body)).catch(() => null);
     }
+    
+    async getActivityTypeId(activityid:string):Promise<Exercise | null>{
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/${activityid}`;
+        return firstValueFrom(this.httpClient.get<Exercise>(url)).catch(() => null);
+    }
 }

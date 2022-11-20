@@ -70,6 +70,20 @@
                                 </ion-item>
                             </ion-list>
 
+                            <ion-list>
+                                <ion-item>
+                                    <ion-select
+                                        [value]="exercise?.activity"
+                                        (ionChange)="onActivityChange($event)"
+                                        placeholder="Select activity type"
+                                    >
+                                        <ion-select-option [value]="activity" *ngFor="let activity of activities"
+                                            >{{ activity.name }} </ion-select-option
+                                        >
+                                    </ion-select>
+                                </ion-item>
+                            </ion-list>
+
                             <div class="mt-4">
                                 <div class="text-center">Estimated time</div>
                                 <ion-range
