@@ -124,7 +124,6 @@ export class TrainingDetailsPage implements OnInit {
                 return;
             }
             if (result) {
-                console.log(`training machines`, result);
                 this.trainingMachines = result;
             }
         });

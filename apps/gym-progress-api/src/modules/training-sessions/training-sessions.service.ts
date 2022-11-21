@@ -1,4 +1,4 @@
-import { Prisma, TrainingSession } from '@prisma/client';
+import { Prisma, SessionExercise, TrainingSession } from '@prisma/client';
 import { SessionExerciseInput, TrainingSessionInput } from 'src/models/training-session.model';
 
 import { CreatedObjectResponse } from 'src/models';
@@ -46,16 +46,21 @@ export class TrainingSessionsService {
         }
 
         const exercises = await this.exerciseService.getExercisesForTraining(trainingId);
-        exercises.map((e: any) => (e.trainingSessionId = result));
 
-        const exerciseResult = this.sessionExerciseDatabase
-            .createMany({
-                data: exercises as any[],
-            })
-            .catch((err) => {
-                console.log(`[API]`, err);
-                return null;
+        const promises = exercises.map(async (exercise) => {
+            delete exercise.trainingId;
+            delete exercise.id;
+
+            const promises = await this.sessionExerciseDatabase.create({
+                data: {
+                    ...exercise,
+                    trainingSessionId: result.id,
+                },
             });
+            return promises;
+        });
+
+        const exerciseResult = await Promise.all(promises);
 
         if (!exerciseResult) {
             return null;
@@ -127,6 +132,21 @@ export class TrainingSessionsService {
         }
 
         return true;
+    }
+
+    async getSessionExerciseById(id: string): Promise<SessionExercise | null> {
+        const result = await this.sessionExerciseDatabase
+            .findFirst({
+                where: {
+                    id,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+
+        return result;
     }
 
     async getTrainingSessionById(id: string): Promise<TrainingSession | null> {

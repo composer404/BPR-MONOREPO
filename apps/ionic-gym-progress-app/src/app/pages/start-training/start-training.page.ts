@@ -4,15 +4,17 @@ import { Training, WEBSOCKET_REQUEST_EVENT } from 'src/app/interfaces/interfaces
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Component } from '@angular/core';
 import { ScannerService } from 'src/app/services/common/scanner.service';
+import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingService } from 'src/app/services/api/trainings.service';
+import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 import { WebsocketService } from 'src/app/services/api/websocket.service';
 
 @Component({
-    selector: 'app-profile',
-    templateUrl: './profile.page.html',
-    styleUrls: ['./profile.page.scss'],
+    selector: 'app-start-training',
+    templateUrl: './start-training.page.html',
+    styleUrls: ['./start-training.page.scss'],
 })
-export class ProfilePage {
+export class StartTrainingPage {
     scannedValue;
     scanActive = false;
     userId: string;
@@ -22,8 +24,10 @@ export class ProfilePage {
     constructor(
         private readonly trainingService: TrainingService,
         private readonly websocketService: WebsocketService,
+        private readonly trainingSessionService: TrainingSessionService,
         private readonly scannerService: ScannerService,
         private readonly route: ActivatedRoute,
+        private readonly toastService: ToastService,
         private readonly router: Router,
     ) {
         this.userId = this.route.snapshot.params.id;
@@ -33,8 +37,8 @@ export class ProfilePage {
         this.trainings = await this.trainingService.getUserTrainingForGym(this.currentGymId);
     }
 
-    goToTrainingDetails(trainingId: string) {
-        void this.router.navigate([`/active-training/gym/${this.currentGymId}/training/${trainingId}`]);
+    goToTheActiveSession(sessionId: string) {
+        void this.router.navigate([`/active-training/gym/${this.currentGymId}/session/${sessionId}`]);
     }
 
     notifyAboutConnection(): void {
@@ -44,6 +48,17 @@ export class ProfilePage {
         };
 
         this.websocketService.sendMessage(WEBSOCKET_REQUEST_EVENT.connect_user_to_gym, JSON.stringify(body));
+    }
+
+    async createTrainingSession(trainingId: string) {
+        const result = await this.trainingSessionService.createTrainingSession(trainingId);
+
+        if (!result) {
+            this.toastService.error(`Cannot create a training session. Try again later.`);
+            return;
+        }
+
+        this.goToTheActiveSession(result.id);
     }
 
     async startScanner() {

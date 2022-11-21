@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Exercise, ExerciseStatusChange, WEBSOCKET_RESPONSE_EVENT } from 'src/app/interfaces/interfaces';
+import {
+    Exercise,
+    ExerciseStatusChange,
+    TrainingSession,
+    WEBSOCKET_RESPONSE_EVENT,
+} from 'src/app/interfaces/interfaces';
 
 import { ActivatedRoute } from '@angular/router';
-import { ExerciseService } from 'src/app/services/api/exercise.service';
+import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 import { WebsocketService } from 'src/app/services/api/websocket.service';
 
 @Component({
@@ -12,9 +17,11 @@ import { WebsocketService } from 'src/app/services/api/websocket.service';
 })
 export class ActiveTrainingPage implements OnInit {
     gymId: string;
-    trainingId: string;
+    trainingSessionId: string;
 
     exercises: Exercise[] = [];
+
+    trainigSession: TrainingSession;
 
     trainingMachineChangeListener: any;
     trainingMachineIncommingValue: ExerciseStatusChange;
@@ -22,26 +29,25 @@ export class ActiveTrainingPage implements OnInit {
     constructor(
         private readonly route: ActivatedRoute,
         private readonly websocketService: WebsocketService,
-        private readonly exerciseService: ExerciseService,
+        private readonly trainingSessionService: TrainingSessionService,
     ) {
         this.gymId = this.route.snapshot.params.gymId;
-        this.trainingId = this.route.snapshot.params.trainingId;
+        this.trainingSessionId = this.route.snapshot.params.sessionId;
     }
 
     ngOnInit(): void {
-        this.loadExercisesForTraining();
+        this.loadTrainingSession();
         this.listenForEvents();
     }
 
     finishTrainig() {}
 
-    async loadExercisesForTraining() {
-        this.exercises = await this.exerciseService.getExercisesForTrainings(this.trainingId);
+    async loadTrainingSession() {
+        this.trainigSession = await this.trainingSessionService.getTrainingSessionById(this.trainingSessionId);
     }
 
     private listenForEvents() {
         this.trainingMachineChangeListener = (data) => {
-            console.log(`Training machine state changes`, data);
             this.trainingMachineIncommingValue = data;
         };
         this.websocketService.listenForEvent(

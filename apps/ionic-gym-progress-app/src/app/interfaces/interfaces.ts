@@ -135,7 +135,7 @@ export interface Exercise {
     updatedAt?: string;
     estimatedTimeInMinutes?: number;
     trainingMachineId?: string;
-    activity?:string
+    activity?: string;
 }
 
 export interface ExerciseStatusChange {
@@ -162,6 +162,27 @@ export interface TrainingMachine {
     exercises?: Exercise[];
 }
 
+/* ---------------------------- TRAINING SESSIONS --------------------------- */
+
+export interface SessionExercise {
+    id?: string;
+    title?: string;
+    description?: string;
+    exercise_type?: string;
+    quantity?: number;
+    muscle_group?: string;
+    trainingMachineId?: string;
+    estimatedTimeInMinutes?: number;
+    burnedCalories?: number;
+    completed?: boolean;
+    timeInMinutes?: number;
+}
+
+export interface TrainingSession {
+    completed: boolean;
+    sessionExercises: SessionExercise[];
+}
+
 /* ------------------------- STATISTICS ------------------------ */
 
 export interface BurnedCalories {
@@ -171,9 +192,9 @@ export interface BurnedCalories {
 }
 
 export interface TrainingType {
-    id?:string;
-    activityId?:string,
-    name?: string,
+    id?: string;
+    activityId?: string;
+    name?: string;
     createdAt?: string;
     updatedAt?: string;
 }

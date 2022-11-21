@@ -12,7 +12,8 @@ const routes: Routes = [
         children: [
             {
                 path: 'profile/:id',
-                loadChildren: () => import('../profile/profile.module').then((m) => m.ProfilePageModule),
+                loadChildren: () =>
+                    import('../start-training/start-training.module').then((m) => m.StartTrainingPageModule),
             },
             {
                 path: 'profile/:id/edit',

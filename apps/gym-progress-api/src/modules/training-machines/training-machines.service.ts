@@ -2,19 +2,19 @@ import { Prisma, TrainingMachine } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
 import { DateTime } from 'luxon';
-import { ExercisesService } from '../exercises';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 import { SessionsGateway } from '../socket/sessions.gateway';
 import { TraininMachineInput } from 'src/models/training-machines.model';
+import { TrainingSessionsService } from '../training-sessions';
 
 @Injectable()
 export class TrainingMachinesService {
     private database: Prisma.TrainingMachineDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     constructor(
         private readonly prismaService: PrismaService,
-        private readonly exerciseService: ExercisesService,
         private readonly sessionsGateway: SessionsGateway,
+        private readonly trainingSessionService: TrainingSessionsService,
     ) {
         this.database = this.prismaService.trainingMachine;
     }
@@ -68,7 +68,7 @@ export class TrainingMachinesService {
         gymId: string,
         userId: string,
     ): Promise<boolean> {
-        const selectedExercise = await this.exerciseService.getExerciseById(exerciseId);
+        const selectedExercise = await this.trainingSessionService.getSessionExerciseById(exerciseId);
         this.sessionsGateway.notifyAboutChangeOfTrainingMachine(gymId, userId, {
             timeframeInMinutes: selectedExercise.estimatedTimeInMinutes,
             trainingMachineId: id,

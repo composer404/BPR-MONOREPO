@@ -52,7 +52,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/profile-tabs/profile-tabs.module').then((m) => m.ProfileTabsPageModule),
     },
     {
-        path: `active-training/gym/:gymId/training/:trainingId`,
+        path: `active-training/gym/:gymId/session/:sessionId`,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/active-training/active-training.module').then((m) => m.ActiveTrainingPageModule),

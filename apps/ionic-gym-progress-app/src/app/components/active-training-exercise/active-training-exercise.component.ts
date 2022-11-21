@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { Exercise, ExerciseStatusChange } from 'src/app/interfaces/interfaces';
+import { Exercise, ExerciseStatusChange, SessionExercise } from 'src/app/interfaces/interfaces';
 
 import { DateTime } from 'luxon';
 import { ToastService } from 'src/app/services/common/toast.service';
@@ -12,7 +12,7 @@ import { TrainingMachineService } from 'src/app/services/api/training-machine.se
 })
 export class ActiveTrainingExerciseComponent implements OnChanges {
     @Input()
-    exercise: Exercise;
+    exercise: SessionExercise;
 
     @Input()
     statusChange: ExerciseStatusChange;

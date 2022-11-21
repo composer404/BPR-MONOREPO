@@ -31,10 +31,13 @@ export enum LOCAL_API_SERVICES {
     sessions = `/sessions`,
 
     /* -------------------------------- SESSIONS -------------------------------- */
-    
     calories = `/burnedcalorie`,
 
     /* -------------------------------- TRAINING TYPES ------------------------------- */
 
-    trainingTypes = `/training-types`
+    trainingTypes = `/training-types`,
+
+    /* ---------------------------- TRAINING SESSIONS --------------------------- */
+
+    trainingSessions = `/training-sessions`,
 }

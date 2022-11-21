@@ -1,6 +1,6 @@
-<ng-container *ngIf="exercises.length">
+<ng-container *ngIf="trainigSession?.sessionExercises.length">
     <app-active-training-exercise
-        *ngFor="let exercise of exercises"
+        *ngFor="let exercise of trainigSession.sessionExercises"
         [statusChange]="trainingMachineIncommingValue"
         [gymId]="gymId"
         [exercise]="exercise"

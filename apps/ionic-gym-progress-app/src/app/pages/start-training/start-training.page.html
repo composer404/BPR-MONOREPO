@@ -45,7 +45,7 @@
             <div class="mt-10" *ngIf="currentGymId && trainings.length">
                 <app-training-item
                     *ngFor="let training of trainings"
-                    (click)="goToTrainingDetails(training.id)"
+                    (click)="createTrainingSession(training.id)"
                     [gymId]="currentGymId"
                     [activeTraining]="false"
                     [training]="training"

@@ -3,18 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
-import { ProfilePage } from './profile.page';
+import { StartTrainingPage } from './start-training.page';
 import { TrainingItemModule } from 'src/app/components/training-item/training-item.module';
 
 const routes: Routes = [
     {
         path: '',
-        component: ProfilePage,
+        component: StartTrainingPage,
     },
 ];
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(routes), IonicModule, TrainingItemModule],
-    declarations: [ProfilePage],
+    declarations: [StartTrainingPage],
 })
-export class ProfilePageModule {}
+export class StartTrainingPageModule {}
