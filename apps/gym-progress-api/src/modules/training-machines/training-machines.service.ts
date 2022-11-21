@@ -52,6 +52,10 @@ export class TrainingMachinesService {
                 return null;
             });
 
+        if (!result) {
+            return null;
+        }
+
         return {
             id: result.id,
         };
