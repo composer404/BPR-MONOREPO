@@ -1,7 +1,7 @@
 <ng-container *ngIf="buttonTemplate; else defaultButtonTemplate" [ngTemplateOutlet]="buttonTemplate"></ng-container>
 
 <ng-template #defaultButtonTemplate>
-    <ion-button [id]="id || 'create-edit-training-modal'" expand="block">{{ title || 'Open' }}</ion-button>
+    <ion-button [id]="id || 'create-edit-training-modal'" expand="block">{{ title || 'Create training' }}</ion-button>
 </ng-template>
 <ion-modal [trigger]="id || 'create-edit-training-modal'">
     <ng-template>
