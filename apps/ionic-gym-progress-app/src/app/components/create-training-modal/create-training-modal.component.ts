@@ -32,6 +32,7 @@ export class CreateTrainingModalComponent implements OnInit {
     closeEvent = new EventEmitter<ModalCloseResult>();
 
     trainingForm: FormGroup;
+    modalTitle: string;
 
     constructor(private readonly trainingService: TrainingService, private readonly toastService: ToastService) {
         this.trainingForm = new FormGroup({
@@ -45,7 +46,10 @@ export class CreateTrainingModalComponent implements OnInit {
     ngOnInit(): void {
         if (this.trainingId) {
             void this.loadTrainingData();
+            this.modalTitle = `EDIT TRAINING`;
+            return;
         }
+        this.modalTitle = `CREATE TRAINING`;
     }
 
     cancelTrainingCreation() {

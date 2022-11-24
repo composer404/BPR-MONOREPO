@@ -24,10 +24,10 @@ export class TrainingItemComponent implements OnInit {
     constructor(private readonly sessionsService: SessionsService) {}
 
     ngOnInit(): void {
-        if (this.activeTraining) {
-            this.sessionsService.getGymNumberOfParticipants(this.gymId).then((data) => {
-                this.numberOfParticipants = data;
-            });
-        }
+        // if (this.activeTraining) {
+        //     this.sessionsService.getGymNumberOfParticipants(this.gymId).then((data) => {
+        //         this.numberOfParticipants = data;
+        //     });
+        // }
     }
 }

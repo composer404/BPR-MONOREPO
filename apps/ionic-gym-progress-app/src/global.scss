@@ -86,6 +86,28 @@ body {
     filter: grayscale(100%) blur(2px) brightness(30%);
   }
 
+.card-button {
+  background-color: rgb(17, 17, 17);
+  padding: 5px;
+  border-radius: 6px;
+  // width: 80px;
+}
+
+.completed-card {
+  background-color: #438721;
+  height: 250px;
+  color: #fff;
+  font-weight: 800;
+}
+
+.my-modal-class{
+
+   height: 30%;
+   width: 80%;
+   margin: auto;
+   border-radius: 15px;
+}
+
 
 .primary-button {
     background: var(--primary-gradient) !important;

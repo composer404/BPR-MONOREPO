@@ -130,12 +130,18 @@ export interface Exercise {
     exercise_type?: string;
     muscle_group?: string;
     trainingId?: string;
-    quantity: number;
+    quantity: string;
     createdAt?: string;
     updatedAt?: string;
     estimatedTimeInMinutes?: number;
     trainingMachineId?: string;
     activity?: string;
+}
+
+export interface ExerciseType {
+    id?: string;
+    activityId: string;
+    name: string;
 }
 
 export interface ExerciseStatusChange {
@@ -169,7 +175,7 @@ export interface SessionExercise {
     title?: string;
     description?: string;
     exercise_type?: string;
-    quantity?: number;
+    quantity?: string;
     muscle_group?: string;
     trainingMachineId?: string;
     estimatedTimeInMinutes?: number;
@@ -180,6 +186,7 @@ export interface SessionExercise {
 
 export interface TrainingSession {
     completed: boolean;
+    trainingId: string;
     sessionExercises: SessionExercise[];
 }
 

@@ -8,19 +8,37 @@
     <!-- ------------------------- AFTER GYM SELECTION ------------------------- -->
 
     <ng-container *ngIf="selectedGym">
-        <button class="ion-activatable ripple-parent" (click)="selectedGym = null">
-            back <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-        </button>
-        <app-create-training-modal
-            (closeEvent)="onTrainingCreation($event)"
-            [gymId]="selectedGym.id"
-        ></app-create-training-modal>
+        <div class="w-full p-5">
+            <button class="ion-activatable ripple-parent" (click)="selectedGym = null">
+                <ion-icon name="arrow-back"></ion-icon>
+                <!-- back <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+                 -->
+            </button>
 
-        <app-training-item
-            *ngFor="let training of trainings"
-            [training]="training"
-            (click)="goToTrainingDetails(training.id)"
-            >{{ training.title }}</app-training-item
-        >
+            <div class="w-full text-center mb-3 mt-3">
+                <div class="title text-3xl mb-2">Your training on <b>{{ selectedGym.name }}</b> gym</div>
+                <div class="px-3">Create new training or modify existing one</div>
+            </div>
+
+            <app-create-training-modal
+                (closeEvent)="onTrainingCreation($event)"
+                [gymId]="selectedGym.id"
+                [buttonTemplate]="createButton"
+                [id]="'create-training-modal'"
+            ></app-create-training-modal>
+
+            <ng-template #createButton>
+                <div class="p-2">
+                    <button [id]="'create-training-modal'" class="primary-button">Add training</button>
+                </div>
+            </ng-template>
+
+            <app-training-item
+                *ngFor="let training of trainings"
+                [training]="training"
+                (click)="goToTrainingDetails(training.id)"
+                >{{ training.title }}</app-training-item
+            >
+        </div>
     </ng-container>
 </ion-content>

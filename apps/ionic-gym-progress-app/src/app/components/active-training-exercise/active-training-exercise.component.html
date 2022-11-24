@@ -1,4 +1,4 @@
-<div [class]="exerciseCardStyle">
+<!-- <div [class]="exerciseCardStyle">
     <div>
         {{ exercise.title }}
         {{ exercise.id }}
@@ -9,4 +9,47 @@
 
     <button *ngIf="!exerciseStarted" (click)="startExercise()">Start exercise</button>
     <button *ngIf="exerciseStarted" (click)="finishExercise()">Finish exercise</button>
-</div>
+</div> -->
+
+<ion-card *ngIf="!exercise.completed">
+    <ion-card-header class="text-center">
+        <ion-card-title class="mt-1 text font-bold">{{ exercise.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="text-left">
+        <div class="text-left">
+            <div class="flex items-center text-xl mt-1">
+                <ion-icon name="timer"></ion-icon>
+                <div class="ml-2">{{ exercise.estimatedTimeInMinutes }}min</div>
+            </div>
+            <div class="flex items-center text-xl">
+                <ion-icon name="refresh"></ion-icon>
+                <div class="ml-2">{{ exercise.quantity }}</div>
+            </div>
+            <div class="flex items-center text-xl mt-1">
+                <ion-icon name="body"></ion-icon>
+                <div class="ml-2">{{ exercise.muscle_group }}</div>
+            </div>
+            <div class="flex items-start text-xl mt-1">
+                <ion-icon name="clipboard"></ion-icon>
+                <div class="ml-2">{{ exercise.description || '-' }}</div>
+            </div>
+        </div>
+        <div class="w-full mt-4 gap-3">
+            <button class="card-button w-full" *ngIf="!exerciseStarted" (click)="startExercise()">Start</button>
+            <button class="card-button w-full" *ngIf="exerciseStarted" (click)="finishExercise()">Finish</button>
+        </div>
+    </ion-card-content>
+    <button (click)="openExerciseModal()">open modal</button>
+</ion-card>
+
+<ion-card *ngIf="exercise.completed">
+    <div class="completed-card flex items-center justify-center">
+        <div class="text-center">
+            <ion-icon class="text-6xl" name="checkmark-circle"></ion-icon>
+
+            <div class="text-xl">{{ exercise.title }}</div>
+            <div class="text-sm mt-2">{{ exercise.burnedCalories }} calories</div>
+            <div class="text-sm">{{ exercise.timeInMinutes }} min</div>
+        </div>
+    </div>
+</ion-card>

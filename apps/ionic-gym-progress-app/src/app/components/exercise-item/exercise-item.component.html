@@ -1,44 +1,41 @@
 <ion-card>
     <ion-card-header class="text-center">
-        <div class="w-100 text-right">
+        <ion-card-title class="mt-1 text font-bold">{{ exercise.title }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="text-left">
+        <div class="text-left">
+            <div class="flex items-center text-xl mt-1">
+                <ion-icon name="timer"></ion-icon>
+                <div class="ml-2">{{ exercise.estimatedTimeInMinutes }}min</div>
+            </div>
+            <div class="flex items-center text-xl">
+                <ion-icon name="refresh"></ion-icon>
+                <div class="ml-2">{{ exercise.quantity }}</div>
+            </div>
+            <div class="flex items-center text-xl mt-1">
+                <ion-icon name="body"></ion-icon>
+                <div class="ml-2">{{ exercise.muscle_group }}</div>
+            </div>
+            <div class="flex items-start text-xl mt-1">
+                <ion-icon name="clipboard"></ion-icon>
+                <div class="ml-2">{{ exercise.description || '-' }}</div>
+            </div>
+        </div>
+        <div class="flex justify-between mt-4 gap-3">
             <app-create-exercise-modal
                 [id]="'edit-exercise-modal' + exercise.id"
                 [trainingMachines]="trainingMachines"
                 [trainingId]="trainingId"
                 [exercise]="exercise"
                 [buttonTemplate]="createButton"
+                class="w-1/2"
                 (closeEvent)="editEvent.emit($event)"
-            ></app-create-exercise-modal>
-            <ng-template #createButton>
-                <ion-icon [id]="'edit-exercise-modal' + exercise.id" class="text-xl ml-2" name="brush"></ion-icon>
-            </ng-template>
-            <ion-icon (click)="deleteEvent.emit()" class="text-xl ml-2" name="trash"></ion-icon>
-        </div>
-        <ion-card-title class="mt-1 text font-bold">{{ exercise.title }}</ion-card-title>
-        <ion-card-subtitle class="">({{ exercise.exercise_type }})</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-        <!-- <div class="absolute right-3 bottom-3 flex items-center">
-            <ion-icon class="text-4xl" name="timer"></ion-icon>
-            <div class="text-2xl ml-2">{{ exercise.estimatedTimeInMinutes }}min</div>
-        </div> -->
-        <div>
-            <div class="flex items-center justify-center text-xl mt-1">
-                <ion-icon name="timer"></ion-icon>
-                <div class="ml-2">{{ exercise.estimatedTimeInMinutes }}min</div>
-            </div>
-            <div class="flex items-center justify-center text-xl">
-                <ion-icon name="refresh"></ion-icon>
-                <div class="ml-2">{{ exercise.quantity }}</div>
-            </div>
-            <div class="flex items-center justify-center text-xl mt-1">
-                <ion-icon name="body"></ion-icon>
-                <div class="ml-2">{{ exercise.muscle_group }}</div>
-            </div>
-            <div class="flex items-center justify-center text-xl mt-1">
-                <ion-icon name="clipboard"></ion-icon>
-                <div class="ml-2">{{ exercise.description || 'No description' }}</div>
-            </div>
+            >
+                <ng-template #createButton>
+                    <button [id]="'edit-exercise-modal' + exercise.id" class="card-button w-full">Edit</button>
+                </ng-template>
+            </app-create-exercise-modal>
+            <button (click)="deleteEvent.emit()" class="card-button w-1/2">Delete</button>
         </div>
     </ion-card-content>
 </ion-card>

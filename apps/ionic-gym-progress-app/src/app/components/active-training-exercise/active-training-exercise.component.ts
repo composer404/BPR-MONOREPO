@@ -1,7 +1,9 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Exercise, ExerciseStatusChange, SessionExercise } from 'src/app/interfaces/interfaces';
 
+import { ActiveExerciseModalComponent } from '../active-exercise-modal/active.exercise-modal.component';
 import { DateTime } from 'luxon';
+import { ModalController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 
@@ -30,6 +32,7 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
     constructor(
         private readonly trainingMachineService: TrainingMachineService,
         private readonly toastService: ToastService,
+        private readonly modalController: ModalController,
     ) {}
 
     ngOnChanges() {
@@ -54,6 +57,26 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
             return;
         }
         this.exerciseStarted = true;
+    }
+
+    async openExerciseModal() {
+        const modal = await this.modalController.create({
+            component: ActiveExerciseModalComponent,
+            componentProps: {
+                sessionExercise: this.exercise,
+            },
+            cssClass: 'my-modal-class',
+            backdropDismiss: false,
+        });
+
+        modal.onDidDismiss().then((result) => {
+            console.log(`result`, result.data);
+            this.exercise.completed = true;
+            this.exercise.burnedCalories = result.data.burnedCalories;
+            this.exercise.timeInMinutes = result.data.timeInMinutes;
+        });
+
+        modal.present();
     }
 
     async finishExercise() {

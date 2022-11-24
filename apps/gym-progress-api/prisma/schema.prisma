@@ -98,7 +98,7 @@ model Exercise {
     title         String
     description   String?
     exercise_type String // require to define type of quantity (e.g time, repeat number...)
-    quantity      Float?
+    quantity      String?
     muscle_group  String
 
     training   Training @relation(fields: [trainingId], references: [id], onDelete: Cascade)
@@ -117,10 +117,10 @@ model SessionExercise {
     title         String
     description   String?
     exercise_type String
-    quantity      Float?
+    quantity      String?
     muscle_group  String
 
-    burnedCalories Int     @default(0)
+    burnedCalories Float   @default(0)
     timeInMinutes  Int     @default(0)
     completed      Boolean @default(false)
 
@@ -135,7 +135,8 @@ model SessionExercise {
 }
 
 model TrainingSession {
-    id String @id @default(uuid())
+    id         String @id @default(uuid())
+    trainingId String
 
     sessionExercises SessionExercise[]
     completed        Boolean           @default(false)

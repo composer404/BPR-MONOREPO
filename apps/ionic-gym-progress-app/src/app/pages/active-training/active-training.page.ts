@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {
     Exercise,
     ExerciseStatusChange,
+    Training,
     TrainingSession,
     WEBSOCKET_RESPONSE_EVENT,
 } from 'src/app/interfaces/interfaces';
 
 import { ActivatedRoute } from '@angular/router';
+import { TrainingService } from 'src/app/services/api/trainings.service';
 import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 import { WebsocketService } from 'src/app/services/api/websocket.service';
 
@@ -22,6 +24,7 @@ export class ActiveTrainingPage implements OnInit {
     exercises: Exercise[] = [];
 
     trainigSession: TrainingSession;
+    training: Training;
 
     trainingMachineChangeListener: any;
     trainingMachineIncommingValue: ExerciseStatusChange;
@@ -29,6 +32,7 @@ export class ActiveTrainingPage implements OnInit {
     constructor(
         private readonly route: ActivatedRoute,
         private readonly websocketService: WebsocketService,
+        private readonly trainingService: TrainingService,
         private readonly trainingSessionService: TrainingSessionService,
     ) {
         this.gymId = this.route.snapshot.params.gymId;
@@ -44,6 +48,7 @@ export class ActiveTrainingPage implements OnInit {
 
     async loadTrainingSession() {
         this.trainigSession = await this.trainingSessionService.getTrainingSessionById(this.trainingSessionId);
+        this.training = await this.trainingService.getTrainingById(this.trainigSession.trainingId);
     }
 
     private listenForEvents() {

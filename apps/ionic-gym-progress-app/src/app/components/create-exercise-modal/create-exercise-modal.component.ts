@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Exercise, ModalCloseResult, TrainingMachine, TrainingType } from 'src/app/interfaces/interfaces';
+import { Exercise, ExerciseType, ModalCloseResult, TrainingMachine, TrainingType } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ExerciseService } from '../../services/api/exercise.service';
@@ -29,16 +29,15 @@ export class CreateExerciseModalComponent implements OnInit {
     trainingMachines: TrainingMachine[];
 
     @Input()
-    activities: TrainingType[];
-
-    @Input()
     id: string;
 
     @Output()
     closeEvent = new EventEmitter<ModalCloseResult>();
 
     exerciseForm: FormGroup;
+    exerciseTypes: ExerciseType[];
     selected: string;
+    title: string;
     description: string;
 
     constructor(private readonly exerciseService: ExerciseService, private readonly toastService: ToastService) {
@@ -50,14 +49,17 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: new FormControl(``),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),
-            activity:new FormControl(null, [Validators.required]),
         });
     }
 
     ngOnInit(): void {
+        void this.loadExerciseTypes();
         if (this.exercise) {
+            this.title = `EDIT AN EXERCISE`;
             this.loadExerciseData();
+            return;
         }
+        this.title = `CREATE AN EXERCISE`;
     }
 
     loadExerciseData() {
@@ -69,8 +71,11 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: new FormControl(this.exercise.quantity),
             trainingMachineId: new FormControl(this.exercise.trainingMachineId, [Validators.required]),
             estimatedTime: new FormControl(this.exercise.estimatedTimeInMinutes, [Validators.required]),
-            activity: new FormControl(this.exercise.activity, [Validators.required]),
         });
+    }
+
+    async loadExerciseTypes() {
+        this.exerciseTypes = await this.exerciseService.getAllExerciseTypes();
     }
 
     async confirmExerciseForm() {
@@ -82,7 +87,6 @@ export class CreateExerciseModalComponent implements OnInit {
             quantity: this.exerciseForm.get('quantity').value,
             trainingMachineId: this.exerciseForm.get(`trainingMachineId`).value,
             estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`).value,
-            activity: this.exerciseForm.get(`activity`).value,
         };
 
         if (this.exercise) {
@@ -148,12 +152,12 @@ export class CreateExerciseModalComponent implements OnInit {
         }
     }
 
-    onActivityChange(event: any) {
+    onExerciseTypeChange(event: any) {
         const activityId = event?.detail?.value;
 
         if (activityId) {
             this.exerciseForm.patchValue({
-                activityId,
+                exercise_type: activityId,
             });
         }
     }

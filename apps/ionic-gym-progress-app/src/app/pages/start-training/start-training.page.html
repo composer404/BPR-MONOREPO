@@ -47,7 +47,7 @@
                     *ngFor="let training of trainings"
                     (click)="createTrainingSession(training.id)"
                     [gymId]="currentGymId"
-                    [activeTraining]="false"
+                    [activeTraining]="true"
                     [training]="training"
                 ></app-training-item>
             </div>

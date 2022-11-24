@@ -10,7 +10,7 @@ export class SessionExerciseInput {
     @ApiProperty()
     exercise_type: string;
     @ApiProperty()
-    quantity?: number;
+    quantity?: string;
     @ApiProperty()
     muscle_group: string;
     @ApiProperty()

@@ -10,7 +10,7 @@
             <div class="h-full flex items-center justify-center">
                 <div class="w-full p-5">
                     <div class="w-full text-center mb-10">
-                        <div class="logo">CREATE AN EXERCISE</div>
+                        <div class="logo">{{ title }}</div>
                     </div>
                     <div class="card">
                         <form [formGroup]="exerciseForm" (ngSubmit)="confirmExerciseForm()" novalidate>
@@ -21,18 +21,22 @@
 
                             <ion-item lines="full">
                                 <ion-label position="floating">Description</ion-label>
-                                <ion-input formControlName="description" type="text" required></ion-input>
+                                <ion-input formControlName="description" type="text"></ion-input>
                             </ion-item>
 
                             <ion-list>
                                 <ion-item lines="full">
                                     <ion-label position="stacked">Exercise Type</ion-label>
-                                    <ion-select formControlName="exercise_type" interface="popover">
-                                        <ion-select-option value="cardio">Cardio</ion-select-option>
-                                        <ion-select-option value="strength">Strength</ion-select-option>
-                                        <ion-select-option value="flexibility">Flexibility</ion-select-option>
-                                        <ion-select-option value="balance">Balance</ion-select-option>
-                                        <ion-select-option value="coordination">Coordination</ion-select-option>
+                                    <ion-select
+                                        (ionChange)="onExerciseTypeChange($event)"
+                                        formControlName="exercise_type"
+                                        interface="popover"
+                                    >
+                                        <ion-select-option
+                                            [value]="type.activityId"
+                                            *ngFor="let type of exerciseTypes"
+                                            >{{ type.name }}</ion-select-option
+                                        >
                                     </ion-select>
                                 </ion-item>
                             </ion-list>
@@ -53,7 +57,7 @@
 
                             <ion-item lines="full">
                                 <ion-label position="stacked">Quantity</ion-label>
-                                <ion-input formControlName="quantity" type="number"></ion-input>
+                                <ion-input formControlName="quantity" type="text"></ion-input>
                             </ion-item>
 
                             <ion-list>
@@ -65,20 +69,6 @@
                                     >
                                         <ion-select-option [value]="machine.id" *ngFor="let machine of trainingMachines"
                                             >{{ machine.name }} ({{ machine.location }})</ion-select-option
-                                        >
-                                    </ion-select>
-                                </ion-item>
-                            </ion-list>
-
-                            <ion-list>
-                                <ion-item>
-                                    <ion-select
-                                        [value]="exercise?.activity"
-                                        (ionChange)="onActivityChange($event)"
-                                        placeholder="Select activity type"
-                                    >
-                                        <ion-select-option [value]="activity" *ngFor="let activity of activities"
-                                            >{{ activity.name }} </ion-select-option
                                         >
                                     </ion-select>
                                 </ion-item>

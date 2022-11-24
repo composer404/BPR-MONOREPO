@@ -1,4 +1,5 @@
-import { BPRApiCreatedObject, Exercise } from '../../interfaces/interfaces';
+/* eslint-disable @typescript-eslint/naming-convention */
+import { BPRApiCreatedObject, Exercise, ExerciseType, SessionExercise } from '../../interfaces/interfaces';
 import { first, firstValueFrom } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
@@ -40,9 +41,37 @@ export class ExerciseService {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/${id}`;
         return firstValueFrom(this.httpClient.put<boolean>(url, body)).catch(() => null);
     }
-    
-    async getActivityTypeId(activityid:string):Promise<Exercise | null>{
+
+    async getActivityTypeId(activityid: string): Promise<Exercise | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/${activityid}`;
         return firstValueFrom(this.httpClient.get<Exercise>(url)).catch(() => null);
+    }
+
+    async getAllExerciseTypes(): Promise<ExerciseType[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/all`;
+        return firstValueFrom(this.httpClient.get<ExerciseType | null>(url)).catch(() => null);
+    }
+
+    async calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number> {
+        const url = `${environment.fintessApiUrl}/burnedcalorie`;
+        const response = await firstValueFrom(
+            this.httpClient.get(url, {
+                params: {
+                    activityid: activityId,
+                    activitymin: activityMin,
+                    weight,
+                },
+                headers: {
+                    'X-RapidAPI-Key': environment.API_KEY,
+                    'X-RapidAPI-Host': environment.API_HOST,
+                },
+            }),
+        ).catch(() => null);
+
+        if (!response) {
+            return null;
+        }
+        console.log(response.data.burnedCalorie, parseFloat(response.data.burnedCalorie));
+        return parseFloat(response.data.burnedCalorie);
     }
 }

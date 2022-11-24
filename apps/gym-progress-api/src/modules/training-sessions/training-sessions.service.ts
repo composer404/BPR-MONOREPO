@@ -34,6 +34,7 @@ export class TrainingSessionsService {
                 data: {
                     userId,
                     gymId: trainingResult.gymId,
+                    trainingId,
                 },
             })
             .catch((err) => {

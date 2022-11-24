@@ -1,10 +1,26 @@
-<ng-container *ngIf="trainigSession?.sessionExercises.length">
-    <app-active-training-exercise
-        *ngFor="let exercise of trainigSession.sessionExercises"
-        [statusChange]="trainingMachineIncommingValue"
-        [gymId]="gymId"
-        [exercise]="exercise"
-    ></app-active-training-exercise>
-</ng-container>
+<ion-content class="ion-padding">
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                 CONTENT                                 -->
+    <!-- ----------------------------------------------------------------------- -->
 
-<button (click)="finishTrainig()">Finish</button>
+    <div class="w-full p-5" *ngIf="training">
+        <div class="w-full text-center mb-3">
+            <div class="title text-3xl mb-2">{{training.title}}</div>
+            <div class="mb-2 muted">(Type: {{training.type}})</div>
+            <div class="px-3">{{training.description}}</div>
+        </div>
+    </div>
+    <div class="p-4">
+        <div *ngIf="trainigSession?.sessionExercises.length" class="grid grid-cols-2">
+            <app-active-training-exercise
+                *ngFor="let exercise of trainigSession.sessionExercises"
+                [statusChange]="trainingMachineIncommingValue"
+                [gymId]="gymId"
+                [exercise]="exercise"
+            ></app-active-training-exercise>
+        </div>
+        <div class="p-2 mt-2">
+            <button class="primary-button" (click)="finishTrainig()">FINISH</button>
+        </div>
+    </div>
+</ion-content>
