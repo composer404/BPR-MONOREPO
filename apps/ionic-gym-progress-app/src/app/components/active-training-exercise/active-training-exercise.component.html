@@ -1,17 +1,4 @@
-<!-- <div [class]="exerciseCardStyle">
-    <div>
-        {{ exercise.title }}
-        {{ exercise.id }}
-    </div>
-    <div *ngIf="showTimer">
-        {{ currentTime | date: 'mm:ss' }}
-    </div>
-
-    <button *ngIf="!exerciseStarted" (click)="startExercise()">Start exercise</button>
-    <button *ngIf="exerciseStarted" (click)="finishExercise()">Finish exercise</button>
-</div> -->
-
-<ion-card *ngIf="!exercise.completed">
+<ion-card *ngIf="!exercise.completed && !unavaliable">
     <ion-card-header class="text-center">
         <ion-card-title class="mt-1 text font-bold">{{ exercise.title }}</ion-card-title>
     </ion-card-header>
@@ -39,7 +26,6 @@
             <button class="card-button w-full" *ngIf="exerciseStarted" (click)="finishExercise()">Finish</button>
         </div>
     </ion-card-content>
-    <button (click)="openExerciseModal()">open modal</button>
 </ion-card>
 
 <ion-card *ngIf="exercise.completed">
@@ -50,6 +36,17 @@
             <div class="text-xl">{{ exercise.title }}</div>
             <div class="text-sm mt-2">{{ exercise.burnedCalories }} calories</div>
             <div class="text-sm">{{ exercise.timeInMinutes }} min</div>
+        </div>
+    </div>
+</ion-card>
+
+<ion-card *ngIf="unavaliable && !exercise.completed">
+    <div class="disabled-card flex items-center justify-center">
+        <div class="text-center">
+            <ion-icon class="text-6xl" name="alert"></ion-icon>
+
+            <div class="text-xl">Unavaliable</div>
+            <div class="text-sm mt-2">Remaining time: {{ currentTime | date: 'mm:ss' }}</div>
         </div>
     </div>
 </ion-card>

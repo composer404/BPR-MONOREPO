@@ -185,9 +185,25 @@ export interface SessionExercise {
 }
 
 export interface TrainingSession {
+    id: string;
     completed: boolean;
     trainingId: string;
+    createdAt: string;
     sessionExercises: SessionExercise[];
+}
+
+export interface TrainingSummary {
+    totalMinutes: number;
+    totalCalories: number;
+    totalCompletedExercises: number;
+    sessionDate: string;
+}
+
+export interface UsedTrainingMachine {
+    trainingMachineId?: string;
+    stringStartedTimestamp?: string;
+    timeframeInMinutes?: number;
+    status?: boolean;
 }
 
 /* ------------------------- STATISTICS ------------------------ */

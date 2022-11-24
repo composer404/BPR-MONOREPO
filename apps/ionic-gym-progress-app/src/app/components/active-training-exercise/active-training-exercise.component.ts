@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import { Exercise, ExerciseStatusChange, SessionExercise } from 'src/app/interfaces/interfaces';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Exercise, ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/app/interfaces/interfaces';
 
 import { ActiveExerciseModalComponent } from '../active-exercise-modal/active.exercise-modal.component';
 import { DateTime } from 'luxon';
@@ -12,7 +12,7 @@ import { TrainingMachineService } from 'src/app/services/api/training-machine.se
     templateUrl: './active-training-exercise.component.html',
     styleUrls: ['./active-training-exercise.component.scss'],
 })
-export class ActiveTrainingExerciseComponent implements OnChanges {
+export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
     @Input()
     exercise: SessionExercise;
 
@@ -22,18 +22,34 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
     @Input()
     gymId: string;
 
+    @Input()
+    occupiedMachinesIds: UsedTrainingMachine[];
+
     exerciseCardStyle = `available`;
 
     timerInterval: any;
     showTimer: boolean;
     currentTime: string;
     exerciseStarted: boolean;
+    unavaliable: boolean;
 
     constructor(
         private readonly trainingMachineService: TrainingMachineService,
         private readonly toastService: ToastService,
         private readonly modalController: ModalController,
     ) {}
+
+    ngOnInit(): void {
+        const machinesIds = this.occupiedMachinesIds.map((machine) => machine.trainingMachineId);
+        if (machinesIds.includes(this.exercise.trainingMachineId)) {
+            this.statusChange = {
+                trainingMachine: this.occupiedMachinesIds.find(
+                    (element) => element.trainingMachineId === this.exercise.trainingMachineId,
+                ),
+            };
+            this.makeMachineUnavailable();
+        }
+    }
 
     ngOnChanges() {
         if (this.statusChange?.trainingMachine.trainingMachineId === this.exercise.trainingMachineId) {
@@ -56,7 +72,8 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
             this.toastService.error(`Cannot start exercise. Try again in a few seconds`);
             return;
         }
-        this.exerciseStarted = true;
+        this.openExerciseModal();
+        // this.exerciseStarted = true;
     }
 
     async openExerciseModal() {
@@ -70,10 +87,10 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
         });
 
         modal.onDidDismiss().then((result) => {
-            console.log(`result`, result.data);
             this.exercise.completed = true;
             this.exercise.burnedCalories = result.data.burnedCalories;
             this.exercise.timeInMinutes = result.data.timeInMinutes;
+            this.finishExercise();
         });
 
         modal.present();
@@ -94,12 +111,14 @@ export class ActiveTrainingExerciseComponent implements OnChanges {
     }
 
     private makeMachineUnavailable() {
-        this.exerciseCardStyle = `unavailable`;
+        this.unavaliable = true;
+        // this.exerciseCardStyle = `unavailable`;
         this.startTimer();
     }
 
     private makeMachineAvailable() {
-        this.exerciseCardStyle = `available`;
+        this.unavaliable = false;
+        // this.exerciseCardStyle = `available`;
         this.stopTimer();
     }
 

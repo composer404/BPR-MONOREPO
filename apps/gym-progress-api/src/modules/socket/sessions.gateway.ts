@@ -89,6 +89,13 @@ export class SessionsGateway {
         return this.gymWithUsers.get(gymId).values.length;
     }
 
+    getGymUsedTrainingMachinesIds(gymId: string): UsedTrainingMachine[] {
+        const array = Array.from(this.gymWithUsedTrainigMachines.get(gymId).values()).filter(
+            (machine) => machine.status === false,
+        );
+        return array;
+    }
+
     getNumberOfUsedTrainingMachines(gymId: string) {
         return this.gymWithUsedTrainigMachines.get(gymId).values.length;
     }
@@ -97,11 +104,11 @@ export class SessionsGateway {
         this.logger.log(
             `Training machine ${trainingMachine.trainingMachineId} status changed for ${trainingMachine.status}`,
         );
-        if (trainingMachine.status) {
+        if (!trainingMachine.status) {
             this.addUsedTrainingMachine(gymId, trainingMachine);
         }
 
-        if (!trainingMachine.status) {
+        if (trainingMachine.status) {
             this.removeUsedTrainingMachine(gymId, trainingMachine.trainingMachineId);
         }
 

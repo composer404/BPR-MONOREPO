@@ -1,9 +1,9 @@
 import { Observable, firstValueFrom } from 'rxjs';
+import { TrainingMachine, UsedTrainingMachine } from '../../interfaces/interfaces';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
-import { TrainingMachine } from '../../interfaces/interfaces';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -23,6 +23,11 @@ export class TrainingMachineService {
         return this.httpClient.get<TrainingMachine>(
             `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${trainingMachineId}`,
         );
+    }
+
+    async getCurrentUsedTrainingMachinesIds(gymId: string): Promise<UsedTrainingMachine[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.sessions}/machines/${gymId}`;
+        return firstValueFrom(this.httpClient.get<number[]>(url)).catch(() => null);
     }
 
     async changeTrainingMachineStatus(

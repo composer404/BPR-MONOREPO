@@ -20,39 +20,13 @@ const routes: Routes = [
         canActivate: [LoginGuard],
         loadChildren: () => import('./pages/signup/signup.module').then((m) => m.SignupModule),
     },
-    // {
-    //     path: 'profile/:id/edit',
-    //     canActivate: [AuthGuard],
-    //     loadChildren: () => import('./pages/edit-account/edit-account.module').then((m) => m.EditPageModule),
-    // },
-    // {
-    //     path: 'profile/:id',
-    //     canActivate: [AuthGuard],
-    //     loadChildren: () => import('./pages/profile/profile.module').then((m) => m.ProfilePageModule),
-    // },
-    // {
-    //   path: 'training-list',
-    //   canActivate: [AuthGuard],
-    //   loadChildren: () => import('./pages/training-list/training-list.module').then((m) => m.TrainingListPageModule),
-    // },
-    // {
-    //   path: 'training-details',
-    //   canActivate: [AuthGuard],
-    //   loadChildren: () => import('./pages/training-details/training-details.module').then(m => m.TrainingDetailsPageModule)
-    // },
-    // {
-    //   path: 'training-machine-details',
-    //   canActivate: [AuthGuard],
-    //   loadChildren:
-    //     () => import('./pages/training-machine-details/training-machine-details.module').then( m => m.TrainingMachineDetailsPageModule)
-    // },
     {
         path: 'profile-tabs',
         canActivate: [AuthGuard],
         loadChildren: () => import('./pages/profile-tabs/profile-tabs.module').then((m) => m.ProfileTabsPageModule),
     },
     {
-        path: `active-training/gym/:gymId/session/:sessionId`,
+        path: `profile/:id/active-training/gym/:gymId/session/:sessionId`,
         canActivate: [AuthGuard],
         loadChildren: () =>
             import('./pages/active-training/active-training.module').then((m) => m.ActiveTrainingPageModule),
