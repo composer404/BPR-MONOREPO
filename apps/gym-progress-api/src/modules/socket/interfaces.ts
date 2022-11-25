@@ -31,4 +31,5 @@ export interface UsedTrainingMachine {
     stringStartedTimestamp?: string;
     timeframeInMinutes?: number;
     status?: boolean;
+    uniqeIdentifier?: number;
 }

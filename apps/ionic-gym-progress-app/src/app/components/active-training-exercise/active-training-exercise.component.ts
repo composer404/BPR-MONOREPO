@@ -32,6 +32,7 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
     currentTime: string;
     exerciseStarted: boolean;
     unavaliable: boolean;
+    overTimer: boolean;
 
     constructor(
         private readonly trainingMachineService: TrainingMachineService,
@@ -133,6 +134,10 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
 
         this.timerInterval = setInterval(() => {
             timeLeft -= 1000;
+            if (timeLeft <= 0) {
+                this.overTimer = true;
+                clearInterval(this.timerInterval);
+            }
             this.currentTime = timeLeft.toString();
         }, 1000);
         this.showTimer = true;

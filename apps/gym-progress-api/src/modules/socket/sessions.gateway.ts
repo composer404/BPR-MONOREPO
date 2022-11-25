@@ -3,6 +3,7 @@ import { REQUEST_EVENT, RESPONSE_EVENT, SessionMessageInput, UsedTrainingMachine
 import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { LoggerService } from '../logger/logger.service';
+import { SchedulerRegistry } from '@nestjs/schedule';
 
 @WebSocketGateway({ cors: true })
 export class SessionsGateway {
@@ -15,7 +16,7 @@ export class SessionsGateway {
         Map<string, UsedTrainingMachine>
     >();
 
-    constructor(private readonly logger: LoggerService) {}
+    constructor(private readonly logger: LoggerService, private schedulerRegistry: SchedulerRegistry) {}
 
     @SubscribeMessage(REQUEST_EVENT.connect_user_to_gym)
     listenForUserConnection(@MessageBody() data: string, @ConnectedSocket() socket: Socket) {
@@ -100,12 +101,44 @@ export class SessionsGateway {
         return this.gymWithUsedTrainigMachines.get(gymId).values.length;
     }
 
+    // @Timeout()
+    // makeTrainingMachineFreeAgain() {
+
+    // }
+
+    makeMachineAvaliableAgainTimeout(trainingMachine: UsedTrainingMachine, gymId: string, uniqeIdentifier: number) {
+        const gymWithMachines = this.gymWithUsedTrainigMachines.get(gymId);
+        const gym = this.gymWithUsers.get(gymId);
+        const machine = gymWithMachines.get(trainingMachine.trainingMachineId);
+
+        if (!machine?.status && uniqeIdentifier === trainingMachine.uniqeIdentifier) {
+            this.logger.log(`Automatically make machine ${trainingMachine.trainingMachineId} free`);
+            this.removeUsedTrainingMachine(gymId, trainingMachine.trainingMachineId);
+            trainingMachine.status = true;
+
+            for (const [key, value] of gym) {
+                this.logger.log(`EMIT TRAINING MACHINE CHANGE FOR USER: ${key}`);
+                value.socket.emit(RESPONSE_EVENT.trainign_machine_status_changed, {
+                    trainingMachine,
+                });
+            }
+        }
+    }
+
     notifyAboutChangeOfTrainingMachine(gymId: string, userId: string, trainingMachine: UsedTrainingMachine) {
         this.logger.log(
             `Training machine ${trainingMachine.trainingMachineId} status changed for ${trainingMachine.status}`,
         );
         if (!trainingMachine.status) {
             this.addUsedTrainingMachine(gymId, trainingMachine);
+
+            const uniqeIdentifier = Date.now();
+            const timeToFreeAgain = trainingMachine.timeframeInMinutes * 1.5 * 60000;
+            trainingMachine.uniqeIdentifier = uniqeIdentifier;
+            this.logger.log(`Training machine will be free again after ${timeToFreeAgain}miliseconds`);
+            setTimeout(() => {
+                this.makeMachineAvaliableAgainTimeout(trainingMachine, gymId, uniqeIdentifier);
+            }, timeToFreeAgain);
         }
 
         if (trainingMachine.status) {

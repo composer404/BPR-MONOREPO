@@ -74,9 +74,10 @@ export class ActiveExerciseModalComponent implements OnInit, OnDestroy {
     }
 
     startTimer() {
+        this.buildTimerAsString();
         setInterval(() => {
-            this.buildTimerAsString();
             this.seconds += 1;
+            this.buildTimerAsString();
         }, 1000);
     }
 

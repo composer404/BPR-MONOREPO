@@ -46,7 +46,8 @@
             <ion-icon class="text-6xl" name="alert"></ion-icon>
 
             <div class="text-xl">Unavaliable</div>
-            <div class="text-sm mt-2">Remaining time: {{ currentTime | date: 'mm:ss' }}</div>
+            <div *ngIf="!overTimer" class="text-sm mt-2">Remaining time: {{ currentTime | date: 'mm:ss' }}</div>
+            <div *ngIf="overTimer" class="text-sm mt-2">Over estimated time</div>
         </div>
     </div>
 </ion-card>
