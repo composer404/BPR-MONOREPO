@@ -2,6 +2,11 @@
     <ion-card-header>
         <ion-card-subtitle>{{ gym.name }}</ion-card-subtitle>
         <ion-card-title>{{ gym.name }}</ion-card-title>
+
+        <div class="absolute top-3 right-3 text-xl font-bold">
+            <ion-icon name="person"></ion-icon>
+            {{ participantsNumber }}
+        </div>
     </ion-card-header>
     <ion-card-content>{{ gym.description }}</ion-card-content>
 
