@@ -1,14 +1,11 @@
-<div class="flex h-screen justify-center items-center bg-primary">
-    <div class="m-24 w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden bg-primary-dark">
-        <div class="md:flex w-full">
-            <div class="md:shrink-0">
-                <!-- <img class="h-80 w-full object-cover md:h-full md:w-80" src="/assets/icon/fitness.jpg" alt="Gym" /> -->
-            </div>
-            <div class="p-20 w-full card">
-                <form class="mt-5" [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+<div class="img-bg"></div>
+<div class="flex h-screen justify-center items-center">
+    <div class="w-4/5 mx-auto rounded-xl overflow-hidden bg-white">
+            <div class="p-48">
+                <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
                     <ng-container>
-                        <div class="flex flex-col gap-1 mb-4">
-                            <label for="login" class="text-sm">Login</label>
+                        <div class="flex flex-col gap-1 mb-4 mt-5">
+                            <label for="login" class="text-xl text-gray-500 mb-5">Login</label>
                             <input formControlName="login" class="input" pInputText id="login" type="text" />
                             <small
                                 *ngIf="
@@ -16,7 +13,7 @@
                                     (signupForm.get('login').dirty || signupForm.get('login').touched)
                                 "
                                 id="login-help"
-                                class="p-error"
+                                class="text-base p-error"
                                 ><div *ngIf="signupForm.get('login').errors?.['required']">Login is required.</div>
                                 <div *ngIf="signupForm.get('login').errors?.['minlength']">
                                     Login must be at least 4 characters long.
@@ -24,7 +21,7 @@
                             </small>
                         </div>
                         <div class="flex flex-col gap-1 mb-4">
-                            <label for="password" class="text-sm">Password</label>
+                            <label for="password" class="text-xl text-gray-500 mb-5 mt-5">Password</label>
                             <p-password
                                 formControlName="password"
                                 id="password"
@@ -39,7 +36,7 @@
                                     (signupForm.get('password').dirty || signupForm.get('password').touched)
                                 "
                                 id="password-help"
-                                class="p-error"
+                                class="text-base p-error"
                                 ><div *ngIf="signupForm.get('password').errors?.['required']">
                                     Password is required.
                                 </div>
@@ -49,7 +46,7 @@
                             </small>
                         </div>
                         <div class="flex flex-col gap-1 mb-4">
-                            <label for="information" class="text-sm">Information</label>
+                            <label for="information" class="text-xl text-gray-500 mb-5 mt-5">Information</label>
                             <input
                                 formControlName="information"
                                 class="input"
@@ -58,11 +55,12 @@
                                 type="text"
                             />
                         </div>
-                        <div class="flex flex-col mt-10 text-center">
+                        <div class="flex flex-col mt-10 text-center mb-5">
                             <button
                                 [disabled]="signupForm.invalid"
-                                class="primary-button py-2 rounded-md"
+                                class="bg-accent py-2 text-white text-xl rounded-sm"
                                 type="submit"
+                                style="background-color: #7424f6;"
                             >
                                 Create
                             </button>
@@ -70,7 +68,6 @@
                     </ng-container>
                 </form>
             </div>
-        </div>
     </div>
 </div>
 
