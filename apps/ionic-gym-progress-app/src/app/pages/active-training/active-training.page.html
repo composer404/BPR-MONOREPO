@@ -1,4 +1,4 @@
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="!summary else summaryView">
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 CONTENT                                 -->
     <!-- ----------------------------------------------------------------------- -->
@@ -15,6 +15,7 @@
             <app-active-training-exercise
                 *ngFor="let exercise of trainigSession.sessionExercises"
                 [statusChange]="trainingMachineIncommingValue"
+                [occupiedMachinesIds]="occupiedMachinesIds"
                 [gymId]="gymId"
                 [exercise]="exercise"
             ></app-active-training-exercise>
@@ -24,3 +25,30 @@
         </div>
     </div>
 </ion-content>
+
+<ng-template #summaryView>
+    <ion-content>
+        <div *ngIf="trainingSummary" class="h-full w-full text-center flex flex-col items-center justify-center">
+            <div class="title text-3xl mb-4">CONGRATULATIONS!</div>
+            <div class="mb-4">
+                <div class="font-bold">Date</div>
+                <div class="text-2xl font-extrabold">{{ trainingSummary.sessionDate | date:"dd/MM/yyyy HH:mm" }}</div>
+            </div>
+            <div class="mb-4">
+                <div class="font-bold">Completed exercises</div>
+                <div class="text-2xl font-extrabold">{{ trainingSummary.totalCompletedExercises }}</div>
+            </div>
+            <div class="mb-4">
+                <div class="font-bold">Total calories</div>
+                <div class="text-2xl font-extrabold">{{ trainingSummary.totalCalories }}</div>
+            </div>
+            <div class="mb-4">
+                <div class="font-bold">Total time</div>
+                <div class="text-2xl font-extrabold">{{ trainingSummary.totalMinutes }}min</div>
+            </div>
+            <div class="w-full p-6">
+                <button class="primary-button w-full" (click)="goToMenu()">Go to menu</button>
+            </div>
+        </div>
+    </ion-content>
+</ng-template>

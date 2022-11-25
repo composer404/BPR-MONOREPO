@@ -38,7 +38,9 @@ export class StartTrainingPage {
     }
 
     goToTheActiveSession(sessionId: string) {
-        void this.router.navigate([`/active-training/gym/${this.currentGymId}/session/${sessionId}`]);
+        void this.router.navigate([
+            `profile/${this.userId}/active-training/gym/${this.currentGymId}/session/${sessionId}`,
+        ]);
     }
 
     notifyAboutConnection(): void {
