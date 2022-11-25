@@ -3,13 +3,78 @@
 @tailwind utilities;
 
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --primary-gradient: linear-gradient(90deg, rgba(200,47,129,1) 0%, rgba(123,39,164,1) 100%);
+}
+
+ion-range {
+  --bar-background-active: var(--primary-gradient);
+  --bar-height: 5px;
+  --knob-size: 20px;
+  --pin-background: transparent;
+  --pin-color: #fff;
+}
+
+small {
+  color: white;
+  font-size: 36px;
+}
+
 body {
-    background-color: #7f00ff;
+  background-color: #252E37;
 }
 
 .card {
-    background-color: white;
-    border-radius: 6px;
-    margin: auto;
-    padding: 20px;
+  background-color: #1f1f1f;
+  padding: 15px;
+  border-radius: 6px;
+}
+
+.muted {
+  color: #494949;
+}
+
+.logo {
+  font-size: 62px;
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title {
+  font-weight: 800;
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.qr-frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  background: white;
+  border-radius: 1.5rem;
+}
+
+.img-bg {
+  background-image: url(./assets/login-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: -9999;
+  filter: grayscale(100%) blur(2px) brightness(30%);
+}
+
+.side-box {
+  background: white;
+  width: 400px;
+  height: 10px;
+  border-radius: 0.5rem;
 }

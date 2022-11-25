@@ -1,4 +1,15 @@
-<qrcode [qrdata]="gymId" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+<div class="img-bg"></div>
+<div class="h-full flex flex-col items-center justify-center">
+  <div class="logo m-20" style="font-size: 62px; line-height: 3rem">
+    Scan the code to access the kiosk:
+  </div>
+  <small>The results will be available in the GymProgress App</small>
 
-<!-- to change -->
-<button [routerLink]="'/training-machines'">Go to admin</button>
+  <small class="mt-72 mb-10">Login in through your GymProgress Account!</small>
+  <small class="mb-36">Scan the QR code in the app with your phone</small>
+  <div class="qr-frame">
+    <qrcode [qrdata]="gymId" [width]="384" [errorCorrectionLevel]="'M'"></qrcode>
+  </div>
+  <!-- to change -->
+  <div class="side-box mt-36" [routerLink]="'/training-machines'"></div>
+</div>
