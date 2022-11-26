@@ -29,6 +29,10 @@ const routes: Routes = [
                 loadChildren: () =>
                     import('../training-details/training-details.module').then((m) => m.TrainingDetailsPageModule),
             },
+            {
+                path: 'profile/:id/statistics',
+                loadChildren: () => import('../statistics/statistics.module').then((m) => m.StatisticsModule),
+            },
         ],
     },
 ];
