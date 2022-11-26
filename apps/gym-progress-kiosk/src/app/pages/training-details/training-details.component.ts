@@ -18,7 +18,7 @@ export class TrainingDetailsPage implements OnInit {
     exercises: Exercise[] = [];
     trainingMachines: TrainingMachines[] = [];
 
-    selectedTraining: Training;
+    selectedTraining?: Training;
     profileId: string;
     trainingId: string;
     gymId: string;

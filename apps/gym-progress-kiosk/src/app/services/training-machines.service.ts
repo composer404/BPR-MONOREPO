@@ -27,7 +27,7 @@ export class TrainingMachinesService implements ITrainingMachinesService {
         });
     }
 
-    async createTrainingMachine(body: Partial<TrainingMachines>,gymId: string): Promise<BPRApiCreatedObject | null> {
+    async createTrainingMachine(gymId: string,body: Partial<TrainingMachines>): Promise<BPRApiCreatedObject | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(url, {

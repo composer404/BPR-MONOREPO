@@ -12,13 +12,13 @@ import { Training } from 'src/app/interfaces/interfaces';
 })
 export class TrainingItemComponent implements OnInit {
     @Input()
-    training: Training;
+    training?: Training;
 
     @Input()
-    activeTraining: boolean;
+    activeTraining?: boolean;
 
     @Input()
-    gymId: string;
+    gymId?: string;
 
     participantsEventCallback: any;
   //  numberOfParticipants: number;

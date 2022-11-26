@@ -8,13 +8,13 @@ import { Exercise, ModalCloseResult, TrainingMachines } from '../../interfaces/i
 })
 export class ExerciseItemComponent {
     @Input()
-    exercise: Exercise;
+    exercise?: Exercise;
 
     @Input()
-    trainingMachines: TrainingMachines[];
+    trainingMachines?: TrainingMachines[];
 
     @Input()
-    trainingId: string;
+    trainingId?: string;
 
     @Output()
     deleteEvent = new EventEmitter<void>();

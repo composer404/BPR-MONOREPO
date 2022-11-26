@@ -11,7 +11,7 @@ import { TrainingMachinesService } from 'src/app/services/training-machines.serv
 })
 export class CreateTrainingMachineModalComponent implements OnInit {
     trainingMachineForm: FormGroup;
-    gymId:string;
+    gymId?:string;
 
     constructor(
         private readonly trainingMachineService: TrainingMachinesService,

@@ -20,29 +20,29 @@ import { InfoService } from 'src/app/services/info.service';
 export class CreateExerciseModalComponent implements OnInit {
 //    //@ViewChild(IonModal) ionModal: IonModal;
 
-//     @Input()
-  trainingId: string;
+    @Input()
+  trainingId?: string;
 
 //     @Input()
 //     buttonTemplate: TemplateRef<any>;
 
-//     @Input()
-     exercise: Exercise;
+    @Input()
+     exercise?: Exercise;
 
-//     @Input()
-     trainingMachines: TrainingMachine[];
+    @Input()
+     trainingMachines?: TrainingMachines[];
 
-//     @Input()
-     id: string;
+    @Input()
+     id?: string;
 
-//     @Output()
+    @Output()
      closeEvent = new EventEmitter<ModalCloseResult>();
 
     exerciseForm: FormGroup;
-    exerciseTypes: ExerciseType[];
-    // selected: string;
-      // title: string;
-    // description: string;
+    exerciseTypes?: ExerciseType[];
+    selected?: string;
+      title?: string;
+    description?: string;
 
     constructor(private readonly exerciseService: ExerciseService,
         public ref: DynamicDialogRef,
@@ -64,13 +64,13 @@ export class CreateExerciseModalComponent implements OnInit {
 
     loadExerciseData() {
         this.exerciseForm = new FormGroup({
-            title: new FormControl(this.exercise.title, [Validators.required]),
-            description: new FormControl(this.exercise.description),
-            exercise_type: new FormControl(this.exercise.exercise_type),
-            muscle_group: new FormControl(this.exercise.muscle_group),
-            quantity: new FormControl(this.exercise.quantity),
-            trainingMachineId: new FormControl(this.exercise.trainingMachineId, [Validators.required]),
-            estimatedTime: new FormControl(this.exercise.estimatedTimeInMinutes, [Validators.required]),
+            title: new FormControl(this.exercise?.title, [Validators.required]),
+            description: new FormControl(this.exercise?.description),
+            exercise_type: new FormControl(this.exercise?.exercise_type),
+            muscle_group: new FormControl(this.exercise?.muscle_group),
+            quantity: new FormControl(this.exercise?.quantity),
+            trainingMachineId: new FormControl(this.exercise?.trainingMachineId, [Validators.required]),
+            estimatedTime: new FormControl(this.exercise?.estimatedTimeInMinutes, [Validators.required]),
         });
     }
 
@@ -80,13 +80,13 @@ export class CreateExerciseModalComponent implements OnInit {
 
     async confirmExerciseForm() {
         const requestBody = {
-            title: this.exerciseForm.get(`title`).value,
-            description: this.exerciseForm.get(`description`).value,
-            exercise_type: this.exerciseForm.get(`exercise_type`).value,
-            muscle_group: this.exerciseForm.get(`muscle_group`).value,
-            quantity: this.exerciseForm.get('quantity').value,
-            trainingMachineId: this.exerciseForm.get(`trainingMachineId`).value,
-            estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`).value,
+            title: this.exerciseForm.get(`title`)?.value,
+            description: this.exerciseForm.get(`description`)?.value,
+            exercise_type: this.exerciseForm.get(`exercise_type`)?.value,
+            muscle_group: this.exerciseForm.get(`muscle_group`)?.value,
+            quantity: this.exerciseForm.get('quantity')?.value,
+            trainingMachineId: this.exerciseForm.get(`trainingMachineId`)?.value,
+            estimatedTimeInMinutes: this.exerciseForm.get(`estimatedTime`)?.value,
         };
 
         if (this.exercise) {
@@ -108,7 +108,7 @@ export class CreateExerciseModalComponent implements OnInit {
             return;
         }
         this.infoService.success(`Successfully edited exercise`);
-        return this.exercise.id;
+        return this.exercise?.id;
     }
 
 
@@ -163,14 +163,14 @@ export class CreateExerciseModalComponent implements OnInit {
    // async createExercise():Promise<void>{
 
         const response = this.exerciseService.createExercise(this.trainingId, {
-            title: this.exerciseForm?.get(`title`).value ,
-            description: this.exerciseForm?.get(`description`).value,
-            exercise_type: this.exerciseForm?.get(`exercise_type`).value,
-            muscle_group: this.exerciseForm?.get(`muscle_group`).value,
-            quantity: this.exerciseForm?.get('quantity').value,
-            trainingMachineId: this.exerciseForm?.get(`trainingMachineId`).value,
-            estimatedTimeInMinutes: this.exerciseForm?.get(`estimatedTime`).value,
-            activity: this.exerciseForm?.get(`activity`).value,
+            title: this.exerciseForm?.get(`title`)?.value ,
+            description: this.exerciseForm?.get(`description`)?.value,
+            exercise_type: this.exerciseForm?.get(`exercise_type`)?.value,
+            muscle_group: this.exerciseForm?.get(`muscle_group`)?.value,
+            quantity: this.exerciseForm?.get('quantity')?.value,
+            trainingMachineId: this.exerciseForm?.get(`trainingMachineId`)?.value,
+            estimatedTimeInMinutes: this.exerciseForm?.get(`estimatedTime`)?.value,
+            activity: this.exerciseForm?.get(`activity`)?.value,
         });
         if (!response) {
             this.infoService.error(`Cannot create an exercise. Try again later.`);

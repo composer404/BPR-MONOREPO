@@ -25,22 +25,22 @@ export class CreateTrainingModalComponent implements OnInit {
   //  @Input() buttonTemplate: TemplateRef<any>;
 
    // @Input()
-    gymId: string;
+    gymId?: string;
 
   //  @Input()
-    trainingId: string;
+    trainingId?: string;
 
    // @Input()
-    title: string;
+    title?: string;
 
   //  @Input()
-    id: string;
+    id?: string;
 
     @Output()
     closeEvent = new EventEmitter<ModalCloseResult>();
 
     trainingForm: FormGroup;
-    modalTitle: string;
+    modalTitle?: string;
 
     constructor(private readonly trainingService: TrainingService, 
         private readonly infoService: InfoService,
@@ -81,10 +81,10 @@ export class CreateTrainingModalComponent implements OnInit {
         const response = await this.trainingService.getTrainingById(this.trainingId);
 
         this.trainingForm = new FormGroup({
-            title: new FormControl(response.title, [Validators.required]),
-            type: new FormControl(response.type, [Validators.required]),
-            description: new FormControl(response.description),
-            comment: new FormControl(response.comment),
+            title: new FormControl(response?.title, [Validators.required]),
+            type: new FormControl(response?.type, [Validators.required]),
+            description: new FormControl(response?.description),
+            comment: new FormControl(response?.comment),
         });
     }
 
@@ -110,10 +110,10 @@ export class CreateTrainingModalComponent implements OnInit {
 
     async confirmTrainingCreation() {
         const requestBody = {
-            title: this.trainingForm.get(`title`).value,
-            type: this.trainingForm.get(`type`).value,
-            description: this.trainingForm.get(`description`).value,
-            comment: this.trainingForm.get(`comment`).value,
+            title: this.trainingForm.get(`title`)?.value,
+            type: this.trainingForm.get(`type`)?.value,
+            description: this.trainingForm.get(`description`)?.value,
+            comment: this.trainingForm.get(`comment`)?.value,
             gymId: this.gymId,
         };
 
