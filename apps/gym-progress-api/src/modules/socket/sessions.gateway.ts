@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { REQUEST_EVENT, RESPONSE_EVENT, SessionMessageInput, UsedTrainingMachine, UserSession } from './interfaces';
-import { ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+import {
+    ConnectedSocket,
+    MessageBody,
+    OnGatewayDisconnect,
+    SubscribeMessage,
+    WebSocketGateway,
+    WebSocketServer,
+} from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { LoggerService } from '../logger/logger.service';
 
 @WebSocketGateway({ cors: true })
-export class SessionsGateway {
+export class SessionsGateway implements OnGatewayDisconnect {
     @WebSocketServer()
     server: Server;
 
@@ -16,6 +23,18 @@ export class SessionsGateway {
     >();
 
     constructor(private readonly logger: LoggerService) {}
+
+    handleDisconnect(socket: Socket) {
+        for (const [key, value] of this.gymWithUsers) {
+            for (const [sessionKey, sessionValue] of value) {
+                if (socket.id === sessionValue.socket.id) {
+                    const gym = this.gymWithUsers.get(key);
+                    gym.delete(sessionKey);
+                    socket.disconnect();
+                }
+            }
+        }
+    }
 
     @SubscribeMessage(REQUEST_EVENT.connect_user_to_gym)
     listenForUserConnection(@MessageBody() data: string, @ConnectedSocket() socket: Socket) {
@@ -35,9 +54,26 @@ export class SessionsGateway {
         this.emitForParticipantsCount(message.gymId);
     }
 
+    @SubscribeMessage(REQUEST_EVENT.disconnect_user_to_gym)
+    listenForUserDisconnection(@MessageBody() data: string, @ConnectedSocket() socket: Socket) {
+        const message = JSON.parse(data);
+
+        const gym = this.gymWithUsers.get(message.gymId);
+        gym.delete(message.userId);
+
+        this.logger.log(`USER DISCONNECTED FROM GYM: gymId: gymId: ${message.gymId}, user: ${message.userId}`);
+    }
+
     @SubscribeMessage(REQUEST_EVENT.connect_kiosk_to_gym)
     listenForKioskConnection(@MessageBody() data: string) {
         const message = JSON.parse(data);
+
+        const exists = this.gymWithUsedTrainigMachines.get(message.id);
+
+        if (exists) {
+            return;
+        }
+
         this.logger.log(`KIOSK CONNECTED TO GYM: gymId: ${message.id}`);
 
         this.gymWithUsers.set(message.id, new Map<string, UserSession>());
@@ -86,7 +122,7 @@ export class SessionsGateway {
         if (!this.gymWithUsers.get(gymId)) {
             return 0;
         }
-        return this.gymWithUsers.get(gymId).values.length;
+        return Array.from(this.gymWithUsers.get(gymId).values()).length;
     }
 
     getGymUsedTrainingMachinesIds(gymId: string): UsedTrainingMachine[] {
@@ -100,12 +136,44 @@ export class SessionsGateway {
         return this.gymWithUsedTrainigMachines.get(gymId).values.length;
     }
 
+    // @Timeout()
+    // makeTrainingMachineFreeAgain() {
+
+    // }
+
+    makeMachineAvaliableAgainTimeout(trainingMachine: UsedTrainingMachine, gymId: string, uniqeIdentifier: number) {
+        const gymWithMachines = this.gymWithUsedTrainigMachines.get(gymId);
+        const gym = this.gymWithUsers.get(gymId);
+        const machine = gymWithMachines.get(trainingMachine.trainingMachineId);
+
+        if (!machine?.status && uniqeIdentifier === trainingMachine.uniqeIdentifier) {
+            this.logger.log(`Automatically make machine ${trainingMachine.trainingMachineId} free`);
+            this.removeUsedTrainingMachine(gymId, trainingMachine.trainingMachineId);
+            trainingMachine.status = true;
+
+            for (const [key, value] of gym) {
+                this.logger.log(`EMIT TRAINING MACHINE CHANGE FOR USER: ${key}`);
+                value.socket.emit(RESPONSE_EVENT.trainign_machine_status_changed, {
+                    trainingMachine,
+                });
+            }
+        }
+    }
+
     notifyAboutChangeOfTrainingMachine(gymId: string, userId: string, trainingMachine: UsedTrainingMachine) {
         this.logger.log(
             `Training machine ${trainingMachine.trainingMachineId} status changed for ${trainingMachine.status}`,
         );
         if (!trainingMachine.status) {
             this.addUsedTrainingMachine(gymId, trainingMachine);
+
+            const uniqeIdentifier = Date.now();
+            const timeToFreeAgain = trainingMachine.timeframeInMinutes * 1.5 * 60000;
+            trainingMachine.uniqeIdentifier = uniqeIdentifier;
+            this.logger.log(`Training machine will be free again after ${timeToFreeAgain}miliseconds`);
+            setTimeout(() => {
+                this.makeMachineAvaliableAgainTimeout(trainingMachine, gymId, uniqeIdentifier);
+            }, timeToFreeAgain);
         }
 
         if (trainingMachine.status) {

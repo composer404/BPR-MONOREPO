@@ -11,5 +11,12 @@
     <qrcode [qrdata]="gymId" [width]="384" [errorCorrectionLevel]="'M'"></qrcode>
   </div>
   <!-- to change -->
-  <div class="side-box mt-36" [routerLink]="'/training-machines'"></div>
+  <!--  <div class="side-box mt-36" [routerLink]="'/training-machines'"></div>-->
+  <button
+    class="bg-accent text-2xl py-2 text-white rounded-sm w-2/3 mt-20"
+    type="submit"
+    style="background-color: #7424f6;"
+    [routerLink]="['/login']">
+    Go To Login
+  </button>
 </div>

@@ -5,9 +5,12 @@
 
     <div class="title text-4xl mb-4 mt-6">
         <div>{{ timerString }}</div>
+        <div class="p-4 text-sm" *ngIf="seconds >= sessionExercise.estimatedTimeInMinutes * 60 * 1.5">
+            Estimated time is up. The machine is available for other users again.
+        </div>
     </div>
 
-    <div class="p-4 w-full text-center absolute bottom-5">
+    <div class="p-4 w-full text-center absolute bottom-2">
         <button class="primary-button w-5/6" (click)="closeModal()">COMPLETE</button>
     </div>
 </div>

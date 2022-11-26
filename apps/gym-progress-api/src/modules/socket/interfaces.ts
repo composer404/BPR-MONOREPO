@@ -4,6 +4,7 @@ export enum REQUEST_EVENT {
     count_used_training_machines = `count_used_training_machines`,
     connect_kiosk_to_gym = `connect_kiosk_to_gym`,
     connect_user_to_gym = `connect_user_to_gym`,
+    disconnect_user_to_gym = `disconnect_user_to_gym`,
 }
 
 export enum RESPONSE_EVENT {
@@ -31,4 +32,5 @@ export interface UsedTrainingMachine {
     stringStartedTimestamp?: string;
     timeframeInMinutes?: number;
     status?: boolean;
+    uniqeIdentifier?: number;
 }

@@ -6,6 +6,7 @@ import {
     TrainingSession,
     TrainingSummary,
     UsedTrainingMachine,
+    WEBSOCKET_REQUEST_EVENT,
     WEBSOCKET_RESPONSE_EVENT,
 } from 'src/app/interfaces/interfaces';
 
@@ -25,8 +26,6 @@ export class ActiveTrainingPage implements OnInit {
     gymId: string;
     trainingSessionId: string;
     userId: string;
-
-    // exercises: SessionExercise[] = [];
 
     trainigSession: TrainingSession;
     training: Training;
@@ -53,23 +52,11 @@ export class ActiveTrainingPage implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId).then((data) => {
-        //     if (!data) {
-        //         this.toastService.error(`Cannot load information about gym equipment. Try again later.`);
-        //         return;
-        //     }
-
-        // this.occupiedMachinesIds = data;
         this.loadTrainingSession();
         this.listenForEvents();
         this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId).then((data) => {
             this.occupiedMachinesIds = data;
         });
-        // });
-
-        //! DELETE
-        // this.loadTrainingSummary();
-        // this.summary = true;
     }
 
     async finishTrainig() {
@@ -84,8 +71,16 @@ export class ActiveTrainingPage implements OnInit {
             });
             return;
         }
-
         this.saveTrainingSessionAndShowSummary();
+    }
+
+    notifyAboutDisconnection(): void {
+        const body = {
+            gymId: this.gymId,
+            userId: this.userId,
+        };
+
+        this.websocketService.sendMessage(WEBSOCKET_REQUEST_EVENT.disconnect_user_to_gym, JSON.stringify(body));
     }
 
     saveTrainingSessionAndShowSummary() {
@@ -99,6 +94,7 @@ export class ActiveTrainingPage implements OnInit {
         }
         this.loadTrainingSummary();
         this.summary = true;
+        this.notifyAboutDisconnection();
     }
 
     async loadTrainingSession() {

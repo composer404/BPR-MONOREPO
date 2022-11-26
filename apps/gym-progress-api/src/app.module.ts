@@ -3,6 +3,7 @@ import { ExercisesModule } from './modules/exercises';
 import { GymsModule } from './modules/gyms/gyms.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { Module } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
 import { SessionsModule } from './modules/socket/sessions.module';
 import { TrainingMachinesModule } from './modules/training-machines';
 import { TrainingSessionsModule } from './modules/training-sessions';
@@ -21,6 +22,7 @@ import { UsersModule } from './modules/users';
         LoggerModule,
         TrainingTypesModule,
         TrainingSessionsModule,
+        ScheduleModule.forRoot(),
     ],
 })
 export class AppModule {}
