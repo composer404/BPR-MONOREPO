@@ -1,38 +1,4 @@
-<!-- --------------------- ADD TRAINING MACHINE MODAL ---------------------- -->
 
-<!-- <button class="py-2 px-4 text-black rounded-md bg-white" (click)="openCreateModal()">Add new training machine</button> -->
-
-<!-- --------------------- REMOVE TRAINING MACHINE MODAL ---------------------- -->
-
-<!-- <button class="py-2 px-4 text-black rounded-md bg-white" (click)="removeTrainingMachinesFromGym()">Remove traning machine</button> -->
-
-<!-- ---------------------- DISPLAY TRAINING MACHINES ---------------------- -->
-
-<!-- <div class="px-6 mt-4">
-    <div class="uppercase text-sm font-bold text-dark-red">Training Machines</div> -->
-
-<!-- maybe primeng table? -->
-<!-- <p-card class="w-2.5">
-    <div class="text-2xl " *ngFor="let trainingMachine of trainingMachines">
-        {{ trainingMachine.name }}
-        
-    </div>
-    <button class="py-2 px-4 text-black rounded-md bg-purple-800" (click)="onRemoveTrainingMachinesFromGym()">Remove traning machine</button> 
-</p-card> -->
-
-<!-- <app-machine-list-component></app-machine-list-component> -->
-
-<!-- (onChanges)="getTrainingMachinesForGym($event)" -->
-<!-- <app-machine-list-component> -->
-<!-- [trainingMachines]="trainingMachines" -->
-<!-- *ngFor="let trainingMachines of trainingMachines"
-            (onChanges)="getTrainingMachinesForGym()" -->
-<!-- (onRemove)="onRemoveTrainingMachine($event)"
-            (onChanges)="getTrainingMachinesForGym()" -->
-<!-- </app-machine-list-component>  -->
-<!-- </div> -->
-
-<!-- ------------------------------------------------------------------------------------------- -->
 <div class="card w-2/3 justify-center">
     <p-toolbar styleClass="mb-4 ">
         <ng-template pTemplate="left">
@@ -106,7 +72,7 @@
                         (click)="removeTrainingMachinesFromGym(trainingMachine)"
                     ></button>
 
-                    <!-- ----------------------- ONLY FOR GENERATING QR DONT REMOVE------------------------ -->
+                    <!-- -----------------------  GENERATING QR E------------------------ -->
 
                     <qrcode
                         style="display: none"

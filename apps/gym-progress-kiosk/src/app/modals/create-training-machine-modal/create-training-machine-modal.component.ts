@@ -11,6 +11,7 @@ import { TrainingMachinesService } from 'src/app/services/training-machines.serv
 })
 export class CreateTrainingMachineModalComponent implements OnInit {
     trainingMachineForm: FormGroup;
+    gymId:string;
 
     constructor(
         private readonly trainingMachineService: TrainingMachinesService,
@@ -29,7 +30,7 @@ export class CreateTrainingMachineModalComponent implements OnInit {
     ngOnInit(): void {}
 
     async createTrainingMachine(): Promise<void> {
-        const response = await this.trainingMachineService.createTrainingMachine({
+        const response = await this.trainingMachineService.createTrainingMachine(this.gymId,{
             name: this.trainingMachineForm?.get(`name`)?.value,
             description: this.trainingMachineForm?.get(`description`)?.value || ``,
             location: this.trainingMachineForm?.get(`location`)?.value || ``,

@@ -60,3 +60,59 @@ export interface BPRApiCreatedObject {
 export interface TrainingMachinesDetails extends TrainingMachines {
     trainingMachines: TrainingMachines[];
 }
+
+export interface Training {
+    id?: string;
+    title?: string;
+    type?: string;
+    description?: string;
+    comment?: string;
+
+    gymId?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface TrainingWithExercises {
+    training: Training;
+    exercises: Exercise[];
+}
+
+export interface Exercise {
+    id?: string;
+    title?: string;
+    description?: string;
+    exercise_type?: string;
+    muscle_group?: string;
+    trainingId?: string;
+    quantity: string;
+    createdAt?: string;
+    updatedAt?: string;
+    estimatedTimeInMinutes?: number;
+    trainingMachineId?: string;
+    activity?: string;
+}
+
+export interface ExerciseType {
+    id?: string;
+    activityId: string;
+    name: string;
+}
+
+export interface ModalCloseResult {
+    type: `Close` | `Confirm`;
+    data?: any;
+}
+export interface Gym {
+    name?: string;
+    id?: string;
+
+    street?: string;
+    post_code?: string;
+    country?: string;
+    description?: string;
+    street_number?: string;
+
+    createdAt?: string;
+    updatedAt?: string;
+}

@@ -53,7 +53,7 @@ export class EditTrainingMachineModalComponent implements OnInit {
     async onSave() {
         const body = {
             name: this.editTrainingMachineForm.get('name')?.value,
-            description: this.editTrainingMachineForm.get('decription')?.value,
+            description: this.editTrainingMachineForm.get('description')?.value,
             location: this.editTrainingMachineForm.get('location')?.value,
             formula_for_calories: this.editTrainingMachineForm.get('formula_for_calories')?.value,
             video: this.editTrainingMachineForm.get('video')?.value,
@@ -65,7 +65,7 @@ export class EditTrainingMachineModalComponent implements OnInit {
             this.infoService.error(`Training Machine update failed. Try again later`);
             return;
         }
-        this.infoService.success(`Training Machine has been succesfully updated`);
+        this.infoService.success(`Training Machine has been successfully updated`);
         this.ref.close();
     }
 

@@ -19,6 +19,7 @@ import { TrainingMachinesService } from 'src/app/services/training-machines.serv
 export class TrainingMachinesListComponent implements OnInit {
     subscriptions: Subscription[] = [];
     trainingMachines: TrainingMachines[] = [];
+    gymId:string;
 
     constructor(
         private readonly dialogService: DialogService,
@@ -109,7 +110,7 @@ export class TrainingMachinesListComponent implements OnInit {
     }
 
     private async getTrainingMachinesByGymId() {
-        this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
+        this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym(this.gymId);
     }
 
     private removeTrainingMachineLocally(trainingMachineId: string) {
