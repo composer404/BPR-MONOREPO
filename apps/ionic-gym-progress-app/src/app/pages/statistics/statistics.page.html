@@ -1,1 +1,23 @@
-statistics works
+<ion-content>
+    <div class="p-5">
+        <div class="flex justify-center gap-3">
+            <button class="primary-button-sm" (click)="openSessionsView()">Sessions</button>
+            <button class="primary-button-sm" (click)="openWeeklyView()">Weekly</button>
+            <button class="primary-button-sm" (click)="openMonthlyView()">Monthly</button>
+        </div>
+    </div>
+
+    <div *ngIf="sessionsView">
+        <div *ngFor="let session of trainingSessions">dasdas{{session.createdAt | date:"yyyy-MM-dd HH:mm"}}</div>
+
+        <button class="primary-button" (click)="loadSessions()">Load more</button>
+    </div>
+
+    <div *ngIf="weeklyView">
+        <app-weekly-stats></app-weekly-stats>
+    </div>
+
+    <div *ngIf="monthlyView">
+        <app-monthly-stats></app-monthly-stats>
+    </div>
+</ion-content>

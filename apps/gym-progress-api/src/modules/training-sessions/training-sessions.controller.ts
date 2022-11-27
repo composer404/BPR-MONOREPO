@@ -1,5 +1,5 @@
 import { ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Param, Post, UseGuards, Request, Get, Put, Delete } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards, Request, Get, Put, Delete, Query, Req } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards';
 import { BPRRequest, CreatedObjectResponse } from 'src/models';
 import { TrainingSessionsService } from './training-sessions.service';
@@ -47,5 +47,17 @@ export class TrainingSessionsController {
     @Delete(`:id`)
     async deleteTrainingSession(@Param() params: any): Promise<boolean> {
         return this.trainingSessionService.deleteTrainingSession(params.id);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(`/statistics/list`)
+    async getSessionsByIndex(@Query(`index`) index: string, @Request() req: BPRRequest) {
+        return this.trainingSessionService.getSessionsByIndex(index, req.user.id);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get(`/statistics/timeframe`)
+    async getSessionsByTimePeriod(@Query() params: any, @Request() req: BPRRequest) {
+        return this.trainingSessionService.getSessionsByTimePeriod(params.startDate, params.endDate, req.user.id);
     }
 }

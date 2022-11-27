@@ -71,7 +71,6 @@ export class ExerciseService {
         if (!response) {
             return null;
         }
-        console.log(response.data.burnedCalorie, parseFloat(response.data.burnedCalorie));
         return parseFloat(response.data.burnedCalorie);
     }
 }

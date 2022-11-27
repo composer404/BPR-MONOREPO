@@ -31,4 +31,27 @@ export class TrainingSessionService {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingSessions}/${id}`;
         return firstValueFrom(this.httpClient.put(url, body)).catch(() => null);
     }
+
+    async getSessionsByIndex(index: number): Promise<TrainingSession[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingSessions}/statistics/list`;
+        return firstValueFrom(
+            this.httpClient.get<TrainingSession[] | null>(url, {
+                params: {
+                    index,
+                },
+            }),
+        );
+    }
+
+    async getSessionsByTimePeriod(startDate: string, endDate: string): Promise<TrainingSession[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingSessions}/statistics/timeframe`;
+        return firstValueFrom(
+            this.httpClient.get<TrainingSession[] | null>(url, {
+                params: {
+                    startDate,
+                    endDate,
+                },
+            }),
+        );
+    }
 }

@@ -185,4 +185,52 @@ export class TrainingSessionsService {
 
         return result;
     }
+
+    async getSessionsByIndex(startIndex: string, userId: string): Promise<TrainingSession[] | null> {
+        return this.database
+            .findMany({
+                skip: parseInt(startIndex, 10) + 1,
+                take: 10,
+                where: {
+                    userId,
+                },
+                orderBy: {
+                    createdAt: `desc`,
+                },
+                include: {
+                    sessionExercises: true,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+    }
+
+    async getSessionsByTimePeriod(
+        startDate: string,
+        endDate: string,
+        userId: string,
+    ): Promise<TrainingSession[] | null> {
+        return this.database
+            .findMany({
+                where: {
+                    userId,
+                    createdAt: {
+                        lte: endDate,
+                        gte: startDate,
+                    },
+                },
+                include: {
+                    sessionExercises: true,
+                },
+                orderBy: {
+                    createdAt: `desc`,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+    }
 }
