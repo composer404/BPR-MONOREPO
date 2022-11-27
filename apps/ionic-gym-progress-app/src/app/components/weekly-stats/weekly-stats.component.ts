@@ -1,8 +1,8 @@
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { SessionTotalStatistics, TrainingSession } from 'src/app/interfaces/interfaces';
 
 import { DateTime } from 'luxon';
-import { TrainingSession } from 'src/app/interfaces/interfaces';
 import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 
 @Component({
@@ -10,20 +10,29 @@ import { TrainingSessionService } from 'src/app/services/api/training-session.se
     templateUrl: './weekly-stats.component.html',
     styleUrls: ['./weekly-stats.component.scss'],
 })
-export class WeeklyStatsComponent implements OnInit {
+export class WeeklyStatsComponent implements OnInit, AfterViewInit {
     @ViewChild('lineCanvas') private lineCanvas: ElementRef;
 
     lineChart: any;
 
     trainingSessions: TrainingSession[] = [];
+    weekStatistics: SessionTotalStatistics;
+
     firstWeekDay: Date;
     lastWeekDay: Date;
+
+    currentDate: DateTime;
 
     constructor(private readonly trainingSessionsService: TrainingSessionService) {
         Chart.register(...registerables);
     }
 
     ngOnInit(): void {
+        this.currentDate = DateTime.now();
+        // this.getCurrentWeek();
+    }
+
+    ngAfterViewInit() {
         this.getCurrentWeek();
     }
 
@@ -35,8 +44,7 @@ export class WeeklyStatsComponent implements OnInit {
     }
 
     async getCurrentWeek() {
-        const today = new Date();
-        const firstDay = this.getFirstDayOfWeek(today);
+        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
 
         const lastDay = new Date(firstDay);
         lastDay.setDate(lastDay.getDate() + 6);
@@ -50,7 +58,60 @@ export class WeeklyStatsComponent implements OnInit {
         lastDay.setSeconds(0);
 
         this.firstWeekDay = firstDay;
-        this.lastWeekDay = firstDay;
+        this.lastWeekDay = lastDay;
+
+        this.trainingSessions = await this.trainingSessionsService.getSessionsByTimePeriod(
+            firstDay.toISOString(),
+            lastDay.toISOString(),
+        );
+        this.calculateStatistics();
+        this.createWeekDataSet();
+    }
+
+    async minusWeek() {
+        this.currentDate = this.currentDate.minus({ days: 7 });
+
+        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
+
+        const lastDay = new Date(firstDay);
+        lastDay.setDate(lastDay.getDate() + 6);
+
+        firstDay.setHours(0);
+        firstDay.setMinutes(0);
+        firstDay.setSeconds(0);
+
+        lastDay.setHours(23);
+        lastDay.setMinutes(59);
+        lastDay.setSeconds(0);
+
+        this.firstWeekDay = firstDay;
+        this.lastWeekDay = lastDay;
+
+        this.trainingSessions = await this.trainingSessionsService.getSessionsByTimePeriod(
+            firstDay.toISOString(),
+            lastDay.toISOString(),
+        );
+        this.createWeekDataSet();
+    }
+
+    async plusWeek() {
+        this.currentDate = this.currentDate.plus({ days: 7 });
+
+        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
+
+        const lastDay = new Date(firstDay);
+        lastDay.setDate(lastDay.getDate() + 6);
+
+        firstDay.setHours(0);
+        firstDay.setMinutes(0);
+        firstDay.setSeconds(0);
+
+        lastDay.setHours(23);
+        lastDay.setMinutes(59);
+        lastDay.setSeconds(0);
+
+        this.firstWeekDay = firstDay;
+        this.lastWeekDay = lastDay;
 
         this.trainingSessions = await this.trainingSessionsService.getSessionsByTimePeriod(
             firstDay.toISOString(),
@@ -60,33 +121,38 @@ export class WeeklyStatsComponent implements OnInit {
     }
 
     initLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
+        if (this.lineChart) {
+            this.lineChart.destroy();
+        }
         this.lineChart = new Chart(this.lineCanvas.nativeElement, {
             type: 'line',
             data: {
                 labels: [...Array.from(chartDataSetMap.keys())],
                 datasets: [
                     {
-                        label: 'Sell per week',
-                        fill: false,
-                        backgroundColor: 'rgba(75,192,192,0.4)',
-                        borderColor: 'rgba(75,192,192,1)',
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
+                        label: 'Burned calories',
+                        backgroundColor: 'rgba(123,39,164,1)',
+                        borderColor: 'rgba(123,39,164,1)',
                         borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBorderColor: 'rgba(123,39,164,1)',
                         pointBackgroundColor: '#fff',
                         pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                        pointHoverBorderColor: 'rgba(220,220,220,1)',
-                        pointHoverBorderWidth: 2,
                         pointRadius: 1,
                         pointHitRadius: 10,
                         data: [...this.getCalories(chartDataSetMap)],
-                        spanGaps: false,
                     },
                 ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        ticks: {
+                            stepSize: 20,
+                        },
+                    },
+                },
             },
         });
     }
@@ -105,16 +171,41 @@ export class WeeklyStatsComponent implements OnInit {
         return arrayToReturn;
     }
 
+    calculateStatistics() {
+        const total: SessionTotalStatistics = {
+            totalBurnedCalories: 0,
+            totalTimeInMinutes: 0,
+            completedExercises: 0,
+            completedTrainingSessions: 0,
+        };
+
+        this.trainingSessions.forEach((session) => {
+            if (session.completed) {
+                total.completedTrainingSessions += 1;
+            }
+
+            session.sessionExercises.forEach((exercise) => {
+                if (exercise.completed) {
+                    total.completedExercises += 1;
+                    total.totalBurnedCalories += exercise.burnedCalories;
+                    total.totalTimeInMinutes += exercise.timeInMinutes;
+                }
+            });
+        });
+
+        this.weekStatistics = total;
+    }
+
     createWeekDataSet() {
         const map = new Map<string, TrainingSession[]>();
 
         const first = DateTime.fromJSDate(this.firstWeekDay);
         for (let i = 0; i < 7; i++) {
-            map.set(first.plus({ days: i }).toFormat(`yyyy-MM-dd`), []);
+            map.set(first.plus({ days: i }).toFormat(`dd/MM`), []);
         }
 
         this.trainingSessions.forEach((session) => {
-            const sessionDateString = DateTime.fromISO(session.createdAt).toFormat(`yyyy-MM-dd`);
+            const sessionDateString = DateTime.fromISO(session.createdAt).toFormat(`dd/MM`);
             if (map.has(sessionDateString)) {
                 const value = map.get(sessionDateString);
                 value.push(session);
