@@ -1,1 +1,28 @@
-<canvas #lineCanvas style="position: relative; height: 20vh; width: 40vw"></canvas>
+<div class="flex justify-center gap-4 mt-5 mb-5">
+    <div (click)="minusWeek()"><ion-icon name="arrow-back"></ion-icon></div>
+    <div class="font-bold">{{ firstWeekDay | date: 'dd/MM/yyyy' }} - {{ lastWeekDay | date: 'dd/MM/yyyy' }}</div>
+    <div (click)="plusWeek()"><ion-icon name="arrow-forward"></ion-icon></div>
+</div>
+
+<div *ngIf="weekStatistics">
+    <div>
+        <div>Total time</div>
+        <div>{{ weekStatistics.totalTimeInMinutes }}min</div>
+    </div>
+    <div>
+        <div>Total calories</div>
+        <div>
+            {{ weekStatistics.totalBurnedCalories }}
+        </div>
+    </div>
+    <div>
+        <div>Completed sessions</div>
+        <div>{{ weekStatistics.completedTrainingSessions }}</div>
+    </div>
+    <div>
+        <div>Completed exercises</div>
+        <div>{{ weekStatistics.completedExercises }}</div>
+    </div>
+</div>
+
+<canvas #lineCanvas></canvas>

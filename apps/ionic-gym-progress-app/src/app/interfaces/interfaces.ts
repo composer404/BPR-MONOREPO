@@ -39,6 +39,13 @@ export interface ModalCloseResult {
     data?: any;
 }
 
+export interface SessionTotalStatistics {
+    totalTimeInMinutes: number;
+    totalBurnedCalories: number;
+    completedExercises: number;
+    completedTrainingSessions: number;
+}
+
 export interface UserProfile {
     id: string;
     email: string;
