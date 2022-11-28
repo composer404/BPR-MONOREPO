@@ -63,12 +63,12 @@ export interface TrainingMachinesDetails extends TrainingMachines {
 
 export interface Training {
     id?: string;
+    gymId?: string;
     title?: string;
     type?: string;
     description?: string;
     comment?: string;
-
-    gymId?: string;
+    isCreatedByAdmin?:boolean;
     createdAt?: string;
     updatedAt?: string;
 }

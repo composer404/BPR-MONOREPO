@@ -1,0 +1,71 @@
+
+<div class="card w-2/3 justify-center">
+    <p-toolbar styleClass="mb-4 ">
+        <ng-template pTemplate="left">
+            <button
+                pButton
+                pRipple
+                label="New Training"
+                icon="pi pi-plus"
+                class="p-button-success mr-2"
+                (click)="openCreateModal()"
+            ></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table
+        #dt
+        [value]="trainings"
+        [rows]="10"
+        [paginator]="true"
+        [globalFilterFields]="['title']"
+        responsiveLayout="scroll"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of trainings"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Manage Trainings</h5>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="name">Title</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-training>
+            <tr>
+                <td [routerLink]="['/exercises']">{{ training.title }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="flex justify-end">
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-success"
+                        (click)="openEditTrainingModal(training)"
+                    ></button>
+                    <button
+                        pButton
+                        pRipple
+                        icon="pi pi-trash"
+                        class="p-button-rounded p-button-warning"
+                        (click)="removeTrainingFromGym(training)"
+                    ></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

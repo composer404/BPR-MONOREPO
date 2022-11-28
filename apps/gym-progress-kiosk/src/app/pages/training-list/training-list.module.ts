@@ -1,31 +1,54 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { CreateTrainingModalModule } from 'src/app/modals/create-training-modal/create-training-modal.module';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { ConfirmationService } from 'primeng/api';
+import { CreateTrainingModalComponent } from 'src/app/modals/create-training-modal/create-training-modal.component';
+import { DialogModule } from 'primeng/dialog';
+import { EditTrainingModalComponent } from 'src/app/modals/edit-training-modal/edit-training-modal.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { NgModule } from '@angular/core';
-import { TrainingItemModule } from 'src/app/modals/training-item/training-item.module';
-import { TrainingListPage } from './training-list.component';
-
-//import { GymSelectionModule } from 'src/app/components/gym-selection/gym-selection.module';
-
-
-
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
+import { TrainingListComponent } from './training-list.component';
 
 const routes: Routes = [
     {
         path: '',
-        component: TrainingListPage,
+        component: TrainingListComponent,
     },
 ];
 
 @NgModule({
+    declarations: [
+        CreateTrainingModalComponent,
+        TrainingListComponent,
+        EditTrainingModalComponent,
+        ConfirmationModalComponent,
+    ],
     imports: [
         CommonModule,
+        ToolbarModule,
         RouterModule.forChild(routes),
-        // GymSelectionModule,
-        TrainingItemModule,
-        CreateTrainingModalModule,
+        CardModule,
+        TableModule,
+        DialogModule,
+        ButtonModule,
+        ToastModule,
+        InputTextModule,
+        ReactiveFormsModule,
+        FormsModule,
+        InputNumberModule,
+        ConfirmDialogModule,
+        InputTextareaModule,
     ],
-    declarations: [TrainingListPage],
+    providers: [ConfirmDialogModule, ConfirmationService],
 })
-export class TrainingListPageModule {}
+export class TrainingListModule {}

@@ -17,6 +17,7 @@ export class TrainingService {
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(url, {
                 ...body,
+                isCreatedByAdmin: true,
             }),
         ).catch((err) => {
             console.log(`[API ERR - CREATE TRAINING]`, err);
@@ -24,8 +25,8 @@ export class TrainingService {
         });
     }
 
-    async getUserTrainingForGym(gymId: string): Promise<Training[] | null> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/user/all/${gymId}`;
+    async getTrainingForGym(gymId: string): Promise<Training[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${gymId}`;
         return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
     }
 

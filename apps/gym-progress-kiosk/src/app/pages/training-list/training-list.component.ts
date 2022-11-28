@@ -1,68 +1,94 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Gym, ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
+import { Component, OnInit } from '@angular/core';
+import { Gym, Training } from 'src/app/interfaces/interfaces';
 
+import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { CreateTrainingModalComponent } from 'src/app/modals/create-training-modal/create-training-modal.component';
+import { DialogService } from 'primeng/dynamicdialog';
+import { DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { EditTrainingModalComponent } from 'src/app/modals/edit-training-modal/edit-training-modal.component';
+import { InfoService } from 'src/app/services/info.service';
 import { Subscription } from 'rxjs';
 import { TrainingService } from 'src/app/services/training.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-training-list',
-    templateUrl: './training-list.component.html',
-    styleUrls: ['./training-list.component.scss'],
+    selector: `app-training-list-component`,
+    templateUrl: `./training-list.component.html`,
+    styleUrls: [`./training-list.component.scss`],
 })
-export class TrainingListPage implements OnDestroy {
-    trainingForm: FormGroup;
-    userId: string;
+export class TrainingListComponent implements OnInit {
+    subscriptions: Subscription[] = [];
     trainings: Training[] = [];
-    selectedGym: Gym;
-    subs = new Subscription();
+   
 
     constructor(
-        private readonly router: Router,
-        private readonly route: ActivatedRoute,
+        private readonly dialogService: DialogService,
         private readonly trainingService: TrainingService,
-    ) {
-        this.userId = this.route.snapshot.params.id;
-        this.trainingForm = new FormGroup({
-            title: new FormControl(``, [Validators.required]),
-            type: new FormControl(``, [Validators.required]),
-            description: new FormControl(``),
-            comment: new FormControl(``),
+        private readonly infoService: InfoService,
+        public config: DynamicDialogConfig,
+    ) {}
+
+    ngOnInit(): void {
+        void this.getTrainingByGymId();
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions?.forEach((sub) => {
+            sub.unsubscribe();
+        });
+    }
+
+    openCreateModal() {
+        const ref = this.dialogService.open(CreateTrainingModalComponent, {
+            header: `Add new training`,
+            width: `40%`,
         });
 
-        this.subs.add(
-            route.params.subscribe((val) => {
-                if (this.selectedGym) {
-                    this.loadTrainings();
+        this.subscriptions.push(
+            ref.onClose.subscribe(() => {
+                this.getTrainingByGymId();
+            }),
+        );
+    }
+
+    async removeTrainingFromGym(training: Training) {
+        const ref = this.dialogService.open(ConfirmationModalComponent, {
+            header: `Confirm action`,
+            width: `40%`,
+        });
+
+        this.subscriptions.push(
+            ref.onClose.subscribe(async (result) => {
+                if (result) {
+                    const response = await this.trainingService.deleteTraining(training.id);
+                    if (response) {
+                        this.infoService.success(`Training has been successfully deleted`);
+                        this.removeTrainingLocally(training.id);
+                        return;
+                    }
+                    this.infoService.success(`Cannot delete training. Try again later.`);
                 }
             }),
         );
     }
 
-    ngOnDestroy(): void {
-        this.subs.unsubscribe();
+    openEditTrainingModal(training: Training) {
+        this.dialogService.open(EditTrainingModalComponent, {
+            width: `40%`,
+            data: {
+                ...training,
+            },
+        });
     }
 
-    goToTrainingDetails(trainingId: string): void {
-        void this.router.navigate([
-            `/profile-tabs/profile/${this.userId}/training-list/${trainingId}/gym/${this.selectedGym.id}`,
-        ]);
+
+    private async getTrainingByGymId() {
+        this.trainings = await this.trainingService.getTrainingForGym(environment.gymId);
     }
 
-    async loadTrainings() {
-        this.trainings = await this.trainingService.getUserTrainingForGym(this.selectedGym.id);
-    }
-
-    async onTrainingCreation(event: ModalCloseResult) {
-        if (event.type === `Confirm`) {
-            const newTraining = await this.trainingService.getTrainingById(event.data.trainingId);
-            this.trainings.push(newTraining);
-        }
-    }
-
-    async onGymSelected(gym: Gym) {
-        this.selectedGym = gym;
-        this.trainings = await this.trainingService.getUserTrainingForGym(this.selectedGym.id);
+    private removeTrainingLocally(trainingId: string) {
+        this.trainings = this.trainings.filter((element) => {
+            return element.id !== trainingId;
+        });
     }
 }
