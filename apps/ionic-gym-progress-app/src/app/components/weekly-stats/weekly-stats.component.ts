@@ -11,9 +11,11 @@ import { TrainingSessionService } from 'src/app/services/api/training-session.se
     styleUrls: ['./weekly-stats.component.scss'],
 })
 export class WeeklyStatsComponent implements OnInit, AfterViewInit {
-    @ViewChild('lineCanvas') private lineCanvas: ElementRef;
+    @ViewChild('lineCanvasBurnedCalories') private lineCanvasBurnedCalories: ElementRef;
+    @ViewChild('lineCanvasSpentTime') private lineCanvasSpentTime: ElementRef;
 
-    lineChart: any;
+    lineChartBurnedCalories: any;
+    lineChartTimeCalories: any;
 
     trainingSessions: TrainingSession[] = [];
     weekStatistics: SessionTotalStatistics;
@@ -29,11 +31,10 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.currentDate = DateTime.now();
-        // this.getCurrentWeek();
     }
 
     ngAfterViewInit() {
-        this.getCurrentWeek();
+        this.updateDaysAndLoadData(this.currentDate.toJSDate());
     }
 
     getFirstDayOfWeek(d: Date) {
@@ -43,9 +44,8 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
         return new Date(date.setDate(diff));
     }
 
-    async getCurrentWeek() {
-        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
-
+    async updateDaysAndLoadData(date: Date) {
+        const firstDay = this.getFirstDayOfWeek(date);
         const lastDay = new Date(firstDay);
         lastDay.setDate(lastDay.getDate() + 6);
 
@@ -70,61 +70,19 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
 
     async minusWeek() {
         this.currentDate = this.currentDate.minus({ days: 7 });
-
-        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
-
-        const lastDay = new Date(firstDay);
-        lastDay.setDate(lastDay.getDate() + 6);
-
-        firstDay.setHours(0);
-        firstDay.setMinutes(0);
-        firstDay.setSeconds(0);
-
-        lastDay.setHours(23);
-        lastDay.setMinutes(59);
-        lastDay.setSeconds(0);
-
-        this.firstWeekDay = firstDay;
-        this.lastWeekDay = lastDay;
-
-        this.trainingSessions = await this.trainingSessionsService.getSessionsByTimePeriod(
-            firstDay.toISOString(),
-            lastDay.toISOString(),
-        );
-        this.createWeekDataSet();
+        this.updateDaysAndLoadData(this.currentDate.toJSDate());
     }
 
     async plusWeek() {
         this.currentDate = this.currentDate.plus({ days: 7 });
-
-        const firstDay = this.getFirstDayOfWeek(this.currentDate.toJSDate());
-
-        const lastDay = new Date(firstDay);
-        lastDay.setDate(lastDay.getDate() + 6);
-
-        firstDay.setHours(0);
-        firstDay.setMinutes(0);
-        firstDay.setSeconds(0);
-
-        lastDay.setHours(23);
-        lastDay.setMinutes(59);
-        lastDay.setSeconds(0);
-
-        this.firstWeekDay = firstDay;
-        this.lastWeekDay = lastDay;
-
-        this.trainingSessions = await this.trainingSessionsService.getSessionsByTimePeriod(
-            firstDay.toISOString(),
-            lastDay.toISOString(),
-        );
-        this.createWeekDataSet();
+        this.updateDaysAndLoadData(this.currentDate.toJSDate());
     }
 
-    initLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
-        if (this.lineChart) {
-            this.lineChart.destroy();
+    initBurnedCaloriesLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
+        if (this.lineChartBurnedCalories) {
+            this.lineChartBurnedCalories.destroy();
         }
-        this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+        this.lineChartBurnedCalories = new Chart(this.lineCanvasBurnedCalories.nativeElement, {
             type: 'line',
             data: {
                 labels: [...Array.from(chartDataSetMap.keys())],
@@ -157,6 +115,43 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
         });
     }
 
+    initTimeLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
+        if (this.lineChartTimeCalories) {
+            this.lineChartTimeCalories.destroy();
+        }
+        this.lineChartTimeCalories = new Chart(this.lineCanvasSpentTime.nativeElement, {
+            type: 'line',
+            data: {
+                labels: [...Array.from(chartDataSetMap.keys())],
+                datasets: [
+                    {
+                        label: 'Time in minutes',
+                        backgroundColor: 'rgba(123,39,164,1)',
+                        borderColor: 'rgba(123,39,164,1)',
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(123,39,164,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [...this.getTime(chartDataSetMap)],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        ticks: {
+                            stepSize: 5,
+                        },
+                    },
+                },
+            },
+        });
+    }
+
     getCalories(chartDataSetMap: Map<string, TrainingSession[]>) {
         const arrayToReturn = [];
         for (const [key, value] of chartDataSetMap) {
@@ -167,6 +162,20 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
                 });
             });
             arrayToReturn.push(caloriesByDay);
+        }
+        return arrayToReturn;
+    }
+
+    getTime(chartDataSetMap: Map<string, TrainingSession[]>) {
+        const arrayToReturn = [];
+        for (const [key, value] of chartDataSetMap) {
+            let timeByDay = 0;
+            value.forEach((session) => {
+                session.sessionExercises.forEach((exercise) => {
+                    timeByDay += exercise.timeInMinutes;
+                });
+            });
+            arrayToReturn.push(timeByDay);
         }
         return arrayToReturn;
     }
@@ -192,7 +201,6 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
                 }
             });
         });
-
         this.weekStatistics = total;
     }
 
@@ -212,7 +220,9 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
                 map.set(sessionDateString, value);
             }
         });
-        this.initLineChart(map);
+
+        this.initTimeLineChart(map);
+        this.initBurnedCaloriesLineChart(map);
         return map;
     }
 }

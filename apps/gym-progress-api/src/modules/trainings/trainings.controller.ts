@@ -1,6 +1,6 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/guards';
+import { AdminJwtGuard, JwtAuthGuard } from '../auth/guards';
 import { TrainingInput } from 'src/models/training.model';
 import { TrainingsService } from './trainings.service';
 import { BPRRequest, CreatedObjectResponse } from 'src/models';
@@ -23,7 +23,13 @@ export class TrainingsController {
         return this.trainingService.getUserTrainingsForGym(req.user.id, params.gymId);
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, AdminJwtGuard)
+    @Get(`admin/all/:gymId`)
+    async getTrainingCreatedByAdmin(@Param() params: any): Promise<Training[] | null> {
+        return this.trainingService.getTrainingCreatedByAdmin(params.gymId);
+    }
+
+    @UseGuards(JwtAuthGuard, AdminJwtGuard)
     @Post()
     async createTraining(
         @Request() req: BPRRequest,
@@ -32,13 +38,13 @@ export class TrainingsController {
         return this.trainingService.createTraining(req.user.id, training);
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, AdminJwtGuard)
     @Put(`:id`)
     async updateTraining(@Param() params: any, @Body() training: TrainingInput): Promise<boolean> {
         return this.trainingService.updateTraining(params.id, training);
     }
 
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, AdminJwtGuard)
     @Delete(`:id`)
     async deleteTraining(@Param() params: any): Promise<boolean> {
         return this.trainingService.deleteTraining(params.id);

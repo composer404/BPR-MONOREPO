@@ -52,12 +52,35 @@ export class TrainingsService {
         return training;
     }
 
+    async getTrainingCreatedByAdmin(gymId: string): Promise<Training[] | null> {
+        const result = await this.database
+            .findMany({
+                where: {
+                    gymId,
+                    isCreatedByAdmin: true,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+
+        return result;
+    }
+
     async createTraining(userId: string, body: TrainingInput): Promise<CreatedObjectResponse | null> {
+        let addtionalBody = {};
+
+        if (!body.isCreatedByAdmin) {
+            addtionalBody = {
+                userId,
+            };
+        }
         const result = await this.database
             .create({
                 data: {
                     ...body,
-                    userId,
+                    ...addtionalBody,
                 },
             })
             .catch((err) => {

@@ -199,6 +199,7 @@ export class TrainingSessionsService {
                 },
                 include: {
                     sessionExercises: true,
+                    gym: true,
                 },
             })
             .catch((err) => {
