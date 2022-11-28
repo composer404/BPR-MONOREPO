@@ -1,0 +1,41 @@
+<ion-card *ngIf="trainingSession && training && sessionStats">
+    <ion-card-header class="text-center">
+        <ion-card-title class="mt-1 text font-bold">{{
+            trainingSession.createdAt | date: 'dd/MM/yyyy HH:mm'
+        }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <div class="flex justify-between gap-5">
+            <div class="mb-2 w-1/2">
+                <div class="text-sm text-white">Training</div>
+                <div>
+                    {{ training.title }}
+                </div>
+            </div>
+            <div class="w-1/2">
+                <div class="text-sm text-white">Gym</div>
+                <div>
+                    {{ trainingSession.gym.name }}
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between gap-5">
+            <div class="mb-2 w-1/2">
+                <div class="text-sm text-white">Calories</div>
+                <div>
+                    {{ sessionStats.totalBurnedCalories }}
+                </div>
+            </div>
+            <div class="w-1/2">
+                <div class="text-sm text-white">Time</div>
+                <div>
+                    {{ sessionStats.totalTimeInMinutes }}
+                </div>
+            </div>
+        </div>
+    </ion-card-content>
+
+    <div class="px-10 mb-4">
+        <!-- <button class="primary-button-sm">{{ activeTraining ? 'Start training session' : 'Open' }}</button> -->
+    </div>
+</ion-card>

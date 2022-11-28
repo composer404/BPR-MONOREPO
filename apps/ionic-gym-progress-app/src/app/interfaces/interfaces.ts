@@ -46,6 +46,12 @@ export interface SessionTotalStatistics {
     completedTrainingSessions: number;
 }
 
+export interface SingleSessionStats {
+    totalTimeInMinutes: number;
+    totalBurnedCalories: number;
+    completedExercises: number;
+}
+
 export interface UserProfile {
     id: string;
     email: string;
@@ -198,6 +204,7 @@ export interface TrainingSession {
     trainingId: string;
     createdAt: string;
     sessionExercises: SessionExercise[];
+    gym?: Gym;
 }
 
 export interface TrainingSummary {
