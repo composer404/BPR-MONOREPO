@@ -5,24 +5,32 @@
 </div>
 
 <div *ngIf="weekStatistics">
-    <div>
-        <div>Total time</div>
-        <div>{{ weekStatistics.totalTimeInMinutes }}min</div>
-    </div>
-    <div>
-        <div>Total calories</div>
-        <div>
-            {{ weekStatistics.totalBurnedCalories }}
+    <div class="flex justify-center text-center">
+        <div class="w-1/2">
+            <div class="title">Time</div>
+            <div>{{ weekStatistics.totalTimeInMinutes }}min</div>
+        </div>
+        <div class="w-1/2">
+            <div class="title">Calories</div>
+            <div>
+                {{ weekStatistics.totalBurnedCalories }}
+            </div>
         </div>
     </div>
-    <div>
-        <div>Completed sessions</div>
-        <div>{{ weekStatistics.completedTrainingSessions }}</div>
-    </div>
-    <div>
-        <div>Completed exercises</div>
-        <div>{{ weekStatistics.completedExercises }}</div>
+    <div class="flex justify-center text-center mt-8 mb-8">
+        <div class="w-1/2">
+            <div class="title">Sessions</div>
+            <div>{{ weekStatistics.completedTrainingSessions }}</div>
+        </div>
+        <div class="w-1/2">
+            <div class="title">Exercises</div>
+            <div>{{ weekStatistics.completedExercises }}</div>
+        </div>
     </div>
 </div>
-
-<canvas #lineCanvas></canvas>
+<div>
+    <canvas #lineCanvasBurnedCalories></canvas>
+</div>
+<div class="mt-7">
+    <canvas #lineCanvasSpentTime></canvas>
+</div>
