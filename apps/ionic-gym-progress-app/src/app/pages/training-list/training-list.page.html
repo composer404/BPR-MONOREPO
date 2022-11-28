@@ -11,8 +11,6 @@
         <div class="w-full p-5">
             <button class="ion-activatable ripple-parent" (click)="selectedGym = null">
                 <ion-icon name="arrow-back"></ion-icon>
-                <!-- back <ion-ripple-effect type="unbounded"></ion-ripple-effect>
-                 -->
             </button>
 
             <div class="w-full text-center mb-3 mt-3">
@@ -27,9 +25,23 @@
                 [id]="'create-training-modal'"
             ></app-create-training-modal>
 
+            <app-predefined-training-modal
+                (assignedTraining)="onAssignedTraining()"
+                [buttonTemplate]="createPredefinedButton"
+                [gymId]="selectedGym.id"
+                [id]="'predefined-trainings-modal'"
+            >
+            </app-predefined-training-modal>
+
             <ng-template #createButton>
                 <div class="p-2">
-                    <button [id]="'create-training-modal'" class="primary-button">Add training</button>
+                    <button [id]="'create-training-modal'" class="primary-button">Add own training</button>
+                </div>
+            </ng-template>
+
+            <ng-template #createPredefinedButton>
+                <div class="p-2">
+                    <button [id]="'predefined-trainings-modal'" class="primary-button">Add predefined training</button>
                 </div>
             </ng-template>
 

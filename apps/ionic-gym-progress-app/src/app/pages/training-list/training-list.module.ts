@@ -5,6 +5,7 @@ import { CreateTrainingModalModule } from 'src/app/components/create-training-mo
 import { GymSelectionModule } from 'src/app/components/gym-selection/gym-selection.module';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
+import { PredefinedTrainingModalModule } from 'src/app/components/predefined-training-modal/predefined-training-modal.module';
 import { TrainingItemModule } from 'src/app/components/training-item/training-item.module';
 import { TrainingListPage } from './training-list.page';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
         GymSelectionModule,
         TrainingItemModule,
         CreateTrainingModalModule,
+        PredefinedTrainingModalModule,
     ],
     declarations: [TrainingListPage],
 })

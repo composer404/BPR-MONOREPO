@@ -61,6 +61,10 @@ export class TrainingListPage implements OnDestroy {
         }
     }
 
+    async onAssignedTraining() {
+        await this.loadTrainings();
+    }
+
     async onGymSelected(gym: Gym) {
         this.selectedGym = gym;
         this.trainings = await this.trainingService.getUserTrainingForGym(this.selectedGym.id);

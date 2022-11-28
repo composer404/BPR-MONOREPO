@@ -1,6 +1,7 @@
 /* --------------------------------- CLASSES -------------------------------- */
 
 import { ApiProperty } from '@nestjs/swagger';
+import { ExerciseInput } from './exercise.model';
 
 export class TrainingInput {
     @ApiProperty()
@@ -15,4 +16,9 @@ export class TrainingInput {
     comment?: string;
     @ApiProperty()
     isCreatedByAdmin?: boolean;
+}
+
+export class TrainingWithExercisesInput extends TrainingInput {
+    @ApiProperty()
+    exercises: ExerciseInput[];
 }

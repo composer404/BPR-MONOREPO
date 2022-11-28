@@ -21,7 +21,7 @@
                 <div class="ml-2">{{ exercise.description || '-' }}</div>
             </div>
         </div>
-        <div class="flex justify-between mt-4 gap-3">
+        <div *ngIf="!disableActions" class="flex justify-between mt-4 gap-3">
             <app-create-exercise-modal
                 [id]="'edit-exercise-modal' + exercise.id"
                 [trainingMachines]="trainingMachines"

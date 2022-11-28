@@ -16,6 +16,9 @@ export class ExerciseItemComponent {
     @Input()
     trainingId: string;
 
+    @Input()
+    disableActions: boolean;
+
     @Output()
     deleteEvent = new EventEmitter<void>();
 

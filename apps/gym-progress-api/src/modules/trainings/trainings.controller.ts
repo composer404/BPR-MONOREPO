@@ -1,7 +1,7 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { AdminJwtGuard, JwtAuthGuard } from '../auth/guards';
-import { TrainingInput } from 'src/models/training.model';
+import { TrainingInput, TrainingWithExercisesInput } from 'src/models/training.model';
 import { TrainingsService } from './trainings.service';
 import { BPRRequest, CreatedObjectResponse } from 'src/models';
 import { Training } from '@prisma/client';
@@ -36,6 +36,15 @@ export class TrainingsController {
         @Body() training: TrainingInput,
     ): Promise<CreatedObjectResponse | null> {
         return this.trainingService.createTraining(req.user.id, training);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Post(`withExercises`)
+    async createTrainingWithExercises(
+        @Request() req: BPRRequest,
+        @Body() training: TrainingWithExercisesInput,
+    ): Promise<CreatedObjectResponse | null> {
+        return this.trainingService.createTrainingWithExercises(req.user.id, training);
     }
 
     @UseGuards(JwtAuthGuard, AdminJwtGuard)
