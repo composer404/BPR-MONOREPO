@@ -2,18 +2,18 @@
     <div class="m-10 gap-5">
         <div class="flex flex-col gap-2">
             <label for="name">Title</label>
-            <input formControlName="name" pInputText id="name" type="text" />
+            <input formControlName="title" pInputText id="title" type="text" />
             <small
                 *ngIf="
                     trainingForm.get('title')?.invalid &&
-                    (trainingMachineForm.get('title')?.dirty || trainingMachineForm.get('title')?.touched)
+                    (trainingForm.get('title')?.dirty || trainingForm.get('title')?.touched)
                 "
                 id="ranking-help"
                 class="p-error"
                 ><div *ngIf="trainingForm.get('title')?.errors?.['required']">
                     Title is required.
                 </div>
-                <div *ngIf="trainingForm.get('name')?.errors?.['minlength']">
+                <div *ngIf="trainingForm.get('title')?.errors?.['minlength']">
                     A title must be at least 1 character long.
                 </div>
             </small>

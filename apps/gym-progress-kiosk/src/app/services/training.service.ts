@@ -18,6 +18,7 @@ export class TrainingService {
             this.httpClient.post<BPRApiCreatedObject>(url, {
                 ...body,
                 isCreatedByAdmin: true,
+                gymId: environment.gymId,
             }),
         ).catch((err) => {
             console.log(`[API ERR - CREATE TRAINING]`, err);
@@ -25,8 +26,14 @@ export class TrainingService {
         });
     }
 
-    async getTrainingForGym(gymId: string): Promise<Training[] | null> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${gymId}`;
+    async getTrainingForGym(): Promise<Training[]> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${environment.gymId}`;
+        return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(()=> {
+            return [];
+        });
+    }
+    async getAdminTrainingForGym(): Promise<Training[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/admin/all/${environment.gymId}`;
         return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
     }
 
@@ -40,23 +47,30 @@ export class TrainingService {
     }
 
     async deleteTraining(trainingId: string) {
-        return firstValueFrom(
-            this.httpClient.delete<boolean>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`),
-        ).catch((err) => {
-            console.log(`[API ERR - GET TRAINING]`, err);
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`;
+        const response = await firstValueFrom(this.httpClient.delete<boolean>(url)).catch(() => {
             return null;
         });
+
+        if (!response) {
+            return false;
+        }
+        return true;
     }
 
     async editTraining(trainingId: string, body: Partial<Training>) {
-        return firstValueFrom(
-            this.httpClient.put<boolean>(
-                `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`,
-                body,
-            ),
-        ).catch((err) => {
-            console.log(`[API ERR - GET TRAINING]`, err);
+    const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`;
+        const response = await firstValueFrom(
+            this.httpClient.put<boolean>(url, {
+                ...body,
+            }),
+        ).catch(() => {
             return null;
         });
-    }
+
+        if (!response) {
+            return false;
+        }
+        return true;
+}
 }

@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalModule } from 'src/app/shared/confirmation-modal/confirmation-modal.module';
 import { ConfirmationService } from 'primeng/api';
 import { CreateTrainingModalComponent } from 'src/app/modals/create-training-modal/create-training-modal.component';
 import { DialogModule } from 'primeng/dialog';
@@ -31,7 +31,7 @@ const routes: Routes = [
         CreateTrainingModalComponent,
         TrainingListComponent,
         EditTrainingModalComponent,
-        ConfirmationModalComponent,
+       // ConfirmationModalComponent,
     ],
     imports: [
         CommonModule,
@@ -48,6 +48,7 @@ const routes: Routes = [
         InputNumberModule,
         ConfirmDialogModule,
         InputTextareaModule,
+        ConfirmationModalModule,
     ],
     providers: [ConfirmDialogModule, ConfirmationService],
 })

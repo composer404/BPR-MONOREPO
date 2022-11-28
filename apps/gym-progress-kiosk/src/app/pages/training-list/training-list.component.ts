@@ -83,7 +83,7 @@ export class TrainingListComponent implements OnInit {
 
 
     private async getTrainingByGymId() {
-        this.trainings = await this.trainingService.getTrainingForGym(environment.gymId);
+        this.trainings = await this.trainingService.getAdminTrainingForGym();
     }
 
     private removeTrainingLocally(trainingId: string) {

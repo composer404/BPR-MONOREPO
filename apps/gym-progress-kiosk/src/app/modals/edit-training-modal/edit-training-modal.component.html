@@ -1,0 +1,46 @@
+<form [formGroup]="editTrainingForm" (ngSubmit)="onSave()">
+    <div class="m-10 gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="name">Title</label>
+            <input formControlName="title" pInputText id="title" type="text" />
+            <small
+                *ngIf="
+                editTrainingForm.get('title')?.invalid &&
+                    (editTrainingForm.get('title')?.dirty || editTrainingForm.get('title')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="editTrainingForm.get('title')?.errors?.['required']">
+                    Title is required.
+                </div>
+                <div *ngIf="editTrainingForm.get('title')?.errors?.['minlength']">
+                    A title must be at least 1 character long.
+                </div>
+            </small>
+            <div class="flex mt-2"></div>
+            <label for="type">Type</label>
+            <input formControlName="type" pInputText id="type" type="text" />
+            <small
+                *ngIf="
+                editTrainingForm.get('type')?.invalid &&
+                    ( editTrainingForm.get('type')?.dirty ||  editTrainingForm.get('type')?.touched)
+                "
+                id="login-help"
+                class="p-error"
+                ><div *ngIf=" editTrainingForm.get('type')?.errors?.['required']">
+                    The type is required.
+                </div>
+            </small>
+            <label for="description">Description</label>
+            <input formControlName="description" pInputText id="description" type="text" />
+            <label for="comment">Comment</label>
+            <input formControlName="comment" pInputText id="comment" type="text" />
+        </div>
+        <div class="flex gap-2 mt-6">
+            <button [disabled]="editTrainingForm.invalid" class="py-2 px-4 text-black rounded-md" type="submit">
+                Save
+            </button>
+            <button class="py-2 px-4 text-black rounded-md" type="button" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</form>
