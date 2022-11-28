@@ -13,4 +13,6 @@ export class TrainingInput {
     description?: string;
     @ApiProperty()
     comment?: string;
+    @ApiProperty()
+    isCreatedByAdmin?: boolean;
 }
