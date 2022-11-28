@@ -81,11 +81,13 @@ model Training {
     description String?
     comment     String?
 
-    user   User   @relation(fields: [userId], references: [id])
-    userId String
+    user   User?   @relation(fields: [userId], references: [id])
+    userId String?
 
     gym   Gym    @relation(fields: [gymId], references: [id])
     gymId String
+
+    isCreatedByAdmin Boolean @default(false)
 
     exercises Exercise[]
 
