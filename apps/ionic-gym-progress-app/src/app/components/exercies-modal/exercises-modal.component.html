@@ -1,0 +1,34 @@
+<ng-container *ngIf="buttonTemplate; else defaultButtonTemplate" [ngTemplateOutlet]="buttonTemplate"></ng-container>
+
+<ng-template #defaultButtonTemplate>
+    <ion-button [id]="id" expand="block">{{ title }}</ion-button>
+</ng-template>
+
+<ion-modal [trigger]="id">
+    <ng-template>
+        <ion-content>
+            <div>
+                <div class="w-full p-5">
+                    <button class="ion-activatable ripple-parent" (click)="onClose()">
+                        <ion-icon name="arrow-back"></ion-icon>
+                    </button>
+                </div>
+                <div class="flex items-center justify-center">
+                    <div *ngIf="exercises && exercises.length; else noData" class="grid grid-cols-2">
+                        <ng-container *ngFor="let exercise of exercises">
+                            <app-exercise-item
+                                *ngIf="exercise"
+                                [exercise]="exercise"
+                                [disableActions]="true"
+                            ></app-exercise-item>
+                        </ng-container>
+                    </div>
+
+                    <ng-template #noData>
+                        <div class="mt-10 text-center text-lg font-bold">No created exercises</div>
+                    </ng-template>
+                </div>
+            </div>
+        </ion-content>
+    </ng-template>
+</ion-modal>

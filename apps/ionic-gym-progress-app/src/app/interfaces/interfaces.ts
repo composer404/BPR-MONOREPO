@@ -127,9 +127,12 @@ export interface Training {
     description?: string;
     comment?: string;
 
+    exercises?: Exercise[];
     gymId?: string;
     createdAt?: string;
     updatedAt?: string;
+
+    isCreatedByAdmin?: boolean;
 }
 
 export interface TrainingWithExercises {

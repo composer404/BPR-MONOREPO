@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { SessionsService } from 'src/app/services/api/sessions.service';
+import { ToastService } from 'src/app/services/common/toast.service';
 import { Training } from 'src/app/interfaces/interfaces';
+import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
     selector: 'app-training-item',
@@ -18,16 +19,26 @@ export class TrainingItemComponent implements OnInit {
     @Input()
     gymId: string;
 
-    participantsEventCallback: any;
-    numberOfParticipants: number;
+    @Input()
+    predefinedTraining: boolean;
 
-    constructor(private readonly sessionsService: SessionsService) {}
+    @Output()
+    trainigAssigned = new EventEmitter<Training>();
 
-    ngOnInit(): void {
-        // if (this.activeTraining) {
-        //     this.sessionsService.getGymNumberOfParticipants(this.gymId).then((data) => {
-        //         this.numberOfParticipants = data;
-        //     });
-        // }
+    constructor(private readonly trainingService: TrainingService, private readonly toastService: ToastService) {}
+
+    ngOnInit(): void {}
+
+    assignTraining() {
+        delete this.training.isCreatedByAdmin;
+        const result = this.trainingService.createTrainingWithExercises(this.training);
+        if (!result) {
+            this.toastService.error(`Cannot assign predefined training`);
+            return;
+        }
+
+        this.trainigAssigned.emit(this.training);
     }
+
+    showExercises() {}
 }

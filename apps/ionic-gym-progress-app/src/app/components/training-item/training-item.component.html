@@ -18,7 +18,25 @@
         </div>
     </ion-card-content>
 
-    <div class="px-10 mb-4">
-        <button class="primary-button-sm">{{ activeTraining ? 'Start training session' : 'Open' }}</button>
+    <div *ngIf="predefinedTraining; else normalButton">
+        <div class="px-10 mb-4">
+            <app-exercises-modal
+                [exercises]="training.exercises"
+                [buttonTemplate]="showExercisesButton"
+                [id]="'show-exercsies-modal' + training.id"
+            >
+            </app-exercises-modal>
+
+            <ng-template #showExercisesButton>
+                <button [id]="'show-exercsies-modal' + training.id" class="primary-button">Show exercises</button>
+            </ng-template>
+            <button (click)="assignTraining()" class="primary-button mt-2">Add to your trainings</button>
+        </div>
     </div>
+
+    <ng-template #normalButton>
+        <div class="px-10 mb-4">
+            <button class="primary-button-sm">{{ activeTraining ? 'Start training session' : 'Open' }}</button>
+        </div>
+    </ng-template>
 </ion-card>

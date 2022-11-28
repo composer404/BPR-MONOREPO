@@ -1,9 +1,9 @@
 import { Prisma, Training } from '@prisma/client';
+import { TrainingInput, TrainingWithExercisesInput } from 'src/models/training.model';
 
 import { CreatedObjectResponse } from 'src/models';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
-import { TrainingInput } from 'src/models/training.model';
 
 @Injectable()
 export class TrainingsService {
@@ -59,6 +59,9 @@ export class TrainingsService {
                     gymId,
                     isCreatedByAdmin: true,
                 },
+                include: {
+                    exercises: true,
+                },
             })
             .catch((err) => {
                 console.log(`[API]`, err);
@@ -66,6 +69,46 @@ export class TrainingsService {
             });
 
         return result;
+    }
+
+    async createTrainingWithExercises(userId: string, body: TrainingWithExercisesInput) {
+        const exercises = body.exercises;
+
+        exercises.forEach((exercise) => {
+            delete (exercise as any).id;
+            delete (exercise as any).trainingId;
+        });
+
+        delete (body as any).id;
+
+        delete body.exercises;
+        const result = await this.database
+            .create({
+                data: {
+                    ...body,
+                    userId,
+                    exercises: {
+                        createMany: {
+                            data: exercises,
+                        },
+                    },
+                },
+                include: {
+                    exercises: true,
+                },
+            })
+            .catch((err) => {
+                console.log(`[API]`, err);
+                return null;
+            });
+
+        if (!result) {
+            return null;
+        }
+
+        return {
+            id: result.id,
+        };
     }
 
     async createTraining(userId: string, body: TrainingInput): Promise<CreatedObjectResponse | null> {

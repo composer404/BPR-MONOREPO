@@ -1,0 +1,31 @@
+<ng-container *ngIf="buttonTemplate; else defaultButtonTemplate" [ngTemplateOutlet]="buttonTemplate"></ng-container>
+
+<ng-template #defaultButtonTemplate>
+    <ion-button [id]="id" expand="block">{{ title || 'Create training' }}</ion-button>
+</ng-template>
+
+<ion-modal [trigger]="id">
+    <ng-template>
+        <ion-content>
+            <div>
+                <div class="w-full p-5">
+                    <button class="ion-activatable ripple-parent" (click)="onClose(false)">
+                        <ion-icon name="arrow-back"></ion-icon>
+                    </button>
+                </div>
+                <div class="flex items-center justify-center" [class]="predefinedTrainings.length ? '' : 'h-full'">
+                    <div class="w-full px-5">
+                        <div>
+                            <app-training-item
+                                *ngFor="let training of predefinedTrainings"
+                                [training]="training"
+                                [predefinedTraining]="true"
+                                (trainigAssigned)="onClose(true)"
+                            ></app-training-item>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-content>
+    </ng-template>
+</ion-modal>

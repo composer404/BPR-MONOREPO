@@ -12,8 +12,9 @@
             *ngFor="let session of trainingSessions"
             [trainingSession]="session"
         ></app-training-session-item>
-
-        <button class="primary-button" (click)="loadSessions()">Load more</button>
+        <div class="p-2">
+            <button class="primary-button" (click)="loadSessions()">Load more</button>
+        </div>
     </div>
 
     <div *ngIf="weeklyView">

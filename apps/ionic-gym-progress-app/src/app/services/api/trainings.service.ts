@@ -1,4 +1,4 @@
-import { BPRApiCreatedObject, Training } from 'src/app/interfaces/interfaces';
+import { BPRApiCreatedObject, Training, TrainingWithExercises } from 'src/app/interfaces/interfaces';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -24,6 +24,17 @@ export class TrainingService {
         });
     }
 
+    async createTrainingWithExercises(body: Partial<Training>): Promise<BPRApiCreatedObject | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/withExercises`;
+        return firstValueFrom(
+            this.httpClient.post<BPRApiCreatedObject>(url, {
+                ...body,
+            }),
+        ).catch((err) => {
+            console.log(`[API ERR - CREATE TRAINING]`, err);
+            return null;
+        });
+    }
     async getUserTrainingForGym(gymId: string): Promise<Training[] | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/user/all/${gymId}`;
         return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
@@ -36,6 +47,11 @@ export class TrainingService {
             console.log(`[API ERR - GET TRAINING]`, err);
             return null;
         });
+    }
+
+    async getTrainingsCreatedByAdmin(gymId: string): Promise<Training[] | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/admin/all/${gymId}`;
+        return firstValueFrom(this.httpClient.get<Training[] | null>(url)).catch(() => null);
     }
 
     async deleteTraining(trainingId: string) {
