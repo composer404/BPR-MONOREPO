@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Gym, TrainingMachines } from 'src/app/interfaces/interfaces';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
@@ -8,7 +9,6 @@ import { EditTrainingMachineModalComponent } from 'src/app/modals/edit-training-
 import { ElectronService } from 'src/app/services/electron.service';
 import { InfoService } from 'src/app/services/info.service';
 import { Subscription } from 'rxjs';
-import { TrainingMachines } from 'src/app/interfaces/interfaces';
 import { TrainingMachinesService } from 'src/app/services/training-machines.service';
 
 @Component({
@@ -19,7 +19,7 @@ import { TrainingMachinesService } from 'src/app/services/training-machines.serv
 export class TrainingMachinesListComponent implements OnInit {
     subscriptions: Subscription[] = [];
     trainingMachines: TrainingMachines[] = [];
-    gymId:string;
+    //gymId?:string;
 
     constructor(
         private readonly dialogService: DialogService,
@@ -110,7 +110,7 @@ export class TrainingMachinesListComponent implements OnInit {
     }
 
     private async getTrainingMachinesByGymId() {
-        this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym(this.gymId);
+        this.trainingMachines = await this.trainingMachineService.getTrainingMachinesForGym();
     }
 
     private removeTrainingMachineLocally(trainingMachineId: string) {

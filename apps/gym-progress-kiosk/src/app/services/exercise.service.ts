@@ -48,10 +48,10 @@ export class ExerciseService {
         return firstValueFrom(this.httpClient.get<Exercise>(url)).catch(() => null);
     }
 
-    async getAllExerciseTypes(): Promise<ExerciseType[]  | null>{
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/all`;
-        return firstValueFrom(this.httpClient.get<ExerciseType| null>(url)).catch(() => null);
-    }
+    // async getAllExerciseTypes(): Promise<ExerciseType[]  | null>{
+    //     const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/all`;
+    //     return firstValueFrom(this.httpClient.get<ExerciseType| null>(url)).catch(() => null);
+    // }
 
     // async calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number> {
     //     const url = `${environment.fintessApiUrl}/burnedcalorie`;

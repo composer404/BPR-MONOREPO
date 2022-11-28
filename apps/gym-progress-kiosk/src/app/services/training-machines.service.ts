@@ -12,23 +12,20 @@ import { firstValueFrom } from 'rxjs';
     providedIn: 'root',
 })
 export class TrainingMachinesService implements ITrainingMachinesService {
-    // !To change
-    // gymId = `278e3def-aedf-4ccd-b4a1-0e2954b7f796`;
-    //gymId = `dd186798-23bb-4834-a989-9b81b4ff1304`;
     trainingMachines: TrainingMachines[] = [];
     subscriptions: Subscription[] = [];
 
     constructor(private readonly httpClient: HttpClient) {}
 
-    async getTrainingMachinesForGym(gymId: string): Promise<TrainingMachines[]> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/gym/${gymId}`;
+    async getTrainingMachinesForGym(): Promise<TrainingMachines[]> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/gym/${environment.gymId}`;
         return firstValueFrom(this.httpClient.get<TrainingMachines[]>(url)).catch(() => {
             return [];
         });
     }
 
-    async createTrainingMachine(gymId: string,body: Partial<TrainingMachines>): Promise<BPRApiCreatedObject | null> {
-        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${gymId}`;
+    async createTrainingMachine(body: Partial<TrainingMachines>): Promise<BPRApiCreatedObject | null> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingMachines}/${environment.gymId}`;
         return firstValueFrom(
             this.httpClient.post<BPRApiCreatedObject>(url, {
                 ...body,

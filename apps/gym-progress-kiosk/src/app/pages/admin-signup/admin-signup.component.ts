@@ -35,9 +35,9 @@ export class AdminSignupComponent implements OnInit {
 
     public async onSignUp() {
         const response = await this.authService.signup({
-            login: this.signupForm.get('login').value,
-            password: this.signupForm.get('password').value,
-            information: this.signupForm.get('information').value,
+            login: this.signupForm.get('login')?.value,
+            password: this.signupForm.get('password')?.value,
+            information: this.signupForm.get('information')?.value,
             gymId:environment.gymId,
         });
         

@@ -6,7 +6,7 @@ export const environment = {
     production: false,
     apiURL: 'http://localhost:8000',
     localApiUrl: `http://localhost:3000`,
-    gymId:`278e3def-aedf-4ccd-b4a1-0e2954b7f796`,
+    gymId:`a327630d-b9b2-4ad2-94ba-7d6319edf05c`,
 }
 
 /*

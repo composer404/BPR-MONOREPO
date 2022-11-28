@@ -22,7 +22,6 @@ const routes: Routes = [
     imports: [
         CommonModule,
         RouterModule.forChild(routes),
-        // IonicModule,
         // GymSelectionModule,
         TrainingItemModule,
         CreateTrainingModalModule,
