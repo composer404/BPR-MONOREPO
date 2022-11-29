@@ -31,10 +31,7 @@ export class EditTrainingMachineModalComponent implements OnInit {
         this.editTrainingMachineForm = new FormGroup({
             name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
             description: new FormControl(``),
-            formula_for_calories: new FormControl(``),
             location:new FormControl(``,[Validators.required]),
-            video: new FormControl(``),
-            class: new FormControl(``),
         });
     }
 
