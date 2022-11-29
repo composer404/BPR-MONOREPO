@@ -80,12 +80,17 @@ export class TrainingDetailsComponent implements OnInit {
         );
     }
     openEditExerciseModal(exercise: Exercise) {
-        this.dialogService.open(EditExerciseModalComponent, {
+       const ref= this.dialogService.open(EditExerciseModalComponent, {
             width: `40%`,
             data: {
                 ...exercise,
             },
         });
+        this.subscriptions.push(
+            ref.onClose.subscribe(() => {
+                this.loadExercises();
+            }),
+        );
     }
 
     //    private async loadTrainingData() {

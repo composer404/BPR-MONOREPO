@@ -71,12 +71,17 @@ export class TrainingListComponent implements OnInit {
     }
 
     openEditTrainingModal(training: Training) {
-        this.dialogService.open(EditTrainingModalComponent, {
+      const ref =  this.dialogService.open(EditTrainingModalComponent, {
             width: `40%`,
             data: {
                 ...training,
             },
         });
+        this.subscriptions.push(
+            ref.onClose.subscribe(() => {
+                this.getTrainingByGymId();
+            }),
+        );
     }
 
     private async getTrainingByGymId() {

@@ -83,12 +83,18 @@ export class TrainingMachinesListComponent implements OnInit {
     }
 
     openEditTrainingMachineModal(trainingMachine: TrainingMachines) {
-        this.dialogService.open(EditTrainingMachineModalComponent, {
+      const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
             width: `40%`,
             data: {
                 ...trainingMachine,
             },
         });
+        
+        this.subscriptions.push(
+            ref.onClose.subscribe(() => {
+                this.getTrainingMachinesByGymId();
+            }),
+        );
     }
 
     onQRGenerated(trainingMachineId: string) {
@@ -118,4 +124,5 @@ export class TrainingMachinesListComponent implements OnInit {
             return element.id !== trainingMachineId;
         });
     }
+
 }
