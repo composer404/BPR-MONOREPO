@@ -6,7 +6,7 @@
                 pRipple
                 label="New Exercise"
                 icon="pi pi-plus"
-                class="p-button-success mr-2"
+                class="p-button-success mr-2 primary-button"
                 (click)="openCreateModal()"
             ></button>
         </ng-template>
@@ -15,7 +15,7 @@
                 pButton
                 pRipple
                 label="Back to trainings"
-                class="p-button-warning mr-2"
+                class="p-button-warning mr-2 primary-button"
                 [routerLink]="['/trainings']"
             ></button>
         </ng-template>
@@ -41,10 +41,10 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="title">Title</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th pSortableColumn="exercise_type">Type</th>
+                <th pSortableColumn="muscle_group">Muscle group</th>
+                <th pSortableColumn="quantity">Quantity</th>
+                <th pSortableColumn="estimatedTime">Estimated time</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -52,24 +52,24 @@
         <ng-template pTemplate="body" let-exercise>
             <tr>
                 <td>{{ exercise.title }}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ exercise.exercise_type }}</td>
+                <td>{{ exercise.muscle_group }}</td>
+                <td>{{ exercise.quantity}}</td>
+                <td>{{ exercise.estimatedTimeInMinutes}}</td>
                 <td></td>
                 <td class="flex justify-end">
                     <button
                         pButton
                         pRipple
                         icon="pi pi-pencil"
-                        class="p-button-rounded p-button-success"
+                        class="p-button-rounded p-button-success primary-button"
                         (click)="openEditExerciseModal(exercise)"
                     ></button>
                     <button
                         pButton
                         pRipple
                         icon="pi pi-trash"
-                        class="p-button-rounded p-button-warning"
+                        class="p-button-rounded p-button-warning primary-button"
                         (click)="removeExerciseFromTraining(exercise)"
                     ></button>
                 </td>

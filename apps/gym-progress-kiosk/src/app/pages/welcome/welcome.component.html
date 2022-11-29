@@ -1,26 +1,31 @@
 <div class="img-bg"></div>
-<div class="h-full flex flex-col items-center justify-center">
-  <div class="logo m-20" style="font-size: 62px; line-height: 3rem">
+<div class="h-full flex flex-col items-center justify-center ">
+  <div class="logo mt-10" >
     Scan the code to access the kiosk:
   </div>
-  <small>The results will be available in the GymProgress App</small>
-
-  <small class="mt-72 mb-10">Login in through your GymProgress Account!</small>
-  <small class="mb-36">Scan the QR code in the app with your phone</small>
-  <div class="qr-frame">
-    <qrcode [qrdata]="gymId" [width]="384" [errorCorrectionLevel]="'M'"></qrcode>
+  <div>
+  <small class="mt-30">The results will be available in the GymProgress App</small>
+</div>
+<div>
+  <small class="mt-30">Login in through your GymProgress Account!</small>
+</div>
+  <div class="qr-frame m-10">
+    <qrcode [qrdata]="gymId" [width]="284" [errorCorrectionLevel]="'M'"></qrcode>
   </div>
+  <div>
+  <small class="mt-65 mb-10" >Scan the QR code in the app with your phone</small>
+</div>
   <!-- to change -->
   <!--  <div class="side-box mt-36" [routerLink]="'/training-machines'"></div>-->
   <button
-    class="bg-accent text-2xl py-2 text-white rounded-sm w-2/3 mt-20"
+    class="bg-accent text-2xl text-white rounded-sm w-2/3 mt-20 primary-button"
     type="submit"
     style="background-color: #7424f6;"
     [routerLink]="['/training-machines']">
     Manage Training Machines
   </button>
   <button
-  class="bg-accent text-2xl py-2 text-white rounded-sm w-2/3 mt-20"
+  class="bg-accent text-2xl text-white rounded-sm w-2/3 mt-1 primary-button"
   type="submit"
   style="background-color: #7424f6;"
   [routerLink]="['/trainings']">

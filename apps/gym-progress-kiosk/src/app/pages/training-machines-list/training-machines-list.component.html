@@ -1,5 +1,5 @@
 
-<div class="card w-2/3 justify-center">
+<div class="card justify-center flex-wrap">
     <p-toolbar styleClass="mb-4 ">
         <ng-template pTemplate="left">
             <button
@@ -7,8 +7,17 @@
                 pRipple
                 label="New Training Machine"
                 icon="pi pi-plus"
-                class="p-button-success mr-2"
+                class="p-button-success mr-2 primary-button"
                 (click)="openCreateModal()"
+            ></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button
+                pButton
+                pRipple
+                label="Back"
+                class="p-button-warning mr-2 primary-button"
+                [routerLink]="['/welcome']"
             ></button>
         </ng-template>
     </p-toolbar>
@@ -33,8 +42,8 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="name">Name</th>
-                <th></th>
-                <th></th>
+                <th pSortableColumn="location">Location</th>
+                <th pSortableColumn="description">Description</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -44,8 +53,8 @@
         <ng-template pTemplate="body" let-trainingMachine>
             <tr>
                 <td>{{ trainingMachine.name }}</td>
-                <td></td>
-                <td></td>
+                <td>{{ trainingMachine.location }}</td>
+                <td>{{ trainingMachine.description }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -54,21 +63,21 @@
                         pButton
                         pRipple
                         icon="pi pi-print"
-                        class="p-button-rounded p-button-warning"
+                        class="p-button-rounded p-button-warning primary-button"
                         (click)="printQrCode(trainingMachine)"
                     ></button>
                     <button
                         pButton
                         pRipple
                         icon="pi pi-pencil"
-                        class="p-button-rounded p-button-success"
+                        class="p-button-rounded p-button-success primary-button"
                         (click)="openEditTrainingMachineModal(trainingMachine)"
                     ></button>
                     <button
                         pButton
                         pRipple
                         icon="pi pi-trash"
-                        class="p-button-rounded p-button-warning"
+                        class="p-button-rounded p-button-warning primary-button"
                         (click)="removeTrainingMachinesFromGym(trainingMachine)"
                     ></button>
 
