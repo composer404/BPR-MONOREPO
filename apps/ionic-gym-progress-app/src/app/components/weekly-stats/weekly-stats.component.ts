@@ -205,6 +205,12 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
     }
 
     createWeekDataSet() {
+        if (!this.trainingSessions.length) {
+            this.lineChartBurnedCalories?.destroy();
+            this.lineChartTimeCalories?.destroy();
+            return;
+        }
+
         const map = new Map<string, TrainingSession[]>();
 
         const first = DateTime.fromJSDate(this.firstWeekDay);
