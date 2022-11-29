@@ -13,7 +13,6 @@ model User {
     lastName  String?
     email     String  @unique
     password  String
-    avatar    String?
     sex       String
     height    Float
     weight    Float
@@ -50,7 +49,6 @@ model TrainingMachine {
     description          String?
     location             String?
     formula_for_calories String?
-    video                String?
     availability         Boolean
     class                String
 
