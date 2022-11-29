@@ -8,13 +8,18 @@
     </div>
 
     <div *ngIf="sessionsView">
-        <app-training-session-item
-            *ngFor="let session of trainingSessions"
-            [trainingSession]="session"
-        ></app-training-session-item>
-        <div class="p-2">
-            <button class="primary-button" (click)="loadSessions()">Load more</button>
-        </div>
+        <ng-container *ngIf="trainingSessions.length; else noTrainingSessions">
+            <app-training-session-item
+                *ngFor="let session of trainingSessions"
+                [trainingSession]="session"
+            ></app-training-session-item>
+            <div class="p-2">
+                <button class="primary-button" (click)="loadSessions()">Load more</button>
+            </div>
+        </ng-container>
+        <ng-template #noTrainingSessions>
+            <div class="mt-10 text-center text-lg font-bold">Complated sessions not found</div>
+        </ng-template>
     </div>
 
     <div *ngIf="weeklyView">
