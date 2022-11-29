@@ -20,9 +20,6 @@ export class CreateTrainingMachineModalComponent implements OnInit {
             name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
             description: new FormControl(``),
             location: new FormControl(``, [Validators.required]),
-            formulaForCalories: new FormControl(``),
-            video: new FormControl(``),
-            class: new FormControl(``),
         });
     }
 
@@ -33,9 +30,6 @@ export class CreateTrainingMachineModalComponent implements OnInit {
             name: this.trainingMachineForm?.get(`name`)?.value,
             description: this.trainingMachineForm?.get(`description`)?.value || ``,
             location: this.trainingMachineForm?.get(`location`)?.value || ``,
-            formula_for_calories: this.trainingMachineForm.get(`formulaForCalories`)?.value || ``,
-            video: this.trainingMachineForm?.get(`video`)?.value || ``,
-            class: this.trainingMachineForm?.get(`class`)?.value || ``,
         });
 
         if (response) {

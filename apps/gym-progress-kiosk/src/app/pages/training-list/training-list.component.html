@@ -1,4 +1,4 @@
-<div class="card w-2/3 justify-center">
+<div class="card w-100% justify-center">
     <p-toolbar styleClass="mb-4 ">
         <ng-template pTemplate="left">
             <button
@@ -8,6 +8,15 @@
                 icon="pi pi-plus"
                 class="p-button-success mr-2"
                 (click)="openCreateModal()"
+            ></button>
+        </ng-template>
+        <ng-template pTemplate="right">
+            <button
+                pButton
+                pRipple
+                label="Back"
+                class="p-button-warning mr-2"
+                [routerLink]="['/welcome']"
             ></button>
         </ng-template>
     </p-toolbar>

@@ -44,9 +44,6 @@ export class EditTrainingMachineModalComponent implements OnInit {
             name: this.trainingMachine.name,
             description: this.trainingMachine.description,
             location: this.trainingMachine.location,
-            formulaForCalories: this.trainingMachine.formula_for_calories,
-            video: this.trainingMachine.video,
-            class: this.trainingMachine.class,
         });
     }
 
@@ -55,9 +52,6 @@ export class EditTrainingMachineModalComponent implements OnInit {
             name: this.editTrainingMachineForm.get('name')?.value,
             description: this.editTrainingMachineForm.get('description')?.value,
             location: this.editTrainingMachineForm.get('location')?.value,
-            formula_for_calories: this.editTrainingMachineForm.get('formula_for_calories')?.value,
-            video: this.editTrainingMachineForm.get('video')?.value,
-            class: this.editTrainingMachineForm.get('class')?.value,
         };
         const response = this.trainingMachineService.editTrainingMachine(this.trainingMachine.id, body);
 

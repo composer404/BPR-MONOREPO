@@ -45,11 +45,8 @@ export interface TrainingMachines {
     name?: string;
     description?: string;
     location?: string;
-    formula_for_calories?: string;
-    video?: string;
     availability?: string;
     gymId?: string;
-    class: string;
     qrBase64?: string;
 }
 
