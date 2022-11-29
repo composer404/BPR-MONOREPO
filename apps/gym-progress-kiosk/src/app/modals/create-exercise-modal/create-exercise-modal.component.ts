@@ -63,7 +63,7 @@ export class CreateExerciseModalComponent implements OnInit {
             { name: 'Calves' },
         ];
 
-        console.log(`ccongie`, config.data);
+        console.log(config.data);
         this.trainingId = config.data.trainingId;
     }
 
