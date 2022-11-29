@@ -62,26 +62,4 @@ export class ExerciseService {
         });
     }
 
-    // async calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number> {
-    //     const url = `${environment.fintessApiUrl}/burnedcalorie`;
-    //     const response = await firstValueFrom(
-    //         this.httpClient.get(url, {
-    //             params: {
-    //                 activityid: activityId,
-    //                 activitymin: activityMin,
-    //                 weight,
-    //             },
-    //             headers: {
-    //                 'X-RapidAPI-Key': environment.API_KEY,
-    //                 'X-RapidAPI-Host': environment.API_HOST,
-    //             },
-    //         }),
-    //     ).catch(() => null);
-
-    //     if (!response) {
-    //         return null;
-    //     }
-    //     console.log(response.data.burnedCalorie, parseFloat(response.data.burnedCalorie));
-    //     return parseFloat(response.data.burnedCalorie);
-    // }
 }
