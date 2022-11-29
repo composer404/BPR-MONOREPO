@@ -37,12 +37,10 @@ export class TrainingService {
         return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => null);
     }
 
-    getTrainingById(trainingId: string): Promise<Training | null> {
-        return firstValueFrom(
-            this.httpClient.get<Training>(`${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`),
-        ).catch((err) => {
-            console.log(`[API ERR - GET TRAINING]`, err);
-            return null;
+    getTrainingById(trainingId: string): Promise<Training[]> {
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`;
+        return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => {
+            return [];
         });
     }
 

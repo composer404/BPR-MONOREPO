@@ -1,0 +1,50 @@
+<form  [formGroup]="exerciseForm" (ngSubmit)="createExercise()">
+    <div class="m-10 gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="name">Title</label>
+            <input formControlName="title" pInputText id="title" type="text" />
+            <small
+                *ngIf="
+                exerciseForm.get('title')?.invalid &&
+                    (exerciseForm.get('title')?.dirty || exerciseForm.get('title')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="exerciseForm.get('title')?.errors?.['required']">
+                    Title is required.
+                </div>
+            </small>
+            <label for="description">Description</label>
+            <input formControlName="description" pInputText id="description" type="text" />
+            <div class="flex mt-2"></div>
+            <label for="exercise_type"> Exercise Type</label>
+            <p-dropdown formControlName="exercise_type" [options]="exerciseTypes" [(ngModel)]="selectedExerciseType" optionLabel="name"></p-dropdown>
+            <!-- <small
+                *ngIf="
+                exerciseForm.get('exercise_type')?.invalid &&
+                    ( exerciseForm.get('exercise_type')?.dirty ||  exerciseForm.get('exercise_type')?.touched)
+                "
+                id="login-help"
+                class="p-error"
+                ><div *ngIf=" exerciseForm.get('exercise_type')?.errors?.['required']">
+                    The  exercise type is required.
+                </div>
+            </small> -->
+            
+            <label for="muscle_group">Muscle Group</label>
+            <p-dropdown formControlName="muscle_group" [options]="muscleGroups" [(ngModel)]="selectedMuscleGroup" optionLabel="name" ></p-dropdown>
+            <label for="quantity"> Quantity</label>
+            <input formControlName="quantity" pInputText id=" quantity" type="text" />
+            <label for="trainingMachineId">Training Machine</label>
+            <p-dropdown formControlName="trainingMachineId" [options]="trainingMachines" [(ngModel)]="selectedTrainingMachine" optionLabel="name" ></p-dropdown>
+            <label for="estimatedTime"> Estimated time</label>
+            <input formControlName="estimatedTime" pInputText id="estimatedTime" type="number" placeholder="minutes"/>
+        </div>
+        <div class="flex gap-2 mt-6">
+            <button [disabled]="exerciseForm.invalid" class="py-2 px-4 text-black rounded-md" type="submit">
+                Create
+            </button>
+            <button class="py-2 px-4 text-black rounded-md" type="button" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</form>

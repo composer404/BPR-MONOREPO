@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminLoginModule } from './pages/admin-login/admin-login.module';
 import { AdminSignupModule } from './pages/admin-signup/admin-signup.module';
 import { NgModule } from '@angular/core';
+import { TrainingDetailsModule } from './pages/training-details/training-details.module';
 import { TrainingListModule } from './pages/training-list/training-list.module';
 import { TrainingMachinesListModule } from './pages/training-machines-list/training-machines-list.module';
 import { WelcomeModule } from './pages/welcome/welcome.module';
@@ -38,12 +39,12 @@ const routes: Routes = [
             return TrainingListModule;
         },
     },
-    // {
-    //     path: `exercises`,
-    //     loadChildren: () => {
-    //         return TrainingDetailsListModule;
-    //     },
-    // },
+    {
+        path: `exercises`,
+        loadChildren: () => {
+            return TrainingDetailsModule;
+        },
+    },
     {
         path: `**`,
         redirectTo: `welcome`,

@@ -35,7 +35,14 @@ export class ExerciseService {
 
     async deleteExercise(id: string): Promise<boolean | null> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.exercises}/${id}`;
-        return firstValueFrom(this.httpClient.delete<boolean>(url)).catch(() => null);
+        const response = await firstValueFrom(this.httpClient.delete<boolean>(url)).catch(() => {
+            return null;
+        });
+
+        if (!response) {
+            return false;
+        }
+        return true;
     }
 
     async editExercise(id: string, body: Partial<Exercise>): Promise<boolean | null> {
@@ -48,9 +55,11 @@ export class ExerciseService {
         return firstValueFrom(this.httpClient.get<Exercise>(url)).catch(() => null);
     }
 
-    async getAllExerciseTypes(): Promise<ExerciseType[]  | null>{
+    async getAllExerciseTypes(): Promise<ExerciseType[] >{
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainingTypes}/all`;
-        return firstValueFrom(this.httpClient.get<ExerciseType| null>(url)).catch(() => null);
+        return firstValueFrom(this.httpClient.get<ExerciseType[]>(url)).catch(() => {
+            return [];
+        });
     }
 
     // async calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number> {

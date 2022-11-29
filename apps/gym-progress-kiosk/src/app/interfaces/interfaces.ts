@@ -79,7 +79,7 @@ export interface TrainingWithExercises {
 }
 
 export interface Exercise {
-    id?: string;
+    id: string;
     title?: string;
     description?: string;
     exercise_type?: string;
@@ -94,7 +94,7 @@ export interface Exercise {
 }
 
 export interface ExerciseType {
-    id?: string;
+    id: string;
     activityId: string;
     name: string;
 }
@@ -115,4 +115,8 @@ export interface Gym {
 
     createdAt?: string;
     updatedAt?: string;
+}
+
+export interface MuscleGroup{
+    name:string;
 }
