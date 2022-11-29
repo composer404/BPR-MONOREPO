@@ -1,4 +1,3 @@
-
 <div class="card w-2/3 justify-center">
     <p-toolbar styleClass="mb-4 ">
         <ng-template pTemplate="left">
@@ -43,7 +42,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-training>
             <tr>
-                <td [routerLink]="['/exercises']">{{ training.title }}</td>
+                <td [routerLink]="['/exercises/' + training.id]">{{ training.title }}</td>
                 <td></td>
                 <td></td>
                 <td></td>

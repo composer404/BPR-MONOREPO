@@ -40,7 +40,7 @@ const routes: Routes = [
         },
     },
     {
-        path: `exercises`,
+        path: `exercises/:trainingId`,
         loadChildren: () => {
             return TrainingDetailsModule;
         },

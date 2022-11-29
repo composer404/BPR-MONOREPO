@@ -1,14 +1,13 @@
-
 <div class="card w-2/3 justify-center">
     <p-toolbar styleClass="mb-4 ">
-        <ng-template pTemplate="left" let-trainingId>
+        <ng-template pTemplate="left">
             <button
                 pButton
                 pRipple
                 label="New Exercise"
                 icon="pi pi-plus"
                 class="p-button-success mr-2"
-                (click)="openCreateModal(trainingId)"
+                (click)="openCreateModal()"
             ></button>
         </ng-template>
     </p-toolbar>

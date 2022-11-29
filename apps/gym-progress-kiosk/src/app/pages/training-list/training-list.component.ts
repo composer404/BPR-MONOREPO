@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Gym, Training } from 'src/app/interfaces/interfaces';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { CreateTrainingModalComponent } from 'src/app/modals/create-training-modal/create-training-modal.component';
@@ -8,8 +7,8 @@ import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { EditTrainingModalComponent } from 'src/app/modals/edit-training-modal/edit-training-modal.component';
 import { InfoService } from 'src/app/services/info.service';
 import { Subscription } from 'rxjs';
+import { Training } from 'src/app/interfaces/interfaces';
 import { TrainingService } from 'src/app/services/training.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: `app-training-list-component`,
@@ -19,7 +18,6 @@ import { environment } from 'src/environments/environment';
 export class TrainingListComponent implements OnInit {
     subscriptions: Subscription[] = [];
     trainings: Training[] = [];
-   
 
     constructor(
         private readonly dialogService: DialogService,
@@ -80,7 +78,6 @@ export class TrainingListComponent implements OnInit {
             },
         });
     }
-
 
     private async getTrainingByGymId() {
         this.trainings = await this.trainingService.getAdminTrainingForGym();
