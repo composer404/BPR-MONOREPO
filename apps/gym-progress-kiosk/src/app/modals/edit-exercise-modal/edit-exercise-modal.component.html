@@ -1,0 +1,38 @@
+<form  [formGroup]="editExerciseForm" (ngSubmit)="onSave()">
+    <div class="m-10 gap-5">
+        <div class="flex flex-col gap-2">
+            <label for="name">Title</label>
+            <input formControlName="title" pInputText id="title" type="text" />
+            <small
+                *ngIf="
+                editExerciseForm.get('title')?.invalid &&
+                    (editExerciseForm.get('title')?.dirty || editExerciseForm.get('title')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="editExerciseForm.get('title')?.errors?.['required']">
+                    Title is required.
+                </div>
+            </small>
+            <label for="description">Description</label>
+            <input formControlName="description" pInputText id="description" type="text" />
+            <div class="flex mt-2"></div>
+            <label for="exercise_type"> Exercise Type</label>
+            <p-dropdown formControlName="exercise_type" [options]="exerciseTypes" [(ngModel)]="selectedExerciseType" optionLabel="name"></p-dropdown>
+            <label for="muscle_group">Muscle Group</label>
+            <p-dropdown formControlName="muscle_group" [options]="muscleGroups" [(ngModel)]="selectedMuscleGroup" optionLabel="name" ></p-dropdown>
+            <label for="quantity"> Quantity</label>
+            <input formControlName="quantity" pInputText id=" quantity" type="text" />
+            <label for="trainingMachineId">Training Machine</label>
+            <p-dropdown formControlName="trainingMachineId" [options]="trainingMachines" [(ngModel)]="selectedTrainingMachine" optionLabel="name" ></p-dropdown>
+            <label for="estimatedTime"> Estimated time</label>
+            <input formControlName="estimatedTime" pInputText id="estimatedTime" type="number" placeholder="minutes"/>
+        </div>
+        <div class="flex gap-2 mt-6">
+            <button [disabled]="editExerciseForm.invalid" class="py-2 px-4 text-black rounded-md" type="submit">
+                Save
+            </button>
+            <button class="py-2 px-4 text-black rounded-md" type="button" (click)="close()">Cancel</button>
+        </div>
+    </div>
+</form>

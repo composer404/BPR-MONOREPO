@@ -46,7 +46,7 @@ async onSave() {
         description: this.editTrainingForm.get('description')?.value,
         comment: this.editTrainingForm.get('comment')?.value,
     };
-    const response = this.trainingService.editTraining(this.training.id, body);
+    const response = await this.trainingService.editTraining(this.training.id, body);
 
     if (!response) {
         this.infoService.error(`Training update failed. Try again later`);

@@ -19,18 +19,6 @@
             <div class="flex mt-2"></div>
             <label for="exercise_type"> Exercise Type</label>
             <p-dropdown formControlName="exercise_type" [options]="exerciseTypes" [(ngModel)]="selectedExerciseType" optionLabel="name"></p-dropdown>
-            <!-- <small
-                *ngIf="
-                exerciseForm.get('exercise_type')?.invalid &&
-                    ( exerciseForm.get('exercise_type')?.dirty ||  exerciseForm.get('exercise_type')?.touched)
-                "
-                id="login-help"
-                class="p-error"
-                ><div *ngIf=" exerciseForm.get('exercise_type')?.errors?.['required']">
-                    The  exercise type is required.
-                </div>
-            </small> -->
-            
             <label for="muscle_group">Muscle Group</label>
             <p-dropdown formControlName="muscle_group" [options]="muscleGroups" [(ngModel)]="selectedMuscleGroup" optionLabel="name" ></p-dropdown>
             <label for="quantity"> Quantity</label>
