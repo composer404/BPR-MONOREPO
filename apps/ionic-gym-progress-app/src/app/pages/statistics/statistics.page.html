@@ -1,9 +1,20 @@
 <ion-content>
     <div class="p-5">
         <div class="flex justify-center gap-3">
-            <button class="primary-button-sm" (click)="openSessionsView()">Sessions</button>
-            <button class="primary-button-sm" (click)="openWeeklyView()">Weekly</button>
-            <button class="primary-button-sm" (click)="openMonthlyView()">Monthly</button>
+<!--            <button class="primary-button-sm" (click)="openSessionsView()">Sessions</button>-->
+<!--            <button class="primary-button-sm" (click)="openWeeklyView()">Weekly</button>-->
+<!--            <button class="primary-button-sm" (click)="openMonthlyView()">Monthly</button>-->
+          <ion-segment value="sessions">
+            <ion-segment-button (click)="openSessionsView()" value="sessions">
+              <ion-label>Sessions</ion-label>
+            </ion-segment-button>
+            <ion-segment-button (click)="openWeeklyView()" value="weekly">
+              <ion-label>Weekly</ion-label>
+            </ion-segment-button>
+            <ion-segment-button (click)="openMonthlyView()" value="monthly">
+              <ion-label>Monthly</ion-label>
+            </ion-segment-button>
+          </ion-segment>
         </div>
     </div>
 

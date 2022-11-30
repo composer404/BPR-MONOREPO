@@ -49,6 +49,21 @@ body {
     background-color: #252E37;
 }
 
+ion-segment {
+  background: var(--primary-gradient) !important;
+  border-radius: 0.5rem;
+}
+
+ion-segment-button {
+  --indicator-color: none;
+  --indicator-height: 4px;
+  --border-radius: 0.5rem;
+  text-transform: none;
+  --background-checked: lightgrey;
+  --color: white;
+  --color-checked: purple;
+}
+
 .card {
     background-color: #1f1f1f;
     padding: 15px;
