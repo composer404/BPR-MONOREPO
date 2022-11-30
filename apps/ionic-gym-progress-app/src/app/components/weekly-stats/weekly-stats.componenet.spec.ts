@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from '@angular/common';
@@ -64,8 +66,7 @@ describe('WeeklyStatsComponent', () => {
 
     it(`should correctly calculate stats`, () => {
         component.trainingSessions = mockedStats;
-
-        component.calculateStatistics();
+        component.createWeekDataSet();
 
         expect(component.weekStatistics).toEqual({
             totalBurnedCalories: 164.51,
@@ -83,10 +84,10 @@ describe('WeeklyStatsComponent', () => {
         const map = component.createWeekDataSet();
         expect(Array.from(map.keys()).length).toEqual(7);
 
-        const calories = component.getCalories(map);
-        expect(calories).toEqual([0, 0, 5.38, 59.13, 100, 0, 0]);
+        expect(component.lineChartBurnedCalories.config._config.data.datasets[0].data).toEqual([
+            0, 0, 5.38, 59.13, 100, 0, 0,
+        ]);
 
-        const time = component.getTime(map);
-        expect(time).toEqual([0, 0, 0, 11, 10, 0, 0]);
+        expect(component.lineChartTimeCalories.config._config.data.datasets[0].data).toEqual([0, 0, 0, 11, 10, 0, 0]);
     });
 });

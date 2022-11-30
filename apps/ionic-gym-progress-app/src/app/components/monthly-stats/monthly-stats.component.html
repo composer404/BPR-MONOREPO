@@ -1,0 +1,43 @@
+<div class="flex justify-center gap-4 mt-5 mb-5" *ngIf="firstMonthDay && lastMonthDay">
+    <div (click)="minusMonth()"><ion-icon name="arrow-back"></ion-icon></div>
+    <div class="font-bold">{{ firstMonthDay.toFormat('dd/MM/yyyy') }} - {{ lastMonthDay.toFormat('dd/MM/yyyy') }}</div>
+    <div (click)="plusMonth()"><ion-icon name="arrow-forward"></ion-icon></div>
+</div>
+
+<ng-container *ngIf="trainingSessions.length; else noData">
+    <div *ngIf="monthStatistics">
+        <div class="flex justify-center text-center">
+            <div class="w-1/2">
+                <div class="title">Time</div>
+                <div>{{ monthStatistics.totalTimeInMinutes }}min</div>
+            </div>
+            <div class="w-1/2">
+                <div class="title">Calories</div>
+                <div>
+                    {{ monthStatistics.totalBurnedCalories }}
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center text-center mt-8 mb-8">
+            <div class="w-1/2">
+                <div class="title">Sessions</div>
+                <div>{{ monthStatistics.completedTrainingSessions }}</div>
+            </div>
+            <div class="w-1/2">
+                <div class="title">Exercises</div>
+                <div>{{ monthStatistics.completedExercises }}</div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+
+<div>
+    <canvas #lineCanvasBurnedCalories></canvas>
+</div>
+<div class="mt-7" style="position: relative; width: 100vw">
+    <canvas class="w-100" #lineCanvasSpentTime></canvas>
+</div>
+
+<ng-template #noData>
+    <div class="mt-10 text-center text-lg font-bold">No sessions found in selected time period</div>
+</ng-template>

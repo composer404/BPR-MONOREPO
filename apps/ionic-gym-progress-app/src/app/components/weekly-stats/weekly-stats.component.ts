@@ -3,8 +3,8 @@ import { Chart, registerables } from 'chart.js';
 import { SessionTotalStatistics, TrainingSession } from 'src/app/interfaces/interfaces';
 
 import { DateTime } from 'luxon';
+import { StatsService } from '../../services/common/stats.service';
 import { TrainingSessionService } from 'src/app/services/api/training-session.service';
-import {StatsService} from '../../services/common/stats.service';
 
 @Component({
     selector: 'app-weekly-stats',
@@ -26,8 +26,10 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
 
     currentDate: DateTime;
 
-    constructor(private readonly trainingSessionsService: TrainingSessionService,
-                private readonly statsService: StatsService) {
+    constructor(
+        private readonly trainingSessionsService: TrainingSessionService,
+        private readonly statsService: StatsService,
+    ) {
         Chart.register(...registerables);
     }
 
@@ -40,8 +42,8 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
     }
 
     getTimeAndCalories(chartDataSetMap: Map<string, TrainingSession[]>) {
-      this.statsService.getTime(chartDataSetMap);
-      this.statsService.getCalories(chartDataSetMap);
+        this.statsService.getTime(chartDataSetMap);
+        this.statsService.getCalories(chartDataSetMap);
     }
 
     getFirstDayOfWeek(d: Date) {
@@ -71,7 +73,6 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
             firstDay.toISOString(),
             lastDay.toISOString(),
         );
-        this.statsService.calculateStatistics();
         this.createWeekDataSet();
     }
 
@@ -92,6 +93,8 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
             return;
         }
 
+        this.weekStatistics = this.statsService.calculateStatistics(this.trainingSessions);
+
         const map = new Map<string, TrainingSession[]>();
 
         const first = DateTime.fromJSDate(this.firstWeekDay);
@@ -108,8 +111,82 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
             }
         });
 
-        this.statsService.initTimeLineChart(map);
-        this.statsService.initBurnedCaloriesLineChart(map);
+        this.initTimeLineChart(map);
+        this.initBurnedCaloriesLineChart(map);
         return map;
+    }
+
+    private initTimeLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
+        if (this.lineChartTimeCalories) {
+            this.lineChartTimeCalories?.destroy();
+        }
+        this.lineChartTimeCalories = new Chart(this.lineCanvasSpentTime.nativeElement, {
+            type: 'line',
+            data: {
+                labels: [...Array.from(chartDataSetMap.keys())],
+                datasets: [
+                    {
+                        label: 'Time in minutes',
+                        backgroundColor: 'rgba(123,39,164,1)',
+                        borderColor: 'rgba(123,39,164,1)',
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(123,39,164,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [...this.statsService.getTime(chartDataSetMap)],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        ticks: {
+                            stepSize: 5,
+                        },
+                    },
+                },
+            },
+        });
+    }
+
+    private initBurnedCaloriesLineChart(chartDataSetMap: Map<string, TrainingSession[]>) {
+        if (this.lineChartBurnedCalories) {
+            this.lineChartBurnedCalories.destroy();
+        }
+        this.lineChartBurnedCalories = new Chart(this.lineCanvasBurnedCalories.nativeElement, {
+            type: 'line',
+            data: {
+                labels: [...Array.from(chartDataSetMap.keys())],
+                datasets: [
+                    {
+                        label: 'Burned calories',
+                        backgroundColor: 'rgba(123,39,164,1)',
+                        borderColor: 'rgba(123,39,164,1)',
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(123,39,164,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [...this.statsService.getCalories(chartDataSetMap)],
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        min: 0,
+                        ticks: {
+                            stepSize: 20,
+                        },
+                    },
+                },
+            },
+        });
     }
 }
