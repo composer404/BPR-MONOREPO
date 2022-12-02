@@ -45,10 +45,14 @@ export class CreateTrainingModalComponent implements OnInit {
             comment: this.trainingForm.get(`comment`)?.value || ``,
         });
 
-        if (response) {
-            this.close();
+        if (!response) {
+            this.infoService.error(`Training creation failed. Try again later`);
+            return;
         }
+        this.infoService.success(`Training has been successfully created`);
+        this.ref.close();
     }
+
 
     close(): void {
         this.ref.close(null);

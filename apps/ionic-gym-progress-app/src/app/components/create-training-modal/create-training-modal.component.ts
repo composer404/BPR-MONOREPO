@@ -59,12 +59,6 @@ export class CreateTrainingModalComponent implements OnInit {
         });
     }
 
-    // createTraining() {
-    //     this.ionModal.dismiss(null, 'confirm');
-    //     this.closeEvent.emit({
-    //         type: `Confirm`,
-    //     });
-    // }
 
     async loadTrainingData() {
         const response = await this.trainingService.getTrainingById(this.trainingId);
@@ -77,25 +71,6 @@ export class CreateTrainingModalComponent implements OnInit {
         });
     }
 
-    // async onWillDismissModal(event: any) {
-    //     if (event.detail.role !== `confirm`) {
-    //         return;
-    //     }
-
-    //     const requestBody = {
-    //         title: this.trainingForm.get(`title`).value,
-    //         type: this.trainingForm.get(`type`).value,
-    //         description: this.trainingForm.get(`description`).value,
-    //         comment: this.trainingForm.get(`comment`).value,
-    //         gymId: this.gymId,
-    //     };
-
-    //     if (this.trainingId) {
-    //         await this.editTraining(requestBody);
-    //         return;
-    //     }
-    //     await this.createTraining(requestBody);
-    // }
 
     async confirmTrainingCreation() {
         const requestBody = {
@@ -132,7 +107,7 @@ export class CreateTrainingModalComponent implements OnInit {
             this.toastService.error(`Cannot create training. Try again later.`);
             return;
         }
-        this.toastService.success(`Successfully created new training`);
+        this.toastService.success(`Training has been successfully created`);
         return result.id;
     }
 
@@ -143,6 +118,6 @@ export class CreateTrainingModalComponent implements OnInit {
             this.toastService.error(`Cannot edit training. Try again later.`);
             return;
         }
-        this.toastService.success(`Successfully edited training`);
+        this.toastService.success(`Training has been successfully updated`);
     }
 }

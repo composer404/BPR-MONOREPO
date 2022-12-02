@@ -44,9 +44,9 @@ export class CreateExerciseModalComponent implements OnInit {
         this.exerciseForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
-            exercise_type: new FormControl(``),
-            muscle_group: new FormControl(``),
-            quantity: new FormControl(``),
+            exercise_type: new FormControl(``, [Validators.required]),
+            muscle_group: new FormControl(``, [Validators.required]),
+            quantity: new FormControl(``, [Validators.required]),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),
         });
@@ -66,9 +66,9 @@ export class CreateExerciseModalComponent implements OnInit {
         this.exerciseForm = new FormGroup({
             title: new FormControl(this.exercise.title, [Validators.required]),
             description: new FormControl(this.exercise.description),
-            exercise_type: new FormControl(this.exercise.exercise_type),
-            muscle_group: new FormControl(this.exercise.muscle_group),
-            quantity: new FormControl(this.exercise.quantity),
+            exercise_type: new FormControl(this.exercise.exercise_type, [Validators.required]),
+            muscle_group: new FormControl(this.exercise.muscle_group, [Validators.required]),
+            quantity: new FormControl(this.exercise.quantity, [Validators.required]),
             trainingMachineId: new FormControl(this.exercise.trainingMachineId, [Validators.required]),
             estimatedTime: new FormControl(this.exercise.estimatedTimeInMinutes, [Validators.required]),
         });
@@ -106,7 +106,7 @@ export class CreateExerciseModalComponent implements OnInit {
             this.toastService.error(`Cannot create an exercise. Try again later.`);
             return;
         }
-        this.toastService.success(`Successfully created new exercise`);
+        this.toastService.success(`Exercise has been successfully created`);
         return result.id;
     }
 
@@ -117,7 +117,7 @@ export class CreateExerciseModalComponent implements OnInit {
             this.toastService.error(`Cannot edit exercise. Try again later.`);
             return;
         }
-        this.toastService.success(`Successfully edited exercise`);
+        this.toastService.success(`Exercise has been successfully updated`);
         return this.exercise.id;
     }
 
@@ -192,6 +192,6 @@ export class CreateExerciseModalComponent implements OnInit {
             this.toastService.error(`Cannot create an exercise. Try again later.`);
             return;
         }
-        this.toastService.success(`Successfully created new exercise`);
+        this.toastService.success(`Exercise has been successfully created`);
     }
 }

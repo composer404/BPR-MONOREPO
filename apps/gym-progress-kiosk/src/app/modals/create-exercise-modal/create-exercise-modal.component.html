@@ -10,7 +10,7 @@
                 "
                 id="ranking-help"
                 class="p-error"
-                ><div *ngIf="exerciseForm.get('title')?.errors?.['required']">
+                ><div *ngIf="exerciseForm.get('title')?.errors?.['required']" style="font-size: 20px;">
                     Title is required.
                 </div>
             </small>
@@ -22,11 +22,33 @@
             <label for="muscle_group">Muscle Group</label>
             <p-dropdown formControlName="muscle_group" [options]="muscleGroups" [(ngModel)]="selectedMuscleGroup" optionLabel="name" ></p-dropdown>
             <label for="quantity"> Quantity</label>
-            <input formControlName="quantity" pInputText id=" quantity" type="text" />
+            <input formControlName="quantity" pInputText id="quantity" type="text" />
+            <small
+                *ngIf="
+                   exerciseForm.get('quantity')?.invalid &&
+                    (exerciseForm.get('quantity')?.dirty || exerciseForm.get('quantity')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="exerciseForm.get('quantity')?.errors?.['required']" style="font-size: 20px;">
+                    Quantity is required.
+                </div>
+            </small>
             <label for="trainingMachineId">Training Machine</label>
             <p-dropdown formControlName="trainingMachineId" [options]="trainingMachines" [(ngModel)]="selectedTrainingMachine" optionLabel="name" ></p-dropdown>
             <label for="estimatedTime"> Estimated time</label>
             <input formControlName="estimatedTime" pInputText id="estimatedTime" type="number" placeholder="minutes"/>
+            <small
+                *ngIf="
+                   exerciseForm.get('estimatedTime')?.invalid &&
+                    (exerciseForm.get('estimatedTime')?.dirty || exerciseForm.get('estimatedTime')?.touched)
+                "
+                id="ranking-help"
+                class="p-error"
+                ><div *ngIf="exerciseForm.get('estimatedTime')?.errors?.['required']" style="font-size: 20px;">
+                    Estimated execution time is required.
+                </div>
+            </small>
         </div>
         <div class="flex gap-2 mt-6">
             <button [disabled]="exerciseForm.invalid" class="py-2 px-4 text-black rounded-md" type="submit">

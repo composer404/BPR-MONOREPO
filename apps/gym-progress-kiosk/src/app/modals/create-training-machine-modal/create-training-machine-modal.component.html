@@ -10,11 +10,8 @@
                 "
                 id="ranking-help"
                 class="p-error"
-                ><div *ngIf="trainingMachineForm.get('name')?.errors?.['required']">
-                    A name of the movie is required.
-                </div>
-                <div *ngIf="trainingMachineForm.get('name')?.errors?.['minlength']">
-                    A title must be at least 1 character long.
+                ><div *ngIf="trainingMachineForm.get('name')?.errors?.['required']" style="font-size: 20px;">
+                    A name of the training is required.
                 </div>
             </small>
             <div class="flex mt-2"></div>
@@ -29,7 +26,7 @@
                 "
                 id="login-help"
                 class="p-error"
-                ><div *ngIf=" trainingMachineForm.get('location')?.errors?.['required']">
+                ><div *ngIf=" trainingMachineForm.get('location')?.errors?.['required']" style="font-size: 20px;">
                     The location is required.
                 </div>
             </small>
