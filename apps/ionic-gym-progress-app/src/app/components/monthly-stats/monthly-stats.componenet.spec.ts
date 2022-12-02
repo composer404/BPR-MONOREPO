@@ -40,25 +40,27 @@ describe('MonthlyStatsComponent', () => {
     });
 
     it(`should correctly set first and last day of month`, () => {
-        // @ts-ignore
-      expect(DateTime.fromJSDate(component.firstMonthDay).toFormat(`dd/MM/yyyy`)).toEqual(`01/12/2022`);
-        // @ts-ignore
-      expect(DateTime.fromJSDate(component.lastMonthDay).toFormat(`dd/MM/yyyy`)).toEqual(`31/12/2022`);
+
+      // @ts-ignore
+      expect(DateTime.fromJSDate(component.firstMonthDay).toFormat(`dd/MM`)).toEqual(`01/12`);
+
+      // @ts-ignore
+      expect(DateTime.fromJSDate(component.lastMonthDay).toFormat(`dd/MM`)).toEqual(`31/12`);
     });
 
     it(`should correctly minus month`, () => {
         component.currentDate = DateTime.now();
         component.minusMonth();
-        expect(component.currentDate.toFormat(`dd/MM/yyyy`)).toEqual(
-            DateTime.now().minus({ days: 7 }).toFormat(`dd/MM/yyyy`),
+        expect(component.currentDate.toFormat(`dd/MM`)).toEqual(
+            DateTime.now().minus({ months: 1 }).toFormat(`dd/MM`),
         );
     });
 
     it(`should correctly plus month`, () => {
         component.currentDate = DateTime.now();
         component.plusMonth();
-        expect(component.currentDate.toFormat(`dd/MM/yyyy`)).toEqual(
-            DateTime.now().plus({ days: 7 }).toFormat(`dd/MM/yyyy`),
+        expect(component.currentDate.toFormat(`dd/MM`)).toEqual(
+            DateTime.now().plus({ months: 1 }).toFormat(`dd/MM`),
         );
     });
 
