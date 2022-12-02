@@ -31,6 +31,7 @@
                                         (ionChange)="onExerciseTypeChange($event)"
                                         formControlName="exercise_type"
                                         interface="popover"
+                                        required
                                     >
                                         <ion-select-option
                                             [value]="type.activityId"
@@ -44,7 +45,7 @@
                             <ion-list>
                                 <ion-item lines="full">
                                     <ion-label position="stacked">Muscle Group</ion-label>
-                                    <ion-select formControlName="muscle_group" interface="popover">
+                                    <ion-select formControlName="muscle_group" interface="popover" required>
                                         <ion-select-option value="chest">Chest</ion-select-option>
                                         <ion-select-option value="back">Back</ion-select-option>
                                         <ion-select-option value="arms">Arms</ion-select-option>
@@ -57,7 +58,7 @@
 
                             <ion-item lines="full">
                                 <ion-label position="stacked">Quantity</ion-label>
-                                <ion-input formControlName="quantity" type="text"></ion-input>
+                                <ion-input formControlName="quantity" type="text" required></ion-input>
                             </ion-item>
 
                             <ion-list>
@@ -66,6 +67,7 @@
                                         [value]="exercise?.trainingMachineId"
                                         (ionChange)="onTrainingMachineChange($event)"
                                         placeholder="Select training machine"
+                                        required
                                     >
                                         <ion-select-option [value]="machine.id" *ngFor="let machine of trainingMachines"
                                             >{{ machine.name }} ({{ machine.location }})</ion-select-option

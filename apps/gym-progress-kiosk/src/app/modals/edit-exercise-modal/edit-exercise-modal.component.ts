@@ -35,9 +35,9 @@ export class EditExerciseModalComponent implements OnInit {
         this.editExerciseForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
-            exercise_type: new FormControl(``),
-            muscle_group: new FormControl(``),
-            quantity: new FormControl(``),
+            exercise_type: new FormControl(``,[Validators.required]),
+            muscle_group: new FormControl(``,[Validators.required]),
+            quantity: new FormControl(``,[Validators.required]),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),
         });

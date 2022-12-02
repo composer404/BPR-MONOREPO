@@ -29,7 +29,7 @@ export class EditTrainingMachineModalComponent implements OnInit {
     ) {
         this.trainingMachine = this.config.data;
         this.editTrainingMachineForm = new FormGroup({
-            name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
+            name: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
             location:new FormControl(``,[Validators.required]),
         });

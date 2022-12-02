@@ -49,7 +49,7 @@ export class CreateExerciseModalComponent implements OnInit {
             title: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
             exercise_type: new FormControl(``, [Validators.required]),
-            muscle_group: new FormControl(``),
+            muscle_group: new FormControl(``,[Validators.required]),
             quantity: new FormControl(``, [Validators.required]),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),
@@ -92,9 +92,12 @@ export class CreateExerciseModalComponent implements OnInit {
             activity: this.exerciseForm?.get(`activity`)?.value,
         });
 
-        if (response) {
-            this.close();
+        if (!response) {
+            this.infoService.error(`Exercise creation failed. Try again later`);
+            return;
         }
+        this.infoService.success(`Exercise has been successfully created`);
+        this.ref.close();
     }
 
     close(): void {

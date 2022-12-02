@@ -10,11 +10,8 @@
                 "
                 id="ranking-help"
                 class="p-error"
-                ><div *ngIf="trainingForm.get('title')?.errors?.['required']">
+                ><div *ngIf="trainingForm.get('title')?.errors?.['required']" style="font-size: 20px;">
                     Title is required.
-                </div>
-                <div *ngIf="trainingForm.get('title')?.errors?.['minlength']">
-                    A title must be at least 1 character long.
                 </div>
             </small>
             <div class="flex mt-2"></div>
@@ -27,7 +24,7 @@
                 "
                 id="login-help"
                 class="p-error"
-                ><div *ngIf=" trainingForm.get('type')?.errors?.['required']">
+                ><div *ngIf=" trainingForm.get('type')?.errors?.['required']" style="font-size: 20px;">
                     The type is required.
                 </div>
             </small>
