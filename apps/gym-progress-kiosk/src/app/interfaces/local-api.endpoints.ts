@@ -20,8 +20,8 @@ export enum LOCAL_API_SERVICES {
     // /* -------------------------------- SESSIONS -------------------------------- */
     // calories = `/burnedcalorie`,
 
-     /* -------------------------------- TRAINING TYPES ------------------------------- */
+     /* -------------------------------- EXERCISE TYPES ------------------------------- */
 
-     trainingTypes = `/training-types`,
+     trainingTypes = `/exercise-types`,
 
 }

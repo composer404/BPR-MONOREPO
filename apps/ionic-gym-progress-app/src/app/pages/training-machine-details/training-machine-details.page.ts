@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Gym, TrainingMachine} from '../../interfaces/interfaces';
+
 import {Router} from '@angular/router';
 import {TrainingMachineService} from '../../services/api/training-machine.service';
 
@@ -22,8 +23,6 @@ export class TrainingMachineDetailsPage implements OnInit {
       name: new FormControl(``, [Validators.required]),
       description: new FormControl(``),
       location: new FormControl(``),
-      video: new FormControl(``),
-      formula_for_calories: new FormControl(``),
       availability: new FormControl(``),
       class: new FormControl(``),
     });
@@ -39,8 +38,6 @@ export class TrainingMachineDetailsPage implements OnInit {
         name: new FormControl(trainingMachine.name),
         description: new FormControl(trainingMachine.description),
         location: new FormControl(trainingMachine.location),
-        video: new FormControl(trainingMachine.video),
-        formula_for_calories: new FormControl(trainingMachine.formula_for_calories),
         availability: new FormControl(trainingMachine.availability),
         class: new FormControl(trainingMachine.class),
       });

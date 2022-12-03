@@ -1,18 +1,18 @@
-import { Prisma, TrainingType } from '@prisma/client';
+import { ExerciseType, Prisma } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
+import { ExerciseTypeInput } from 'src/models/exercise-types.model';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
-import { TrainingTypeInput } from 'src/models/training-types.model';
 
 @Injectable()
-export class TrainingTypesService {
-    private database: Prisma.TrainingTypeDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
+export class ExerciseTypesService {
+    private database: Prisma.ExerciseTypeDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     constructor(private readonly prismaService: PrismaService) {
-        this.database = this.prismaService.trainingType;
+        this.database = this.prismaService.exerciseType;
     }
 
-    async getAllTrainingTypes(): Promise<TrainingType[] | null> {
+    async getAllExerciseTypes(): Promise<ExerciseType[] | null> {
         const response = await this.database.findMany().catch((err) => {
             console.log(`[API]`, err);
         });
@@ -23,7 +23,7 @@ export class TrainingTypesService {
         return response;
     }
 
-    async getTrainingTypeById(id: string): Promise<TrainingType | null> {
+    async getExerciseTypeById(id: string): Promise<ExerciseType | null> {
         const response = await this.database
             .findFirst({
                 where: {
@@ -40,7 +40,7 @@ export class TrainingTypesService {
         return response;
     }
 
-    async getTrainingTypeByActivityId(activityId: string): Promise<TrainingType | null> {
+    async getExerciseTypeByActivityId(activityId: string): Promise<ExerciseType | null> {
         const response = await this.database
             .findFirst({
                 where: {
@@ -57,7 +57,7 @@ export class TrainingTypesService {
         return response;
     }
 
-    async addTrainingType(input: TrainingTypeInput): Promise<CreatedObjectResponse | null> {
+    async addExerciseType(input: ExerciseTypeInput): Promise<CreatedObjectResponse | null> {
         const result = await this.database
             .create({
                 data: {
@@ -76,7 +76,7 @@ export class TrainingTypesService {
         };
     }
 
-    async deleteTrainingType(id: string): Promise<boolean> {
+    async deleteExerciseType(id: string): Promise<boolean> {
         const result = await this.database
             .delete({
                 where: {
@@ -94,7 +94,7 @@ export class TrainingTypesService {
         return true;
     }
 
-    async initialLoad(input: TrainingTypeInput[]): Promise<boolean> {
+    async initialLoad(input: ExerciseTypeInput[]): Promise<boolean> {
         const result = await this.database
             .createMany({
                 data: input,

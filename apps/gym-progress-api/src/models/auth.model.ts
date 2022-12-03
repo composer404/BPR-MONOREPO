@@ -24,8 +24,6 @@ export class SignUpInput {
     sex: string;
     @ApiProperty()
     age: number;
-    @ApiProperty()
-    avatar?: string;
 }
 
 export class CreatedObjectResponse {

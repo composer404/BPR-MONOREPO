@@ -13,7 +13,6 @@ import { ToastService } from 'src/app/services/common/toast.service';
 })
 export class SignupPage implements OnInit {
     signupForm: FormGroup;
-    avatar: any;
     age: number;
     height: number;
     weight: number;
@@ -39,21 +38,6 @@ export class SignupPage implements OnInit {
         });
     }
 
-    selectFile(event: any) {
-        const mimeType = event.target.files[0].type;
-
-        if (mimeType.match(/image\/*/) == null) {
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.readAsDataURL(event.target.files[0]);
-
-        reader.onload = (_event) => {
-            this.avatar = reader.result;
-        };
-    }
-
     async onSignUp() {
         const response = await this.authService.signup({
             email: this.signupForm.get('email').value,
@@ -64,7 +48,6 @@ export class SignupPage implements OnInit {
             height: parseFloat(this.signupForm.get('height').value),
             weight: parseFloat(this.signupForm.get('weight').value),
             sex: this.signupForm.get('sex').value,
-            avatar: this.avatar,
         });
 
         if ((response as any)?.code === API_ERROR_CODES.notUniqueEmail) {

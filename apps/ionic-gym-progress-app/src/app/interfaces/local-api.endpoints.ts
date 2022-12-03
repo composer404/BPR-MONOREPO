@@ -35,7 +35,7 @@ export enum LOCAL_API_SERVICES {
 
     /* -------------------------------- TRAINING TYPES ------------------------------- */
 
-    trainingTypes = `/training-types`,
+    trainingTypes = `/exercise-types`,
 
     /* ---------------------------- TRAINING SESSIONS --------------------------- */
 

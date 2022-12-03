@@ -10,10 +10,6 @@ export class TraininMachineInput {
     @ApiProperty()
     location?: string;
     @ApiProperty()
-    formula_for_calories?: string;
-    @ApiProperty()
-    video?: string;
-    @ApiProperty()
     class: string;
 }
 

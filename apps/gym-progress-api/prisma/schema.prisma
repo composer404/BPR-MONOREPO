@@ -2,6 +2,10 @@ generator client {
     provider = "prisma-client-js"
 }
 
+generator erd {
+    provider = "prisma-erd-generator"
+}
+
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
@@ -16,7 +20,6 @@ model User {
     sex       String
     height    Float
     weight    Float
-    avatar    String?
     age       Int
 
     trainings       Training[]
@@ -45,14 +48,12 @@ model Gym {
 }
 
 model TrainingMachine {
-    id                   String  @id @default(uuid())
-    name                 String
-    description          String?
-    location             String?
-    video                String?
-    formula_for_calories String?
-    availability         Boolean
-    class                String
+    id           String  @id @default(uuid())
+    name         String
+    description  String?
+    location     String?
+    availability Boolean
+    class        String
 
     Gym   Gym    @relation(fields: [gymId], references: [id])
     gymId String
@@ -99,7 +100,7 @@ model Exercise {
     id            String  @id @default(uuid())
     title         String
     description   String?
-    exercise_type String // require to define type of quantity (e.g time, repeat number...)
+    exercise_type String
     quantity      String?
     muscle_group  String
 
@@ -153,7 +154,7 @@ model TrainingSession {
     updatedAt DateTime @updatedAt
 }
 
-model TrainingType {
+model ExerciseType {
     id String @id @default(uuid())
 
     activityId String

@@ -7,7 +7,6 @@ export interface BPRUser {
     email: string;
     firstName: string;
     lastName: string;
-    avatar: string;
     createdAt: Date;
     updatedAt: Date;
     sex: string;
@@ -42,8 +41,6 @@ export class UserUpdateInput {
     height: number;
     @ApiProperty()
     weight: number;
-    @ApiProperty()
-    avatar: string;
 }
 
 export class PasswordInput {

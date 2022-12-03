@@ -7,7 +7,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { SessionsModule } from './modules/socket/sessions.module';
 import { TrainingMachinesModule } from './modules/training-machines';
 import { TrainingSessionsModule } from './modules/training-sessions';
-import { TrainingTypesModule } from './modules/training-types';
+import { ExerciseTypesModule } from './modules/exercise-types';
 import { TrainingsModule } from './modules/trainings';
 import { UsersModule } from './modules/users';
 @Module({
@@ -20,7 +20,7 @@ import { UsersModule } from './modules/users';
         TrainingsModule,
         ExercisesModule,
         LoggerModule,
-        TrainingTypesModule,
+        ExerciseTypesModule,
         TrainingSessionsModule,
         ScheduleModule.forRoot(),
     ],
