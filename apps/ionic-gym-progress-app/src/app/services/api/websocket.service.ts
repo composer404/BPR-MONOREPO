@@ -12,7 +12,11 @@ export interface WebsocketMessage {
     providedIn: 'root',
 })
 export class WebsocketService {
-    constructor(private readonly socket: Socket) {}
+    constructor(private readonly socket: Socket) {
+        this.socket.ioSocket.headers = {
+            'ngrok-skip-browser-warning': 'any',
+        };
+    }
 
     connect(): void {
         this.socket.connect();

@@ -44,6 +44,7 @@ export class TrainingMachinesService {
                 data: {
                     ...body,
                     availability: false,
+                    class: ``,
                     gymId,
                 },
             })

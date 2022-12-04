@@ -5,7 +5,8 @@
 export const environment = {
     production: false,
     apiURL: 'http://localhost:8000',
-    localApiUrl: `http://localhost:3000`,
+    // localApiUrl: `http://localhost:3000`,
+    localApiUrl: `https://af63-88-156-131-64.eu.ngrok.io`,
     fintessApiUrl: `https://fitness-calculator.p.rapidapi.com`,
     API_KEY: `d47fb99508msh18a8eae724e4658p1a76c0jsn341bae4900b7`,
     API_HOST: `fitness-calculator.p.rapidapi.com`,

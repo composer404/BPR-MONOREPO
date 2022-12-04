@@ -46,8 +46,16 @@ small {
 }
 
 body {
-    background-color: #252E37;
+    // background-color: #252E37;
 }
+
+
+ion-content{
+  --ion-background-color:#121212;
+}
+// .ion-content {
+//   background-color: #252E37 !important;
+// }
 
 ion-segment {
   background: var(--primary-gradient) !important;

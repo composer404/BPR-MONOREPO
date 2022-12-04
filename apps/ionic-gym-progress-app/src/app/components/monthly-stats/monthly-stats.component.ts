@@ -127,6 +127,7 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 scales: {
                     y: {
                         min: 0,

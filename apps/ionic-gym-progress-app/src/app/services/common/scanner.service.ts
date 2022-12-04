@@ -1,7 +1,6 @@
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Injectable } from '@angular/core';
 import { ToastService } from './toast.service';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
@@ -10,11 +9,11 @@ export class ScannerService {
     constructor(private readonly toastService: ToastService) {}
 
     async startScanner() {
-        if (!environment.production) {
-            // ! MOCK
-            return `dd186798-23bb-4834-a989-9b81b4ff1304`;
-            // return `278e3def-aedf-4ccd-b4a1-0e2954b7f796`
-        }
+        // if (!environment.production) {
+        //     // ! MOCK
+        //     return `3dffeab7-b803-44c2-9829-40aa3770aef3`;
+        //     // return `278e3def-aedf-4ccd-b4a1-0e2954b7f796`
+        // }
         const allowed = await this.checkPermission();
 
         if (allowed) {

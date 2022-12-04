@@ -15,10 +15,16 @@ export class TokenInterceptorService implements HttpInterceptor {
     constructor(private authService: AuthService, private toastService: ToastService) {}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.authService.getTokenValue();
+        request = request.clone({
+            setHeaders: {
+                'ngrok-skip-browser-warning': 'any',
+            },
+        });
         if (token) {
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`,
+                    'ngrok-skip-browser-warning': 'any',
                 },
             });
         }

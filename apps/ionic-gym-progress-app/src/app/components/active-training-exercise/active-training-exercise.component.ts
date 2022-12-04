@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Exercise, ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/app/interfaces/interfaces';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/app/interfaces/interfaces';
 
 import { ActiveExerciseModalComponent } from '../active-exercise-modal/active.exercise-modal.component';
 import { DateTime } from 'luxon';
@@ -23,7 +23,13 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
     gymId: string;
 
     @Input()
+    canStartExercise: string;
+
+    @Input()
     occupiedMachinesIds: UsedTrainingMachine[];
+
+    @Output()
+    scanTrainingMachine = new EventEmitter<SessionExercise>();
 
     exerciseCardStyle = `available`;
 
@@ -41,18 +47,21 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
     ) {}
 
     ngOnInit(): void {
-        const machinesIds = this.occupiedMachinesIds.map((machine) => machine.trainingMachineId);
-        if (machinesIds.includes(this.exercise.trainingMachineId)) {
-            this.statusChange = {
-                trainingMachine: this.occupiedMachinesIds.find(
-                    (element) => element.trainingMachineId === this.exercise.trainingMachineId,
-                ),
-            };
-            this.makeMachineUnavailable();
-        }
+        console.log(`inint`);
+        this.checkMachineOccupation();
     }
 
-    ngOnChanges() {
+    ngOnChanges(changes) {
+        const canStartChange = changes.canStartExercise;
+        console.log(canStartChange);
+        if (canStartChange?.currentValue && canStartChange?.previousValue !== canStartChange?.currentValue) {
+            if (canStartChange.currentValue === this.exercise.id) {
+                this.startAfterCorrectCheck();
+            }
+            return;
+        }
+
+        this.checkMachineOccupation();
         if (this.statusChange?.trainingMachine.trainingMachineId === this.exercise.trainingMachineId) {
             if (!this.statusChange.trainingMachine.status) {
                 this.makeMachineUnavailable();
@@ -62,7 +71,25 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
         }
     }
 
-    async startExercise() {
+    checkMachineOccupation() {
+        if (this.occupiedMachinesIds && this.occupiedMachinesIds.length) {
+            this.occupiedMachinesIds = this.occupiedMachinesIds.filter((machine) => machine.status === false);
+            const machinesIds = this.occupiedMachinesIds.map((machine) => machine.trainingMachineId);
+            console.log(`machineIds`, machinesIds);
+            if (machinesIds.includes(this.exercise.trainingMachineId)) {
+                console.log(`machineIds`, machinesIds);
+                this.statusChange = {
+                    trainingMachine: this.occupiedMachinesIds.find(
+                        (element) => element.trainingMachineId === this.exercise.trainingMachineId,
+                    ),
+                };
+                this.makeMachineUnavailable();
+            }
+            this.occupiedMachinesIds = [];
+        }
+    }
+
+    async startAfterCorrectCheck() {
         const response = await this.trainingMachineService.changeTrainingMachineStatus(
             this.exercise.trainingMachineId,
             this.gymId,
@@ -74,9 +101,33 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
             return;
         }
         this.openExerciseModal();
-        // this.exerciseStarted = true;
     }
 
+    async startExercise() {
+        this.scanTrainingMachine.emit(this.exercise);
+
+        // this.scannerActive = true;
+        // const scanResult = await this.scannerService.startScanner();
+        // this.scannerActive = false;
+
+        // if (scanResult !== this.exercise.trainingMachineId) {
+        //     this.toastService.error(`Scanned QR code is invalid, make sure you scanned correct training machine`);
+        //     return;
+        // }
+
+        // const response = await this.trainingMachineService.changeTrainingMachineStatus(
+        //     this.exercise.trainingMachineId,
+        //     this.gymId,
+        //     false,
+        //     this.exercise.id,
+        // );
+        // if (!response) {
+        //     this.toastService.error(`Cannot start exercise. Try again in a few seconds`);
+        //     return;
+        // }
+        // this.openExerciseModal();
+        // this.exerciseStarted = true;
+    }
     async openExerciseModal() {
         const modal = await this.modalController.create({
             component: ActiveExerciseModalComponent,

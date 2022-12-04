@@ -5,9 +5,10 @@
 export const environment = {
     production: false,
     apiURL: 'http://localhost:8000',
-    localApiUrl: `http://localhost:3000`,
-    gymId:`a327630d-b9b2-4ad2-94ba-7d6319edf05c`,
-}
+    // localApiUrl: `http://localhost:3000`,
+    localApiUrl: `https://af63-88-156-131-64.eu.ngrok.io`,
+    gymId: `3dffeab7-b803-44c2-9829-40aa3770aef3`,
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

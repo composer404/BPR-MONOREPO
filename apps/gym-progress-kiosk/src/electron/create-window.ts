@@ -114,7 +114,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
     const result = execPromise(`more ${htmlFilePath} | "${wkhtmltopdfPath}" -B 25mm - ${pdfFilePath}`)
         .then(() => {
             return fs.readFile(pdfFilePath, {}, (err) => {
-                // console.log(`READFILE ERR`, err);
+                console.log(`READFILE ERR`, err);
             });
         })
         .then((file) => {
@@ -124,7 +124,7 @@ const wkHtmlToPdfWithFile = async (args: any) => {
             };
         })
         .catch((err) => {
-            // console.log(`ERROR`, err);
+            console.log(`ERROR`, err);
         });
     return result;
 };
