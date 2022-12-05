@@ -75,9 +75,7 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
         if (this.occupiedMachinesIds && this.occupiedMachinesIds.length) {
             this.occupiedMachinesIds = this.occupiedMachinesIds.filter((machine) => machine.status === false);
             const machinesIds = this.occupiedMachinesIds.map((machine) => machine.trainingMachineId);
-            console.log(`machineIds`, machinesIds);
             if (machinesIds.includes(this.exercise.trainingMachineId)) {
-                console.log(`machineIds`, machinesIds);
                 this.statusChange = {
                     trainingMachine: this.occupiedMachinesIds.find(
                         (element) => element.trainingMachineId === this.exercise.trainingMachineId,
@@ -164,13 +162,11 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
 
     private makeMachineUnavailable() {
         this.unavaliable = true;
-        // this.exerciseCardStyle = `unavailable`;
         this.startTimer();
     }
 
     private makeMachineAvailable() {
         this.unavaliable = false;
-        // this.exerciseCardStyle = `available`;
         this.stopTimer();
     }
 

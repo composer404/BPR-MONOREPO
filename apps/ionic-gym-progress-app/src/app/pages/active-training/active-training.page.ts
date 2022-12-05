@@ -170,7 +170,6 @@ export class ActiveTrainingPage implements OnInit {
 
     private listenForEvents() {
         this.trainingMachineChangeListener = (data) => {
-            console.log(`data`, data);
             this.trainingMachineIncommingValue = data;
         };
         this.websocketService.listenForEvent(

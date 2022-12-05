@@ -14,16 +14,16 @@ import { firstValueFrom } from 'rxjs';
 export class FitnessService implements IFitnessService {
     constructor(private readonly httpClient: HttpClient) {}
 
-    async getBurnedCalories(activityid:string, activitymin:number, weight:number): Promise<BurnedCalories> {
-        const firstPart = API_RESOURCES.BURNEDCALORIES + `?`+`{activityid} +{activitymin}+{weight}`;
+    async getBurnedCalories(activityid: string, activitymin: number, weight: number): Promise<BurnedCalories> {
+        const firstPart = API_RESOURCES.BURNEDCALORIES + `?` + `{activityid} +{activitymin}+{weight}`;
         const url = `${buildUrl(firstPart as any)}`;
-        return firstValueFrom(this.httpClient.get<BurnedCalories>(url, {
-            headers: {
-                'X-RapidAPI-Key': 'd47fb99508msh18a8eae724e4658p1a76c0jsn341bae4900b7',
-                'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
-            }
-        }));
+        return firstValueFrom(
+            this.httpClient.get<BurnedCalories>(url, {
+                headers: {
+                    'X-RapidAPI-Key': 'd47fb99508msh18a8eae724e4658p1a76c0jsn341bae4900b7',
+                    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com',
+                },
+            }),
+        );
     }
-    
 }
-
