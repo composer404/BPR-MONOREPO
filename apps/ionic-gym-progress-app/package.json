@@ -30,6 +30,7 @@
     "@ionic/angular": "^6.1.9",
     "chart.js": "4.0.1",
     "ionicons": "^6.0.3",
+    "lodash": "4.17.21",
     "ngx-socket-io": "4.3.1",
     "primeng": "14.0.2",
     "rxjs": "~7.5.6",

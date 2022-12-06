@@ -13,7 +13,14 @@ import { TokenInterceptorService } from './helpers/http-interceptor';
 import { WebsocketService } from './services/api/websocket.service';
 import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
+const config: SocketIoConfig = {
+    url: environment.localApiUrl,
+    options: {
+        extraHeaders: {
+            'ngrok-skip-browser-warning': 'any',
+        },
+    },
+};
 
 @NgModule({
     declarations: [AppComponent],

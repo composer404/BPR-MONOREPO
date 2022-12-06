@@ -50,8 +50,6 @@ export class SessionsGateway implements OnGatewayDisconnect {
         });
 
         this.logger.log(`current users: ${[...this.gymWithUsers.get(message.gymId).keys()]}`);
-
-        this.emitForParticipantsCount(message.gymId);
     }
 
     @SubscribeMessage(REQUEST_EVENT.disconnect_user_to_gym)
@@ -135,11 +133,6 @@ export class SessionsGateway implements OnGatewayDisconnect {
     getNumberOfUsedTrainingMachines(gymId: string) {
         return this.gymWithUsedTrainigMachines.get(gymId).values.length;
     }
-
-    // @Timeout()
-    // makeTrainingMachineFreeAgain() {
-
-    // }
 
     makeMachineAvaliableAgainTimeout(trainingMachine: UsedTrainingMachine, gymId: string, uniqeIdentifier: number) {
         const gymWithMachines = this.gymWithUsedTrainigMachines.get(gymId);

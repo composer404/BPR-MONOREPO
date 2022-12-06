@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import {
     ExerciseStatusChange,
+    SessionExercise,
     Training,
     TrainingSession,
     TrainingSummary,
@@ -10,12 +11,15 @@ import {
     WEBSOCKET_RESPONSE_EVENT,
 } from 'src/app/interfaces/interfaces';
 
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { DialogService } from 'src/app/services/common/dialog.service';
+import { ScannerService } from 'src/app/services/common/scanner.service';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 import { TrainingService } from 'src/app/services/api/trainings.service';
 import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 import { WebsocketService } from 'src/app/services/api/websocket.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
     selector: 'app-active-training',
@@ -35,6 +39,9 @@ export class ActiveTrainingPage implements OnInit {
     trainingMachineChangeListener: any;
     trainingMachineIncommingValue: ExerciseStatusChange;
     occupiedMachinesIds: UsedTrainingMachine[];
+    scannerActive: boolean;
+
+    scanCorrect: string;
 
     constructor(
         private readonly route: ActivatedRoute,
@@ -45,23 +52,42 @@ export class ActiveTrainingPage implements OnInit {
         private readonly toastService: ToastService,
         private readonly trainingMachineService: TrainingMachineService,
         private readonly router: Router,
+        private readonly scannerService: ScannerService,
     ) {
         this.gymId = this.route.snapshot.params.gymId;
         this.userId = this.route.snapshot.params.id;
         this.trainingSessionId = this.route.snapshot.params.sessionId;
     }
 
-    ngOnInit(): void {
+    async ngOnInit(): Promise<void> {
         this.loadTrainingSession();
         this.listenForEvents();
-        this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId).then((data) => {
-            this.occupiedMachinesIds = data;
-        });
+        this.occupiedMachinesIds = await this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId);
+
+        // setTimeout(() => {
+        //     this.occupiedMachinesIds = [];
+        // }, 200);
+
+        console.log(`occupuied from api`, this.occupiedMachinesIds);
+        // .then((data) => {
+        //     console.log(`data`, data);
+        //     this.occupiedMachinesIds = data;
+        // })
+        // .catch((err) => {
+        //     console.log(`here`, err);
+        // });
+    }
+
+    stopScanner() {
+        BarcodeScanner.stopScan();
+        this.scannerActive = false;
     }
 
     async finishTrainig() {
+        const copy = cloneDeep(this.trainigSession);
+        this.occupiedMachinesIds = await this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId);
         this.trainigSession = await this.trainingSessionService.getTrainingSessionById(this.trainingSessionId);
-        const uncompleted = this.trainigSession.sessionExercises.find((exercise) => exercise.completed === false);
+        const uncompleted = copy.sessionExercises.find((exercise) => exercise.completed === false);
         if (uncompleted) {
             this.dialogService.openConfirmationDialog({
                 header: `You have uncompleted exercise. Are you sure to finish?`,
@@ -103,7 +129,22 @@ export class ActiveTrainingPage implements OnInit {
     }
 
     goToMenu() {
-        void this.router.navigate([`profile-tabs/profile/${this.userId}`]);
+        void this.router.navigate([`profile-tabs/profile/${this.userId}`]).then(() => {
+            window.location.reload();
+        });
+    }
+
+    async scanExercise(event: SessionExercise) {
+        this.scannerActive = true;
+        const scanResult = await this.scannerService.startScanner();
+        this.scannerActive = false;
+
+        if (scanResult !== event.trainingMachineId) {
+            this.toastService.error(`Scanned QR code is invalid, make sure you scanned correct training machine`);
+            return;
+        }
+
+        this.scanCorrect = event.id;
     }
 
     loadTrainingSummary() {

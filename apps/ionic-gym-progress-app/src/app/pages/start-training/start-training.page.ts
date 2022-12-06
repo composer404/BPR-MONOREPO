@@ -63,8 +63,22 @@ export class StartTrainingPage {
         this.goToTheActiveSession(result.id);
     }
 
+    async checkPermission() {
+        return new Promise(async (resolve, reject) => {
+            const status = await BarcodeScanner.checkPermission({ force: true });
+            if (status.granted) {
+                resolve(true);
+            } else if (status.denied) {
+                BarcodeScanner.openAppSettings();
+                resolve(false);
+            }
+        });
+    }
+
     async startScanner() {
+        this.scanActive = true;
         this.currentGymId = await this.scannerService.startScanner();
+        this.scanActive = false;
         void this.loadTrainings();
         this.notifyAboutConnection();
     }

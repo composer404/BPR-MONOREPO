@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 /* ------------------------------- INTERFACES ------------------------------- */
 
-export interface TrainingTypeInput {
+export interface ExerciseTypeInput {
     id?: string;
     activityId: string;
     name: string;
@@ -10,7 +10,7 @@ export interface TrainingTypeInput {
 
 /* --------------------------------- CLASSES -------------------------------- */
 
-export class TrainingTypeInputClass {
+export class ExerciseTypeInputClass {
     @ApiProperty()
     activityId: string;
     @ApiProperty()

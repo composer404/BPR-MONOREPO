@@ -1,29 +1,44 @@
-<ion-content class="ion-padding" *ngIf="!summary else summaryView">
+<ion-content
+    class="ion-padding"
+    *ngIf="!summary else summaryView"
+    [fullscreen]="true"
+    [style.--background]="scannerActive?'#00000000':''"
+>
     <!-- ----------------------------------------------------------------------- -->
     <!--                                 CONTENT                                 -->
     <!-- ----------------------------------------------------------------------- -->
 
-    <div class="w-full p-5" *ngIf="training">
-        <div class="w-full text-center mb-3">
-            <div class="title text-3xl mb-2">{{training.title}}</div>
-            <div class="mb-2 muted">(Type: {{training.type}})</div>
-            <div class="px-3">{{training.description}}</div>
+    <div [hidden]="scannerActive">
+        <div class="w-full p-5" *ngIf="training">
+            <div class="w-full text-center mb-3">
+                <div class="title text-3xl mb-2">{{training.title}}</div>
+                <div class="mb-2 muted">(Type: {{training.type}})</div>
+                <div class="px-3">{{training.description}}</div>
+            </div>
+        </div>
+        <div class="p-4">
+            <div *ngIf="trainigSession?.sessionExercises.length" class="grid grid-cols-2">
+                <app-active-training-exercise
+                    *ngFor="let exercise of trainigSession.sessionExercises"
+                    [statusChange]="trainingMachineIncommingValue"
+                    [occupiedMachinesIds]="occupiedMachinesIds"
+                    [gymId]="gymId"
+                    [exercise]="exercise"
+                    [canStartExercise]="scanCorrect"
+                    (scanTrainingMachine)="scanExercise($event)"
+                ></app-active-training-exercise>
+            </div>
+            <div class="p-2 mt-2">
+                <button class="primary-button" (click)="finishTrainig()">FINISH</button>
+            </div>
         </div>
     </div>
-    <div class="p-4">
-        <div *ngIf="trainigSession?.sessionExercises.length" class="grid grid-cols-2">
-            <app-active-training-exercise
-                *ngFor="let exercise of trainigSession.sessionExercises"
-                [statusChange]="trainingMachineIncommingValue"
-                [occupiedMachinesIds]="occupiedMachinesIds"
-                [gymId]="gymId"
-                [exercise]="exercise"
-            ></app-active-training-exercise>
-        </div>
-        <div class="p-2 mt-2">
-            <button class="primary-button" (click)="finishTrainig()">FINISH</button>
-        </div>
-    </div>
+    <ion-row class="scan-button" [hidden]="!scannerActive">
+        <ion-col class="ion-no-padding">
+            <button expand="full" class="primary-button" (click)="stopScanner()">Stop</button>
+        </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scannerActive"></div>
 </ion-content>
 
 <ng-template #summaryView>

@@ -7,6 +7,19 @@
         </ion-col>
     </ion-row>
     <div class="scan-box" [hidden]="!scanActive"></div>
+</ion-content> -->
+
+<!-- <ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':'#ffffff'">
+    <ion-button expand="full" style="background-color: black" (click)="startScanner()" [hidden]="scanActive">
+        SCAN QR
+    </ion-button>
+
+    <ion-row class="scan-button" [hidden]="!scanActive">
+        <ion-col class="ion-no-padding">
+            <ion-button expand="full" (click)="stopScanner()">Stop</ion-button>
+        </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scanActive"></div>
 
     <ng-container *ngIf="currentGymId && trainings.length">
         <app-training-item
@@ -20,7 +33,7 @@
 </ion-content> -->
 
 <ion-content [fullscreen]="true" [style.--background]="scanActive?'#00000000':''">
-    <div class="flex items-center justify-center" [class]="trainings.length ? '' : 'h-full'">
+    <div [hidden]="scanActive" class="flex items-center justify-center" [class]="trainings.length ? '' : 'h-full'">
         <div class="w-full p-5">
             <div class="w-full text-center mb-10">
                 <div class="logo">Welcome!</div>
@@ -29,18 +42,7 @@
                 </div>
             </div>
             <div>
-                <button (click)="startScanner()" [hidden]="scanActive" class="primary-button" expand="block">
-                    Scan QR Code
-                </button>
-
-                <ion-row class="scan-button" [hidden]="!scanActive">
-                    <ion-col class="ion-no-padding">
-                        <button expand="full" (click)="stopScanner()" class="primary-button" expand="block">
-                            Stop
-                        </button>
-                    </ion-col>
-                </ion-row>
-                <div class="scan-box" [hidden]="!scanActive"></div>
+                <button (click)="startScanner()" class="primary-button" expand="block">Scan QR Code</button>
             </div>
             <div class="mt-10" *ngIf="currentGymId && trainings.length">
                 <app-training-item
@@ -53,4 +55,10 @@
             </div>
         </div>
     </div>
+    <ion-row class="scan-button" [hidden]="!scanActive">
+        <ion-col class="ion-no-padding">
+            <button expand="full" class="primary-button" (click)="stopScanner()">Stop</button>
+        </ion-col>
+    </ion-row>
+    <div class="scan-box" [hidden]="!scanActive"></div>
 </ion-content>

@@ -141,6 +141,7 @@ export class WeeklyStatsComponent implements OnInit, AfterViewInit {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 scales: {
                     y: {
                         min: 0,

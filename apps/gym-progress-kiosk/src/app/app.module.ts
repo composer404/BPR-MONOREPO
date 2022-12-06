@@ -13,7 +13,14 @@ import { TokenInterceptorService } from './helpers/http-interceptor';
 import { WebsocketService } from './services/websocket.service';
 import { environment } from 'src/environments/environment';
 
-const config: SocketIoConfig = { url: environment.localApiUrl, options: {} };
+const config: SocketIoConfig = {
+    url: environment.localApiUrl,
+    options: {
+        extraHeaders: {
+            'ngrok-skip-browser-warning': 'any',
+        },
+    },
+};
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -45,7 +52,7 @@ export class AppModule {
             `connect_kiosk_to_gym`,
             JSON.stringify({
                 //! MOCK FOR NOW
-                id: `dd186798-23bb-4834-a989-9b81b4ff1304`,
+                id: `3dffeab7-b803-44c2-9829-40aa3770aef3`,
             }),
         );
     }

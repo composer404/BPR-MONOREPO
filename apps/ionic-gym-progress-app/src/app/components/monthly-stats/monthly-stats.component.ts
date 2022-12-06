@@ -60,7 +60,6 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
             firstDay.toISO(),
             lastDay.toISO(),
         );
-        this.monthStatistics = this.statsService.calculateStatistics(this.trainingSessions);
         this.createMonthDataSet();
     }
 
@@ -75,6 +74,14 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
     }
 
     createMonthDataSet() {
+        if (!this.trainingSessions.length) {
+            this.lineChartBurnedCalories?.destroy();
+            this.lineChartTimeCalories?.destroy();
+            return;
+        }
+
+        this.monthStatistics = this.statsService.calculateStatistics(this.trainingSessions);
+
         const map = new Map<string, TrainingSession[]>();
         for (let i = 0; i < Math.round(this.lastMonthDay.diff(this.firstMonthDay, `days`).toObject().days); i++) {
             map.set(this.firstMonthDay.plus({ days: i }).toFormat(`dd/MM`), []);
@@ -91,6 +98,7 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
 
         this.initTimeLineChart(map);
         this.initBurnedCaloriesLineChart(map);
+
         return map;
     }
 
@@ -119,6 +127,7 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: true,
                 scales: {
                     y: {
                         min: 0,

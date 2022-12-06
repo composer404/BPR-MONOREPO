@@ -66,7 +66,6 @@ export interface SignUpInput {
     weight: number;
     sex: string;
     age: number;
-    avatar: string;
 }
 
 export interface BPRApiCreatedObject {
@@ -93,7 +92,6 @@ export interface BPRUser {
     email: string;
     firstName: string;
     lastName: string;
-    avatar: string;
     createdAt: Date;
     updatedAt: Date;
     sex: string;
@@ -175,9 +173,7 @@ export interface TrainingMachine {
     name?: string;
     description?: string;
     location?: string;
-    video?: string;
     availability?: boolean;
-    formula_for_calories?: string;
     createdAt?: string;
     updatedAt?: string;
     class?: string;
