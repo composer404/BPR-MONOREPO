@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Component, EventEmitter, Inject, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import {
     Exercise,
     ExerciseType,
-    ModalCloseResult,
     MuscleGroup,
-    Training,
     TrainingMachines,
 } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';

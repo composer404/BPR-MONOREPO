@@ -1,15 +1,10 @@
-import { BPRApiCreatedObject, TrainingMachines } from 'src/app/interfaces/interfaces';
-import { Component, Input, OnInit } from '@angular/core';
+import { TrainingMachines } from 'src/app/interfaces/interfaces';
+import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { HttpClient } from '@angular/common/http';
 import { InfoService } from 'src/app/services/info.service';
-import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
-import { MessageService } from 'primeng/api';
 import { TrainingMachinesService } from 'src/app/services/training-machines.service';
-import { environment } from 'src/environments/environment';
-import { firstValueFrom } from 'rxjs';
 
 @Component({
     selector: 'app-edit-training-machine-modal',
@@ -19,7 +14,7 @@ import { firstValueFrom } from 'rxjs';
 export class EditTrainingMachineModalComponent implements OnInit {
     editTrainingMachineForm: FormGroup;
     trainingMachine: TrainingMachines;
-   
+
 
     constructor(
         private readonly infoService: InfoService,

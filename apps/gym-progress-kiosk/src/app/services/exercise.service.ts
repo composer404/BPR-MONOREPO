@@ -7,11 +7,12 @@ import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
+import {IExerciseService} from "../interfaces/exercise-service.interface";
 
 @Injectable({
     providedIn: 'root',
 })
-export class ExerciseService {
+export class ExerciseService implements IExerciseService {
     constructor(private readonly httpClient: HttpClient) {}
 
     async createExercise(trainingId: string, body: Partial<Exercise>): Promise<BPRApiCreatedObject | null> {

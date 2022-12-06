@@ -1,18 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Component, OnInit } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
 
-import { DynamicDialogComponent } from 'primeng/dynamicdialog';
 import { InfoService } from 'src/app/services/info.service';
 import { TrainingService } from 'src/app/services/training.service';
-
-//import { ToastService } from 'src/app/services/common/toast.service';
-
-
-//import { IonModal } from '@ionic/angular';
-
-
 
 @Component({
     selector: 'app-create-training-modal',
@@ -21,8 +12,8 @@ import { TrainingService } from 'src/app/services/training.service';
 })
 export class CreateTrainingModalComponent implements OnInit {
     trainingForm: FormGroup;
-  
-    constructor(private readonly trainingService: TrainingService, 
+
+    constructor(private readonly trainingService: TrainingService,
         private readonly infoService: InfoService,
         private ref:DynamicDialogRef,
     ) {
@@ -58,5 +49,5 @@ export class CreateTrainingModalComponent implements OnInit {
         this.ref.close(null);
     }
 
-   
+
 }

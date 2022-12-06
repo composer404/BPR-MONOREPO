@@ -6,7 +6,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { API_ERROR_CODES } from '../../interfaces/interfaces';
 import { AuthService } from '../../services/auth/auth.service';
 import { InfoService } from '../../services/info.service';
-import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
@@ -40,7 +39,7 @@ export class AdminSignupComponent implements OnInit {
             information: this.signupForm.get('information')?.value,
             gymId:environment.gymId,
         });
-        
+
         if ((response as any)?.code === API_ERROR_CODES.notUniqueLogin) {
             this.infoService.error(`Admin with provided login already exists!`);
             return;

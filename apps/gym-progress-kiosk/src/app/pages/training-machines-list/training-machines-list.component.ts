@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Gym, TrainingMachines } from 'src/app/interfaces/interfaces';
+import { TrainingMachines } from 'src/app/interfaces/interfaces';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
@@ -89,7 +89,7 @@ export class TrainingMachinesListComponent implements OnInit {
                 ...trainingMachine,
             },
         });
-        
+
         this.subscriptions.push(
             ref.onClose.subscribe(() => {
                 this.getTrainingMachinesByGymId();

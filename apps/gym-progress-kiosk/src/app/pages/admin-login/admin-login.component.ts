@@ -4,9 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BPR_ERROR_CODES } from '../../interfaces/interfaces';
 import { AuthService } from '../../services/auth/auth.service';
 import { InfoService } from '../../services/info.service';
-import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: `app-admin-login-component`,
