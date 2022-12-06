@@ -5,11 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
 import { environment } from '../../../environments/environment';
+import {ITrainingMachineService} from '../../interfaces/training-machine-service.interface';
 
 @Injectable({
     providedIn: 'root',
 })
-export class TrainingMachineService {
+export class TrainingMachineService implements ITrainingMachineService{
     trainingMachines: TrainingMachine[];
 
     constructor(private readonly httpClient: HttpClient) {}

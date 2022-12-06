@@ -1,15 +1,16 @@
-import { Observable, Subscription, firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 
 import { BPRUser } from 'src/app/interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
+import {IUserService} from '../../interfaces/user-service.interface';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UserService {
+export class UserService implements IUserService {
     constructor(private readonly httpClient: HttpClient) {}
 
     getUserById(userId: string): Observable<BPRUser> {

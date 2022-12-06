@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Gym } from 'src/app/interfaces/interfaces';
-import { GymService } from 'src/app/services/api/gym.service';
 import { SessionsService } from 'src/app/services/api/sessions.service';
 
 @Component({

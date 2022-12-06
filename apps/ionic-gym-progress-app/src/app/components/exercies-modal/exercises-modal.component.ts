@@ -1,5 +1,5 @@
 import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
-import { Exercise, Training } from 'src/app/interfaces/interfaces';
+import { Exercise } from 'src/app/interfaces/interfaces';
 
 import { IonModal } from '@ionic/angular';
 

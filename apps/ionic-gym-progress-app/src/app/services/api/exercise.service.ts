@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { BPRApiCreatedObject, Exercise, ExerciseType, SessionExercise } from '../../interfaces/interfaces';
-import { first, firstValueFrom } from 'rxjs';
+import { BPRApiCreatedObject, Exercise, ExerciseType } from '../../interfaces/interfaces';
+import { firstValueFrom } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from '../../interfaces/local-api.endpoints';
 import { environment } from '../../../environments/environment';
+import {IExerciseService} from '../../interfaces/exercise-service.interface';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ExerciseService {
+export class ExerciseService implements IExerciseService {
     constructor(private readonly httpClient: HttpClient) {}
 
     async createExercise(trainingId: string, body: Partial<Exercise>): Promise<BPRApiCreatedObject | null> {

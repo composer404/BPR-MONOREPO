@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { Exercise, ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/app/interfaces/interfaces';
+import { ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/app/interfaces/interfaces';
 
 import { ActiveExerciseModalComponent } from '../active-exercise-modal/active.exercise-modal.component';
 import { DateTime } from 'luxon';

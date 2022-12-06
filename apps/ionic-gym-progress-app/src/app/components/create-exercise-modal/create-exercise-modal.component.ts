@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
-import { Exercise, ExerciseType, ModalCloseResult, TrainingMachine, TrainingType } from 'src/app/interfaces/interfaces';
+import { Exercise, ExerciseType, ModalCloseResult, TrainingMachine } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ExerciseService } from '../../services/api/exercise.service';

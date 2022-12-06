@@ -5,11 +5,12 @@ import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
+import {ITrainingsService} from '../../interfaces/trainings-service.interface';
 
 @Injectable({
     providedIn: 'root',
 })
-export class TrainingService {
+export class TrainingService implements ITrainingsService {
     constructor(private readonly httpClient: HttpClient) {}
 
     async createTraining(body: Partial<Training>): Promise<BPRApiCreatedObject | null> {

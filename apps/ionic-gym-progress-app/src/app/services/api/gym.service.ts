@@ -4,11 +4,12 @@ import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
+import {IGymService} from '../../interfaces/gym-service.interface';
 
 @Injectable({
     providedIn: 'root',
 })
-export class GymService {
+export class GymService implements IGymService {
     constructor(private readonly httpClient: HttpClient) {}
 
     async getGymsByName(name: string): Promise<Gym[] | null> {
