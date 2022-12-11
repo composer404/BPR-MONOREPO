@@ -10,11 +10,12 @@ import {
 } from '../../models';
 import { Prisma, User } from '@prisma/client';
 
+import { IUserService } from 'src/interfaces/users-service.interfaces';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 
 @Injectable()
-export class UsersService {
+export class UsersService implements IUserService {
     private database: Prisma.UserDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
     constructor(private readonly prismaService: PrismaService) {

@@ -1,16 +1,16 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Request, Post, Put, UseGuards } from '@nestjs/common';
-import { TrainingMachinesService } from './training-machines.service';
 import { TrainingMachineChangeInput, TraininMachineInput } from 'src/models/training-machines.model';
 import { AdminJwtGuard } from '../auth/guards/admin-jwt.guard';
 import { JwtAuthGuard } from '../auth/guards';
 import { TrainingMachine } from '@prisma/client';
 import { BPRRequest, CreatedObjectResponse } from 'src/models';
+import { ITrainingMachineService } from 'src/interfaces/training-machines-service.interface';
 
 @ApiTags(`TRAINING MACHINES ACTIONS`)
 @Controller(`training-machines`)
 export class TrainingMachinesController {
-    constructor(private readonly trainingMachinesService: TrainingMachinesService) {}
+    constructor(private readonly trainingMachinesService: ITrainingMachineService) {}
 
     @UseGuards(JwtAuthGuard, AdminJwtGuard)
     @Get(`:id`)

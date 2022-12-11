@@ -1,4 +1,5 @@
 import { ExercisesModule } from '../exercises';
+import { ITrainingSessionService } from 'src/interfaces/training-sessions-service.interface';
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { TrainingSessionsController } from './training-sessions.controller';
@@ -7,8 +8,13 @@ import { TrainingsModule } from '../trainings';
 
 @Module({
     imports: [PrismaModule, ExercisesModule, TrainingsModule],
-    providers: [TrainingSessionsService],
+    providers: [
+        {
+            provide: ITrainingSessionService,
+            useClass: TrainingSessionsService,
+        },
+    ],
     controllers: [TrainingSessionsController],
-    exports: [TrainingSessionsService],
+    exports: [ITrainingSessionService],
 })
 export class TrainingSessionsModule {}

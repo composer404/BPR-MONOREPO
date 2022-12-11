@@ -9,8 +9,7 @@ import {
     WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { LoggerService } from '../logger/logger.service';
-
+import { ILoggerService } from 'src/interfaces/logger-service.interface';
 @WebSocketGateway({ cors: true })
 export class SessionsGateway implements OnGatewayDisconnect {
     @WebSocketServer()
@@ -22,7 +21,7 @@ export class SessionsGateway implements OnGatewayDisconnect {
         Map<string, UsedTrainingMachine>
     >();
 
-    constructor(private readonly logger: LoggerService) {}
+    constructor(private readonly logger: ILoggerService) {}
 
     handleDisconnect(socket: Socket) {
         for (const [key, value] of this.gymWithUsers) {

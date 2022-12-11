@@ -3,6 +3,7 @@ import { AdminLocalStrategy } from './strategies/admin-local.strategy';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { GymsModule } from '../gyms/gyms.module';
+import { IAuthService } from 'src/interfaces/auth-service.interface';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { LocalStrategy } from './strategies/local.strategy';
@@ -19,8 +20,17 @@ import { UsersModule } from '../users';
             secret: process.env.AUTH_JWT_SECRET,
         }),
     ],
-    providers: [AuthService, AdminJwtStrategy, AdminLocalStrategy, JwtStrategy, LocalStrategy],
+    providers: [
+        AdminJwtStrategy,
+        AdminLocalStrategy,
+        JwtStrategy,
+        LocalStrategy,
+        {
+            provide: IAuthService,
+            useClass: AuthService,
+        },
+    ],
     controllers: [AuthController],
-    exports: [AuthService],
+    exports: [IAuthService],
 })
 export class AuthModule {}

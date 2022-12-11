@@ -1,3 +1,4 @@
+import { ITrainingMachineService } from 'src/interfaces/training-machines-service.interface';
 import { Module } from '@nestjs/common';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { SessionsModule } from '../socket/sessions.module';
@@ -7,8 +8,14 @@ import { TrainingSessionsModule } from '../training-sessions';
 
 @Module({
     imports: [PrismaModule, SessionsModule, TrainingSessionsModule],
-    providers: [TrainingMachinesService],
+    providers: [
+        TrainingMachinesService,
+        {
+            provide: ITrainingMachineService,
+            useExisting: TrainingMachinesService,
+        },
+    ],
     controllers: [TrainingMachinesController],
-    exports: [TrainingMachinesService],
+    exports: [ITrainingMachineService],
 })
 export class TrainingMachinesModule {}

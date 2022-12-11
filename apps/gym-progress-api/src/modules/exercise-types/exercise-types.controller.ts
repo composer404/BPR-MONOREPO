@@ -1,14 +1,14 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ExerciseTypesService } from './exercise-types.service';
 import { ExerciseType } from '@prisma/client';
 import { ExerciseTypeInputClass } from 'src/models/exercise-types.model';
 import { CreatedObjectResponse } from 'src/models';
+import { IExerciseTypesService } from 'src/interfaces/exercise-types.interface';
 
 @ApiTags(`EXERCISE TYPES ACTIONS`)
 @Controller(`exercise-types`)
 export class ExerciseTypesController {
-    constructor(private readonly exerciseTypesService: ExerciseTypesService) {}
+    constructor(private readonly exerciseTypesService: IExerciseTypesService) {}
 
     @Get('/all')
     async getAllExerciseTypes(): Promise<ExerciseType[] | null> {

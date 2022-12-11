@@ -3,11 +3,12 @@ import * as argon2 from 'argon2';
 import { Administrator, Gym, Prisma } from '@prisma/client';
 import { AdministratorInput, CreatedObjectResponse, GymInput } from 'src/models';
 
+import { IGymsService } from 'src/interfaces/gyms-service.interfaces';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 
 @Injectable()
-export class GymsService {
+export class GymsService implements IGymsService {
     private database: Prisma.GymDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     private administratorDb: Prisma.AdministratorDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 

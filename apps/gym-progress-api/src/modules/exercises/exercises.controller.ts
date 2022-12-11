@@ -1,15 +1,15 @@
 import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { AdminJwtGuard, JwtAuthGuard } from '../auth/guards';
-import { ExercisesService } from './exercises.service';
 import { CreatedObjectResponse } from 'src/models';
 import { Exercise } from '@prisma/client';
 import { ExerciseInput } from 'src/models/exercise.model';
+import { IExerciseService } from 'src/interfaces/exercises-service.interface';
 
 @ApiTags(`EXERCISES`)
 @Controller(`exercises`)
 export class ExercisesController {
-    constructor(private readonly exerciseService: ExercisesService) {}
+    constructor(private readonly exerciseService: IExerciseService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get(`:id`)

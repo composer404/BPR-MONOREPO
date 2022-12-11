@@ -1,14 +1,14 @@
 import { Controller, Post, UseGuards, Get, Body, Request } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { IAuthService } from 'src/interfaces/auth-service.interface';
 import { CreatedObjectResponse, PrismaErrorResponse, BPRRequest, SignUpInput, UserOutput } from '../../models';
-import { AuthService } from './auth.service';
 import { AdminAuthGuard, JwtAuthGuard, LocalAuthGuard } from './guards';
 import { AdminJwtGuard } from './guards/admin-jwt.guard';
 
 @ApiTags(`AUTH ACTIONS`)
 @Controller(`auth`)
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: IAuthService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get('profile')

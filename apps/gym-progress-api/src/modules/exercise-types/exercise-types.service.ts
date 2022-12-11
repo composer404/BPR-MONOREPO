@@ -2,11 +2,12 @@ import { ExerciseType, Prisma } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
 import { ExerciseTypeInput } from 'src/models/exercise-types.model';
+import { IExerciseTypesService } from 'src/interfaces/exercise-types.interface';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 
 @Injectable()
-export class ExerciseTypesService {
+export class ExerciseTypesService implements IExerciseTypesService {
     private database: Prisma.ExerciseTypeDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     constructor(private readonly prismaService: PrismaService) {
         this.database = this.prismaService.exerciseType;

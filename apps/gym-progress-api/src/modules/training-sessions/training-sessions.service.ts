@@ -2,13 +2,14 @@ import { Prisma, SessionExercise, TrainingSession } from '@prisma/client';
 import { SessionExerciseInput, TrainingSessionInput } from 'src/models/training-session.model';
 
 import { CreatedObjectResponse } from 'src/models';
-import { ExercisesService } from '../exercises';
+import { IExerciseService } from 'src/interfaces/exercises-service.interface';
+import { ITrainingService } from 'src/interfaces/trainings-service.interface';
+import { ITrainingSessionService } from 'src/interfaces/training-sessions-service.interface';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
-import { TrainingsService } from '../trainings';
 
 @Injectable()
-export class TrainingSessionsService {
+export class TrainingSessionsService implements ITrainingSessionService {
     private database: Prisma.TrainingSessionDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     private sessionExerciseDatabase: Prisma.SessionExerciseDelegate<
         Prisma.RejectOnNotFound | Prisma.RejectPerOperation
@@ -16,8 +17,8 @@ export class TrainingSessionsService {
 
     constructor(
         private readonly prismaService: PrismaService,
-        private readonly exerciseService: ExercisesService,
-        private readonly trainingService: TrainingsService,
+        private readonly exerciseService: IExerciseService,
+        private readonly trainingService: ITrainingService,
     ) {
         this.database = this.prismaService.trainingSession;
         this.sessionExerciseDatabase = this.prismaService.sessionExercise;

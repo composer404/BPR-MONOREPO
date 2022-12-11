@@ -2,14 +2,13 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { Gym } from '@prisma/client';
+import { IGymsService } from 'src/interfaces/gyms-service.interfaces';
 import { AdministratorInputClass, CreatedObjectResponse, GymInputClass } from 'src/models';
-
-import { GymsService } from './gyms.service';
 
 @ApiTags(`GYMS ACTIONS`)
 @Controller(`gyms`)
 export class GymsController {
-    constructor(private readonly gymsService: GymsService) {}
+    constructor(private readonly gymsService: IGymsService) {}
 
     @Get(':id')
     async findGymById(@Param() params: any): Promise<Gym | null> {

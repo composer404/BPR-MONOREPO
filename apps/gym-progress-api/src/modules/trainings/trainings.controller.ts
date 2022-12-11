@@ -2,14 +2,14 @@ import { ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } from '@nestjs/common';
 import { AdminJwtGuard, JwtAuthGuard } from '../auth/guards';
 import { TrainingInput, TrainingWithExercisesInput } from 'src/models/training.model';
-import { TrainingsService } from './trainings.service';
 import { BPRRequest, CreatedObjectResponse } from 'src/models';
 import { Training } from '@prisma/client';
+import { ITrainingService } from 'src/interfaces/trainings-service.interface';
 
 @ApiTags(`TRAININGS`)
 @Controller(`trainings`)
 export class TrainingsController {
-    constructor(private readonly trainingService: TrainingsService) {}
+    constructor(private readonly trainingService: ITrainingService) {}
 
     @UseGuards(JwtAuthGuard)
     @Get(`:id`)

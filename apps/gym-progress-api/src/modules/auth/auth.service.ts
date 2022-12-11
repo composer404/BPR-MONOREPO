@@ -3,17 +3,18 @@ import * as argon2 from 'argon2';
 import { Administrator, User } from '@prisma/client';
 import { CreatedObjectResponse, PrismaErrorResponse, SignUpInput } from '../../models';
 
-import { GymsService } from '../gyms/gyms.service';
+import { IAuthService } from 'src/interfaces/auth-service.interface';
+import { IGymsService } from 'src/interfaces/gyms-service.interfaces';
+import { IUserService } from 'src/interfaces/users-service.interfaces';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { UsersService } from '../users';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements IAuthService {
     constructor(
         private readonly jwtService: JwtService,
-        private readonly userService: UsersService,
-        private readonly gymService: GymsService,
+        private readonly userService: IUserService,
+        private readonly gymService: IGymsService,
     ) {}
 
     async validateAdmin(login: string, password: string): Promise<Administrator | null> {

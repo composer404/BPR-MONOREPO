@@ -2,11 +2,12 @@ import { Exercise, Prisma, Training } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
 import { ExerciseInput } from 'src/models/exercise.model';
+import { IExerciseService } from 'src/interfaces/exercises-service.interface';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
 
 @Injectable()
-export class ExercisesService {
+export class ExercisesService implements IExerciseService {
     private database: Prisma.ExerciseDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
 
     constructor(private readonly prismaService: PrismaService) {

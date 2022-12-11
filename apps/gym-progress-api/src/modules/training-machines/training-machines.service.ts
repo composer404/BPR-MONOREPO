@@ -2,19 +2,20 @@ import { Prisma, TrainingMachine } from '@prisma/client';
 
 import { CreatedObjectResponse } from 'src/models';
 import { DateTime } from 'luxon';
+import { ISocketService } from 'src/interfaces/socket-service.interface';
+import { ITrainingMachineService } from 'src/interfaces/training-machines-service.interface';
+import { ITrainingSessionService } from 'src/interfaces/training-sessions-service.interface';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma';
-import { SessionsGateway } from '../socket/sessions.gateway';
 import { TraininMachineInput } from 'src/models/training-machines.model';
-import { TrainingSessionsService } from '../training-sessions';
 
 @Injectable()
-export class TrainingMachinesService {
+export class TrainingMachinesService implements ITrainingMachineService {
     private database: Prisma.TrainingMachineDelegate<Prisma.RejectOnNotFound | Prisma.RejectPerOperation>;
     constructor(
         private readonly prismaService: PrismaService,
-        private readonly sessionsGateway: SessionsGateway,
-        private readonly trainingSessionService: TrainingSessionsService,
+        private readonly sessionsGateway: ISocketService,
+        private readonly trainingSessionService: ITrainingSessionService,
     ) {
         this.database = this.prismaService.trainingMachine;
     }
