@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { InfoService } from 'src/app/services/info.service';
-import { TrainingService } from 'src/app/services/training.service';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingService } from 'src/app/interfaces/training-service.interface';
 
 @Component({
     selector: 'app-create-training-modal',
@@ -13,9 +13,10 @@ import { TrainingService } from 'src/app/services/training.service';
 export class CreateTrainingModalComponent implements OnInit {
     trainingForm: FormGroup;
 
-    constructor(private readonly trainingService: TrainingService,
-        private readonly infoService: InfoService,
-        private ref:DynamicDialogRef,
+    constructor(
+        private readonly trainingService: ITrainingService,
+        private readonly infoService: IInfoService,
+        private ref: DynamicDialogRef,
     ) {
         this.trainingForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
@@ -25,8 +26,7 @@ export class CreateTrainingModalComponent implements OnInit {
         });
     }
 
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 
     async createTraining(): Promise<void> {
         const response = await this.trainingService.createTraining({
@@ -44,10 +44,7 @@ export class CreateTrainingModalComponent implements OnInit {
         this.ref.close();
     }
 
-
     close(): void {
         this.ref.close(null);
     }
-
-
 }

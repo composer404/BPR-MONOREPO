@@ -3,7 +3,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 
-import { AuthService } from '../services/auth/auth.service';
+import { IAuthService } from '../interfaces/auth-service.interface';
 import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 
@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: IAuthService) {}
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = this.authService.getTokenValue();
         request = request.clone({

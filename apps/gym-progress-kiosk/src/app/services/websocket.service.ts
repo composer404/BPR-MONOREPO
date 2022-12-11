@@ -1,6 +1,6 @@
+import { IWebsocketService } from '../interfaces/websocket-service.interface';
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { SocketUser } from '../interfaces/interfaces';
 
 export interface WebsocketMessage {
     author: string;
@@ -10,7 +10,7 @@ export interface WebsocketMessage {
 @Injectable({
     providedIn: 'root',
 })
-export class WebsocketService {
+export class WebsocketService implements IWebsocketService {
     constructor(private readonly socket: Socket) {}
 
     connect(): void {

@@ -1,16 +1,16 @@
 import { BPRApiCreatedObject, Training } from 'src/app/interfaces/interfaces';
 
 import { HttpClient } from '@angular/common/http';
+import { ITrainingService } from '../interfaces/training-service.interface';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { environment } from 'src/environments/environment';
 import { firstValueFrom } from 'rxjs';
-import {ITrainingService} from "../interfaces/training-service.interface";
 
 @Injectable({
     providedIn: 'root',
 })
-export class TrainingService implements ITrainingService{
+export class TrainingService implements ITrainingService {
     constructor(private readonly httpClient: HttpClient) {}
 
     async createTraining(body: Partial<Training>): Promise<BPRApiCreatedObject | null> {
@@ -29,7 +29,7 @@ export class TrainingService implements ITrainingService{
 
     async getTrainingForGym(): Promise<Training[]> {
         const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${environment.gymId}`;
-        return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(()=> {
+        return firstValueFrom(this.httpClient.get<Training[]>(url)).catch(() => {
             return [];
         });
     }
@@ -58,7 +58,7 @@ export class TrainingService implements ITrainingService{
     }
 
     async editTraining(trainingId: string, body: Partial<Training>) {
-    const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`;
+        const url = `${environment.localApiUrl}${LOCAL_API_SERVICES.trainings}/${trainingId}`;
         const response = await firstValueFrom(
             this.httpClient.put<boolean>(url, {
                 ...body,
@@ -71,5 +71,5 @@ export class TrainingService implements ITrainingService{
             return false;
         }
         return true;
-}
+    }
 }

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingMachines } from 'src/app/interfaces/interfaces';
 
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { CreateTrainingMachineModalComponent } from 'src/app/modals/create-training-machine-modal/create-training-machine-modal.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { EditTrainingMachineModalComponent } from 'src/app/modals/edit-training-machine-modal/edit-training-machine-modal.component';
-import { ElectronService } from 'src/app/services/electron.service';
-import { InfoService } from 'src/app/services/info.service';
+import { IElectronService } from 'src/app/interfaces/electron-service.interface';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
 import { Subscription } from 'rxjs';
-import { TrainingMachinesService } from 'src/app/services/training-machines.service';
+import { TrainingMachines } from 'src/app/interfaces/interfaces';
 
 @Component({
     selector: `app-training-machines-list-component`,
@@ -19,13 +19,12 @@ import { TrainingMachinesService } from 'src/app/services/training-machines.serv
 export class TrainingMachinesListComponent implements OnInit {
     subscriptions: Subscription[] = [];
     trainingMachines: TrainingMachines[] = [];
-    //gymId?:string;
 
     constructor(
         private readonly dialogService: DialogService,
-        private readonly trainingMachineService: TrainingMachinesService,
-        private readonly electronService: ElectronService,
-        private readonly infoService: InfoService,
+        private readonly trainingMachineService: ITrainingMachinesService,
+        private readonly electronService: IElectronService,
+        private readonly infoService: IInfoService,
         public config: DynamicDialogConfig,
     ) {}
 
@@ -83,7 +82,7 @@ export class TrainingMachinesListComponent implements OnInit {
     }
 
     openEditTrainingMachineModal(trainingMachine: TrainingMachines) {
-      const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
+        const ref = this.dialogService.open(EditTrainingMachineModalComponent, {
             width: `40%`,
             data: {
                 ...trainingMachine,
@@ -124,5 +123,4 @@ export class TrainingMachinesListComponent implements OnInit {
             return element.id !== trainingMachineId;
         });
     }
-
 }

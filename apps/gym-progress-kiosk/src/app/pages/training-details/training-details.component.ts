@@ -7,8 +7,8 @@ import { CreateExerciseModalComponent } from 'src/app/modals/create-exercise-mod
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { EditExerciseModalComponent } from 'src/app/modals/edit-exercise-modal/edit-exercise-modal.component';
-import { ExerciseService } from '../../services/exercise.service';
-import { InfoService } from '../../services/info.service';
+import { IExerciseService } from 'src/app/interfaces/exercise-service.interface';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,10 +24,9 @@ export class TrainingDetailsComponent implements OnInit {
     subscriptions: Subscription[] = [];
 
     constructor(
-        private readonly exerciseService: ExerciseService,
-        private readonly infoService: InfoService,
+        private readonly exerciseService: IExerciseService,
+        private readonly infoService: IInfoService,
         private readonly dialogService: DialogService,
-        private readonly infoSerivce: InfoService,
         private readonly route: ActivatedRoute,
         public config: DynamicDialogConfig,
     ) {
@@ -80,7 +79,7 @@ export class TrainingDetailsComponent implements OnInit {
         );
     }
     openEditExerciseModal(exercise: Exercise) {
-       const ref= this.dialogService.open(EditExerciseModalComponent, {
+        const ref = this.dialogService.open(EditExerciseModalComponent, {
             width: `40%`,
             data: {
                 ...exercise,
@@ -93,30 +92,15 @@ export class TrainingDetailsComponent implements OnInit {
         );
     }
 
-    //    private async loadTrainingData() {
-    //         const result = await this.trainingService.getTrainingById(this.trainingId);
-    //         if (!result) {
-    //             this.infoService.error(`Cannot load selected training. Try again later.`);
-    //             return;
-    //         }
-    //         if(result){
-    //         this.selectedTraining= result;
-    //         }
-    //     }
-
     private async loadExercises() {
         const result = await this.exerciseService.getExercisesForTrainings(this.trainingId);
         if (!result) {
-            this.infoSerivce.error(`Cannot load created exercises`);
+            this.infoService.error(`Cannot load created exercises`);
             return;
         }
 
         this.exercises = result;
     }
-
-    // private async loadTrainingMachines(){
-    //     this.trainingMachines = await this.trainingMachinesService.getTrainingMachinesForGym();
-    //   }
 
     private removeExerciseLocally(exerciseId: string) {
         this.exercises = this.exercises.filter((element) => {

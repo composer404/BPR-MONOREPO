@@ -2,18 +2,12 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import {
-    Exercise,
-    ExerciseType,
-    MuscleGroup,
-    TrainingMachines,
-} from 'src/app/interfaces/interfaces';
+import { Exercise, ExerciseType, MuscleGroup, TrainingMachines } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ExerciseService } from 'src/app/services/exercise.service';
-import { InfoService } from 'src/app/services/info.service';
-import { TrainingMachinesService } from 'src/app/services/training-machines.service';
-import { TrainingService } from 'src/app/services/training.service';
+import { IExerciseService } from 'src/app/interfaces/exercise-service.interface';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
 
 @Component({
     selector: 'app-create-exercise-modal',
@@ -36,18 +30,17 @@ export class CreateExerciseModalComponent implements OnInit {
     exercise?: Exercise[];
 
     constructor(
-        private readonly exerciseService: ExerciseService,
+        private readonly exerciseService: IExerciseService,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
-        private readonly infoService: InfoService,
-        private trainingMachineService: TrainingMachinesService,
-        private trainingService: TrainingService,
+        private readonly infoService: IInfoService,
+        private trainingMachineService: ITrainingMachinesService,
     ) {
         this.exerciseForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
             exercise_type: new FormControl(``, [Validators.required]),
-            muscle_group: new FormControl(``,[Validators.required]),
+            muscle_group: new FormControl(``, [Validators.required]),
             quantity: new FormControl(``, [Validators.required]),
             trainingMachineId: new FormControl(``, [Validators.required]),
             estimatedTime: new FormControl(null, [Validators.required]),

@@ -1,12 +1,13 @@
 import * as electron from 'electron';
 
+import { IElectronService } from '../interfaces/electron-service.interface';
 import { Injectable } from '@angular/core';
 import { TrainingMachines } from '../interfaces/interfaces';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ElectronService {
+export class ElectronService implements IElectronService {
     electron: typeof electron | undefined;
 
     constructor() {

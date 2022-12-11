@@ -1,10 +1,11 @@
+import { IInfoService } from '../interfaces/info-service.interface';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 
 @Injectable({
     providedIn: 'root',
 })
-export class InfoService {
+export class InfoService implements IInfoService {
     constructor(private messageService: MessageService) {}
 
     success(description: string): void {

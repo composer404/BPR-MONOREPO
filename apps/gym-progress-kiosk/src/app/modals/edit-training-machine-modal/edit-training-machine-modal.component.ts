@@ -1,10 +1,10 @@
-import { TrainingMachines } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { InfoService } from 'src/app/services/info.service';
-import { TrainingMachinesService } from 'src/app/services/training-machines.service';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
+import { TrainingMachines } from 'src/app/interfaces/interfaces';
 
 @Component({
     selector: 'app-edit-training-machine-modal',
@@ -15,18 +15,17 @@ export class EditTrainingMachineModalComponent implements OnInit {
     editTrainingMachineForm: FormGroup;
     trainingMachine: TrainingMachines;
 
-
     constructor(
-        private readonly infoService: InfoService,
+        private readonly infoService: IInfoService,
         public ref: DynamicDialogRef,
         public config: DynamicDialogConfig,
-        private readonly trainingMachineService: TrainingMachinesService,
+        private readonly trainingMachineService: ITrainingMachinesService,
     ) {
         this.trainingMachine = this.config.data;
         this.editTrainingMachineForm = new FormGroup({
             name: new FormControl(``, [Validators.required]),
             description: new FormControl(``),
-            location:new FormControl(``,[Validators.required]),
+            location: new FormControl(``, [Validators.required]),
         });
     }
 
@@ -54,7 +53,6 @@ export class EditTrainingMachineModalComponent implements OnInit {
         this.infoService.success(`Training Machine has been successfully updated`);
         this.ref.close();
     }
-
 
     close(): void {
         this.ref.close();

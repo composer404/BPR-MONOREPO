@@ -5,10 +5,10 @@ import { CreateTrainingModalComponent } from 'src/app/modals/create-training-mod
 import { DialogService } from 'primeng/dynamicdialog';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { EditTrainingModalComponent } from 'src/app/modals/edit-training-modal/edit-training-modal.component';
-import { InfoService } from 'src/app/services/info.service';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingService } from 'src/app/interfaces/training-service.interface';
 import { Subscription } from 'rxjs';
 import { Training } from 'src/app/interfaces/interfaces';
-import { TrainingService } from 'src/app/services/training.service';
 
 @Component({
     selector: `app-training-list-component`,
@@ -21,8 +21,8 @@ export class TrainingListComponent implements OnInit {
 
     constructor(
         private readonly dialogService: DialogService,
-        private readonly trainingService: TrainingService,
-        private readonly infoService: InfoService,
+        private readonly trainingService: ITrainingService,
+        private readonly infoService: IInfoService,
         public config: DynamicDialogConfig,
     ) {}
 
@@ -71,7 +71,7 @@ export class TrainingListComponent implements OnInit {
     }
 
     openEditTrainingModal(training: Training) {
-      const ref =  this.dialogService.open(EditTrainingModalComponent, {
+        const ref = this.dialogService.open(EditTrainingModalComponent, {
             width: `40%`,
             data: {
                 ...training,

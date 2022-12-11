@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { InfoService } from 'src/app/services/info.service';
-import { TrainingMachinesService } from 'src/app/services/training-machines.service';
+import { IInfoService } from 'src/app/interfaces/info-service.interface';
+import { ITrainingMachinesService } from 'src/app/interfaces/training-machine-service.interface';
 
 @Component({
     selector: `app-create-training-machine-modal`,
@@ -14,10 +14,9 @@ export class CreateTrainingMachineModalComponent implements OnInit {
     trainingMachineForm: FormGroup;
 
     constructor(
-        private readonly trainingMachineService: TrainingMachinesService,
+        private readonly trainingMachineService: ITrainingMachinesService,
         private readonly ref: DynamicDialogRef,
-        private readonly infoService: InfoService,
-        
+        private readonly infoService: IInfoService,
     ) {
         this.trainingMachineForm = new FormGroup({
             name: new FormControl(``, [Validators.required, Validators.minLength(1)]),
