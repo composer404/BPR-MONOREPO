@@ -2,6 +2,7 @@ import { BPRApiCreatedObject, BPR_ERROR_CODES, SignUpInput, Token, UserProfile }
 import { Subject, firstValueFrom } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
+import { IAuthService } from 'src/app/interfaces/auth-service.interface';
 import { Injectable } from '@angular/core';
 import { LOCAL_API_SERVICES } from 'src/app/interfaces/local-api.endpoints';
 import { Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { environment } from '../../../environments/environment';
 @Injectable({
     providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements IAuthService {
     isLoggedIn = false;
     loginSubject = new Subject<boolean>();
 

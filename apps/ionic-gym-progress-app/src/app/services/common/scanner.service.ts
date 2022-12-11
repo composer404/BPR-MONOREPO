@@ -1,11 +1,12 @@
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { IScannerService } from 'src/app/interfaces/scanner.interface';
 import { Injectable } from '@angular/core';
 import { ToastService } from './toast.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ScannerService {
+export class ScannerService implements IScannerService {
     constructor(private readonly toastService: ToastService) {}
 
     async startScanner() {

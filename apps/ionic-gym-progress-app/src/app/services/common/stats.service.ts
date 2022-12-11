@@ -1,11 +1,12 @@
 import { SessionTotalStatistics, TrainingSession } from 'src/app/interfaces/interfaces';
 
+import { IStatService } from 'src/app/interfaces/stat-service.interface';
 import { Injectable } from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
 })
-export class StatsService {
+export class StatsService implements IStatService {
     getCalories(chartDataSetMap: Map<string, TrainingSession[]>) {
         const arrayToReturn = [];
         for (const [key, value] of chartDataSetMap) {

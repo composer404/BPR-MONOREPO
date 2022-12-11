@@ -3,8 +3,8 @@ import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Gym, ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
 
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
 import { Subscription } from 'rxjs';
-import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
     selector: 'app-training-list',
@@ -21,7 +21,7 @@ export class TrainingListPage implements OnDestroy {
     constructor(
         private readonly router: Router,
         private readonly route: ActivatedRoute,
-        private readonly trainingService: TrainingService,
+        private readonly trainingService: ITrainingsService,
     ) {
         this.userId = this.route.snapshot.params.id;
         this.trainingForm = new FormGroup({

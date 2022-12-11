@@ -3,9 +3,9 @@ import { ExerciseStatusChange, SessionExercise, UsedTrainingMachine } from 'src/
 
 import { ActiveExerciseModalComponent } from '../active-exercise-modal/active.exercise-modal.component';
 import { DateTime } from 'luxon';
+import { ITrainingMachineService } from 'src/app/interfaces/training-machine-service.interface';
 import { ModalController } from '@ionic/angular';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
 
 @Component({
     selector: 'app-active-training-exercise',
@@ -41,13 +41,12 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
     overTimer: boolean;
 
     constructor(
-        private readonly trainingMachineService: TrainingMachineService,
+        private readonly trainingMachineService: ITrainingMachineService,
         private readonly toastService: ToastService,
         private readonly modalController: ModalController,
     ) {}
 
     ngOnInit(): void {
-        console.log(`inint`);
         this.checkMachineOccupation();
     }
 
@@ -103,28 +102,6 @@ export class ActiveTrainingExerciseComponent implements OnChanges, OnInit {
 
     async startExercise() {
         this.scanTrainingMachine.emit(this.exercise);
-
-        // this.scannerActive = true;
-        // const scanResult = await this.scannerService.startScanner();
-        // this.scannerActive = false;
-
-        // if (scanResult !== this.exercise.trainingMachineId) {
-        //     this.toastService.error(`Scanned QR code is invalid, make sure you scanned correct training machine`);
-        //     return;
-        // }
-
-        // const response = await this.trainingMachineService.changeTrainingMachineStatus(
-        //     this.exercise.trainingMachineId,
-        //     this.gymId,
-        //     false,
-        //     this.exercise.id,
-        // );
-        // if (!response) {
-        //     this.toastService.error(`Cannot start exercise. Try again in a few seconds`);
-        //     return;
-        // }
-        // this.openExerciseModal();
-        // this.exerciseStarted = true;
     }
     async openExerciseModal() {
         const modal = await this.modalController.create({

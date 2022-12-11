@@ -1,10 +1,11 @@
-import {BPRApiCreatedObject, Training} from './interfaces';
+import { BPRApiCreatedObject, Training } from './interfaces';
 
-export interface ITrainingsService {
-  createTraining(body: Partial<Training>): Promise<BPRApiCreatedObject | null>;
-  createTrainingWithExercises(body: Partial<Training>): Promise<BPRApiCreatedObject | null>;
-  getUserTrainingForGym(gymId: string): Promise<Training[] | null>;
-  getTrainingById(trainingId: string): Promise<Training> | null;
-  getTrainingsCreatedByAdmin(gymId: string): Promise<Training[] | null>;
-  editTraining(trainingId: string, body: Partial<Training>);
+export abstract class ITrainingsService {
+    abstract createTraining(body: Partial<Training>): Promise<BPRApiCreatedObject | null>;
+    abstract createTrainingWithExercises(body: Partial<Training>): Promise<BPRApiCreatedObject | null>;
+    abstract getUserTrainingForGym(gymId: string): Promise<Training[] | null>;
+    abstract getTrainingById(trainingId: string): Promise<Training> | null;
+    abstract getTrainingsCreatedByAdmin(gymId: string): Promise<Training[] | null>;
+    abstract editTraining(trainingId: string, body: Partial<Training>);
+    abstract deleteTraining(trainingId: string);
 }

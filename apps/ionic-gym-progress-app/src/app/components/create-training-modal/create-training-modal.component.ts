@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalCloseResult, Training } from 'src/app/interfaces/interfaces';
 
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
 import { IonModal } from '@ionic/angular';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
     selector: 'app-create-training-modal',
@@ -34,7 +34,7 @@ export class CreateTrainingModalComponent implements OnInit {
     trainingForm: FormGroup;
     modalTitle: string;
 
-    constructor(private readonly trainingService: TrainingService, private readonly toastService: ToastService) {
+    constructor(private readonly trainingService: ITrainingsService, private readonly toastService: ToastService) {
         this.trainingForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             type: new FormControl(``, [Validators.required]),
@@ -59,7 +59,6 @@ export class CreateTrainingModalComponent implements OnInit {
         });
     }
 
-
     async loadTrainingData() {
         const response = await this.trainingService.getTrainingById(this.trainingId);
 
@@ -70,7 +69,6 @@ export class CreateTrainingModalComponent implements OnInit {
             comment: new FormControl(response.comment),
         });
     }
-
 
     async confirmTrainingCreation() {
         const requestBody = {

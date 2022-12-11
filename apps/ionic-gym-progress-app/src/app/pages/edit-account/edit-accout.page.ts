@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { BPRUser } from 'src/app/interfaces/interfaces';
 import { DialogService } from 'src/app/services/common/dialog.service';
+import { IAuthService } from 'src/app/interfaces/auth-service.interface';
+import { IUserService } from 'src/app/interfaces/user-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { UserService } from 'src/app/services/api/user.service';
 
 @Component({
     selector: 'app-edit-account',
@@ -19,10 +19,10 @@ export class EditAccountPage implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private readonly userService: UserService,
+        private readonly userService: IUserService,
         private readonly toastService: ToastService,
         private readonly dialogService: DialogService,
-        private readonly authService: AuthService,
+        private readonly authService: IAuthService,
     ) {
         this.userId = this.route.snapshot.params.id;
         this.editForm = new FormGroup({

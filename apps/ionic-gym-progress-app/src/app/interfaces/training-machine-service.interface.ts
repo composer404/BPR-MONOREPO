@@ -1,15 +1,15 @@
-import {TrainingMachine, UsedTrainingMachine} from './interfaces';
-import {Observable} from 'rxjs';
+import { TrainingMachine, UsedTrainingMachine } from './interfaces';
 
-export interface ITrainingMachineService {
+import { Observable } from 'rxjs';
 
-  getTrainingMachinesForGym(gymId: string): Promise<TrainingMachine[] | null>;
-  getTrainingMachineById(trainingMachineId: string): Observable<TrainingMachine>;
-  getCurrentUsedTrainingMachinesIds(gymId: string): Promise<UsedTrainingMachine[] | null>;
-  changeTrainingMachineStatus(
-    trainingMachineId: string,
-    gymId: string,
-    status: boolean,
-    exerciseId: string,
-  ): Promise<boolean | null>;
+export abstract class ITrainingMachineService {
+    abstract getTrainingMachinesForGym(gymId: string): Promise<TrainingMachine[] | null>;
+    abstract getTrainingMachineById(trainingMachineId: string): Observable<TrainingMachine>;
+    abstract getCurrentUsedTrainingMachinesIds(gymId: string): Promise<UsedTrainingMachine[] | null>;
+    abstract changeTrainingMachineStatus(
+        trainingMachineId: string,
+        gymId: string,
+        status: boolean,
+        exerciseId: string,
+    ): Promise<boolean | null>;
 }

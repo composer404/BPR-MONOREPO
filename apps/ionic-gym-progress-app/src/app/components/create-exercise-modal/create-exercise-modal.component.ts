@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
 import { Exercise, ExerciseType, ModalCloseResult, TrainingMachine } from 'src/app/interfaces/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ExerciseService } from '../../services/api/exercise.service';
+import { IExerciseService } from 'src/app/interfaces/exercise-service.interface';
 import { IonModal } from '@ionic/angular';
 import { ToastService } from '../../services/common/toast.service';
 
@@ -40,7 +40,7 @@ export class CreateExerciseModalComponent implements OnInit {
     title: string;
     description: string;
 
-    constructor(private readonly exerciseService: ExerciseService, private readonly toastService: ToastService) {
+    constructor(private readonly exerciseService: IExerciseService, private readonly toastService: ToastService) {
         this.exerciseForm = new FormGroup({
             title: new FormControl(``, [Validators.required]),
             description: new FormControl(``),

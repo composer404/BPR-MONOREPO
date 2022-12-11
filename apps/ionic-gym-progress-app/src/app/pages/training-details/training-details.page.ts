@@ -4,10 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { Exercise, ModalCloseResult, Training, TrainingMachine } from '../../interfaces/interfaces';
 
 import { DialogService } from 'src/app/services/common/dialog.service';
-import { ExerciseService } from '../../services/api/exercise.service';
+import { IExerciseService } from 'src/app/interfaces/exercise-service.interface';
+import { ITrainingMachineService } from 'src/app/interfaces/training-machine-service.interface';
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
-import { TrainingService } from '../../services/api/trainings.service';
 
 @Component({
     selector: 'app-training-details',
@@ -26,9 +26,9 @@ export class TrainingDetailsPage implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private readonly exerciseService: ExerciseService,
-        private readonly trainingService: TrainingService,
-        private readonly trainingMachinesService: TrainingMachineService,
+        private readonly exerciseService: IExerciseService,
+        private readonly trainingService: ITrainingsService,
+        private readonly trainingMachinesService: ITrainingMachineService,
         private readonly toastService: ToastService,
         private readonly dialogService: DialogService,
     ) {

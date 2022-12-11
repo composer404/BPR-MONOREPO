@@ -2,7 +2,7 @@ import { API_ERROR_CODES, BPR_ERROR_CODES } from '../../interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from '../../services/auth/auth.service';
+import { IAuthService } from 'src/app/interfaces/auth-service.interface';
 import { InfoService } from '../../services/common/info.service';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/common/toast.service';
@@ -18,7 +18,7 @@ export class LoginPage implements OnInit {
 
     constructor(
         private router: Router,
-        private authService: AuthService,
+        private authService: IAuthService,
         private infoService: InfoService,
         private toastService: ToastService,
     ) {}

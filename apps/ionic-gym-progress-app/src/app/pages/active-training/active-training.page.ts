@@ -13,12 +13,12 @@ import {
 
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { DialogService } from 'src/app/services/common/dialog.service';
-import { ScannerService } from 'src/app/services/common/scanner.service';
+import { IScannerService } from 'src/app/interfaces/scanner.interface';
+import { ITrainingMachineService } from 'src/app/interfaces/training-machine-service.interface';
+import { ITrainingSessionService } from 'src/app/interfaces/training-session-service.interface';
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
+import { IWebsocketService } from 'src/app/interfaces/websocket-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingMachineService } from 'src/app/services/api/training-machine.service';
-import { TrainingService } from 'src/app/services/api/trainings.service';
-import { TrainingSessionService } from 'src/app/services/api/training-session.service';
-import { WebsocketService } from 'src/app/services/api/websocket.service';
 import { cloneDeep } from 'lodash';
 
 @Component({
@@ -45,14 +45,14 @@ export class ActiveTrainingPage implements OnInit {
 
     constructor(
         private readonly route: ActivatedRoute,
-        private readonly websocketService: WebsocketService,
-        private readonly trainingService: TrainingService,
+        private readonly websocketService: IWebsocketService,
+        private readonly trainingService: ITrainingsService,
         private readonly dialogService: DialogService,
-        private readonly trainingSessionService: TrainingSessionService,
+        private readonly trainingSessionService: ITrainingSessionService,
         private readonly toastService: ToastService,
-        private readonly trainingMachineService: TrainingMachineService,
+        private readonly trainingMachineService: ITrainingMachineService,
         private readonly router: Router,
-        private readonly scannerService: ScannerService,
+        private readonly scannerService: IScannerService,
     ) {
         this.gymId = this.route.snapshot.params.gymId;
         this.userId = this.route.snapshot.params.id;
@@ -63,19 +63,6 @@ export class ActiveTrainingPage implements OnInit {
         this.loadTrainingSession();
         this.listenForEvents();
         this.occupiedMachinesIds = await this.trainingMachineService.getCurrentUsedTrainingMachinesIds(this.gymId);
-
-        // setTimeout(() => {
-        //     this.occupiedMachinesIds = [];
-        // }, 200);
-
-        console.log(`occupuied from api`, this.occupiedMachinesIds);
-        // .then((data) => {
-        //     console.log(`data`, data);
-        //     this.occupiedMachinesIds = data;
-        // })
-        // .catch((err) => {
-        //     console.log(`here`, err);
-        // });
     }
 
     stopScanner() {

@@ -1,5 +1,6 @@
 import { WEBSOCKET_REQUEST_EVENT, WEBSOCKET_RESPONSE_EVENT } from 'src/app/interfaces/interfaces';
 
+import { IWebsocketService } from 'src/app/interfaces/websocket-service.interface';
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 
@@ -11,7 +12,7 @@ export interface WebsocketMessage {
 @Injectable({
     providedIn: 'root',
 })
-export class WebsocketService {
+export class WebsocketService implements IWebsocketService {
     constructor(private readonly socket: Socket) {
         this.socket.ioSocket.headers = {
             'ngrok-skip-browser-warning': 'any',

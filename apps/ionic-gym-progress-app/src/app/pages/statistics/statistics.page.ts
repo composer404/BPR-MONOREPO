@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ITrainingSessionService } from 'src/app/interfaces/training-session-service.interface';
 import { TrainingSession } from 'src/app/interfaces/interfaces';
 import { TrainingSessionService } from 'src/app/services/api/training-session.service';
 
@@ -16,7 +17,7 @@ export class StatisticsPage implements OnInit {
     weeklyView: boolean;
     monthlyView: boolean;
 
-    constructor(private readonly trainingSessionService: TrainingSessionService) {}
+    constructor(private readonly trainingSessionService: ITrainingSessionService) {}
 
     ngOnInit(): void {
         void this.loadSessions();

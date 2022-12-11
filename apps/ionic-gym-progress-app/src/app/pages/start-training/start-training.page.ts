@@ -3,11 +3,11 @@ import { Training, WEBSOCKET_REQUEST_EVENT } from 'src/app/interfaces/interfaces
 
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Component } from '@angular/core';
-import { ScannerService } from 'src/app/services/common/scanner.service';
+import { IScannerService } from 'src/app/interfaces/scanner.interface';
+import { ITrainingSessionService } from 'src/app/interfaces/training-session-service.interface';
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
+import { IWebsocketService } from 'src/app/interfaces/websocket-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingService } from 'src/app/services/api/trainings.service';
-import { TrainingSessionService } from 'src/app/services/api/training-session.service';
-import { WebsocketService } from 'src/app/services/api/websocket.service';
 
 @Component({
     selector: 'app-start-training',
@@ -22,10 +22,10 @@ export class StartTrainingPage {
     trainings: Training[] = [];
 
     constructor(
-        private readonly trainingService: TrainingService,
-        private readonly websocketService: WebsocketService,
-        private readonly trainingSessionService: TrainingSessionService,
-        private readonly scannerService: ScannerService,
+        private readonly trainingService: ITrainingsService,
+        private readonly websocketService: IWebsocketService,
+        private readonly trainingSessionService: ITrainingSessionService,
+        private readonly scannerService: IScannerService,
         private readonly route: ActivatedRoute,
         private readonly toastService: ToastService,
         private readonly router: Router,

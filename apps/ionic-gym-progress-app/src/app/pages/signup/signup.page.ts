@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { API_ERROR_CODES } from '../../interfaces/interfaces';
-import { AuthService } from '../../services/auth/auth.service';
+import { IAuthService } from 'src/app/interfaces/auth-service.interface';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/services/common/toast.service';
 
@@ -21,7 +21,7 @@ export class SignupPage implements OnInit {
 
     constructor(
         private readonly router: Router,
-        private readonly authService: AuthService,
+        private readonly authService: IAuthService,
         private readonly toastService: ToastService,
     ) {}
 

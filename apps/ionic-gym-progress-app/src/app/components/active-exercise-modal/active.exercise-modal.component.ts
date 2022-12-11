@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ExerciseService } from 'src/app/services/api/exercise.service';
+import { IExerciseService } from 'src/app/interfaces/exercise-service.interface';
+import { ITrainingSessionService } from 'src/app/interfaces/training-session-service.interface';
+import { IUserService } from 'src/app/interfaces/user-service.interface';
 import { ModalController } from '@ionic/angular';
 import { SessionExercise } from 'src/app/interfaces/interfaces';
 import { ToastService } from 'src/app/services/common/toast.service';
-import { TrainingSessionService } from 'src/app/services/api/training-session.service';
-import { UserService } from 'src/app/services/api/user.service';
 
 @Component({
     selector: 'app-active-exercise-modal',
@@ -21,10 +21,10 @@ export class ActiveExerciseModalComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly authService: AuthService,
-        private readonly userService: UserService,
+        private readonly userService: IUserService,
         private readonly modalController: ModalController,
-        private readonly exerciseService: ExerciseService,
-        private readonly trainingSessionService: TrainingSessionService,
+        private readonly exerciseService: IExerciseService,
+        private readonly trainingSessionService: ITrainingSessionService,
         private readonly toastService: ToastService,
     ) {}
 

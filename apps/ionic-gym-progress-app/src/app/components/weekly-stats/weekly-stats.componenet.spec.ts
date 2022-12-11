@@ -77,17 +77,19 @@ describe('WeeklyStatsComponent', () => {
     });
 
     it(`should correctly create training session week map`, () => {
+        //Arrange
         component.trainingSessions = mockedStats;
         const mockDate = new Date(1669491042000);
+
+        //Act
         component.updateDaysAndLoadData(mockDate);
-
         const map = component.createWeekDataSet();
-        expect(Array.from(map.keys()).length).toEqual(7);
 
+        //Assert
+        expect(Array.from(map.keys()).length).toEqual(7);
         expect(component.lineChartBurnedCalories.config._config.data.datasets[0].data).toEqual([
             0, 0, 5.38, 59.13, 100, 0, 0,
         ]);
-
         expect(component.lineChartTimeCalories.config._config.data.datasets[0].data).toEqual([0, 0, 0, 11, 10, 0, 0]);
     });
 });

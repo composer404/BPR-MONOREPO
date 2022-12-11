@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
 import { Training } from 'src/app/interfaces/interfaces';
-import { TrainingService } from 'src/app/services/api/trainings.service';
 
 @Component({
     selector: 'app-training-item',
@@ -25,7 +25,7 @@ export class TrainingItemComponent implements OnInit {
     @Output()
     trainigAssigned = new EventEmitter<Training>();
 
-    constructor(private readonly trainingService: TrainingService, private readonly toastService: ToastService) {}
+    constructor(private readonly trainingService: ITrainingsService, private readonly toastService: ToastService) {}
 
     ngOnInit(): void {}
 

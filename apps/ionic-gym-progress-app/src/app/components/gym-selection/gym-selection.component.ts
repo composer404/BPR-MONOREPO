@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Gym } from 'src/app/interfaces/interfaces';
-import { GymService } from 'src/app/services/api/gym.service';
+import { IGymService } from 'src/app/interfaces/gym-service.interface';
 import { ToastService } from 'src/app/services/common/toast.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class GymSelectionComponent {
     insertedName = ``;
     gyms: Gym[] = [];
 
-    constructor(private readonly gymService: GymService, private readonly toastService: ToastService) {}
+    constructor(private readonly gymService: IGymService, private readonly toastService: ToastService) {}
 
     async searchForGym() {
         if (this.insertedName.length < 3) {

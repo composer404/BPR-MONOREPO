@@ -1,13 +1,12 @@
-import {BPRApiCreatedObject, Exercise, ExerciseType} from './interfaces';
+import { BPRApiCreatedObject, Exercise, ExerciseType } from './interfaces';
 
-
-export interface IExerciseService {
-  createExercise(trainingId: string, body: Partial<Exercise>): Promise<BPRApiCreatedObject | null>;
-  getExercisesForTrainings(trainingId: string): Promise<Exercise[] | null>;
-  getExerciseById(id: string): Promise<Exercise | null>;
-  deleteExercise(id: string): Promise<boolean | null>;
-  editExercise(id: string, body: Partial<Exercise>): Promise<boolean | null>;
-  getActivityTypeId(activityid: string): Promise<Exercise | null>;
-  getAllExerciseTypes(): Promise<ExerciseType[] | null>;
-  calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number>;
+export abstract class IExerciseService {
+    abstract createExercise(trainingId: string, body: Partial<Exercise>): Promise<BPRApiCreatedObject | null>;
+    abstract getExercisesForTrainings(trainingId: string): Promise<Exercise[] | null>;
+    abstract getExerciseById(id: string): Promise<Exercise | null>;
+    abstract deleteExercise(id: string): Promise<boolean | null>;
+    abstract editExercise(id: string, body: Partial<Exercise>): Promise<boolean | null>;
+    abstract getActivityTypeId(activityid: string): Promise<Exercise | null>;
+    abstract getAllExerciseTypes(): Promise<ExerciseType[] | null>;
+    abstract calculateExerciseCalories(activityId: string, activityMin: number, weight: number): Promise<number>;
 }

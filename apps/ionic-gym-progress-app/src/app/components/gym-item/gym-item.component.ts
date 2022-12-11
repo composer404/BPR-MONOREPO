@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { Gym } from 'src/app/interfaces/interfaces';
-import { SessionsService } from 'src/app/services/api/sessions.service';
+import { ISessionsService } from 'src/app/interfaces/sessions-service.interface';
 
 @Component({
     selector: 'app-gym-item',
@@ -17,7 +17,7 @@ export class GymItemComponent implements OnInit {
 
     participantsNumber: number;
 
-    constructor(private readonly sessionService: SessionsService) {}
+    constructor(private readonly sessionService: ISessionsService) {}
 
     ngOnInit() {
         this.sessionService.getGymNumberOfParticipants(this.gym.id).then((data) => {

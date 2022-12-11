@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SingleSessionStats, Training, TrainingSession } from 'src/app/interfaces/interfaces';
 
-import { TrainingService } from 'src/app/services/api/trainings.service';
+import { ITrainingsService } from 'src/app/interfaces/trainings-service.interface';
 
 @Component({
     selector: 'app-training-session-item',
@@ -15,7 +15,7 @@ export class TrainingSessionItemComponent implements OnInit {
     training: Training;
     sessionStats: SingleSessionStats;
 
-    constructor(private readonly traingService: TrainingService) {}
+    constructor(private readonly traingService: ITrainingsService) {}
 
     ngOnInit() {
         void this.loadTrainingDetails();

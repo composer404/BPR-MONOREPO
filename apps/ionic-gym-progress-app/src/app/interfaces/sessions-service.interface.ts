@@ -1,3 +1,3 @@
-export interface ISessionsService {
-  getGymNumberOfParticipants(gymId: string);
+export abstract class ISessionsService {
+    abstract getGymNumberOfParticipants(gymId: string);
 }

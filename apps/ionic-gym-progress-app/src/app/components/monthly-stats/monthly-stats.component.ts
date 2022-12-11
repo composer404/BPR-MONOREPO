@@ -3,8 +3,8 @@ import { Chart, registerables } from 'chart.js';
 import { SessionTotalStatistics, TrainingSession } from 'src/app/interfaces/interfaces';
 
 import { DateTime } from 'luxon';
-import { StatsService } from '../../services/common/stats.service';
-import { TrainingSessionService } from 'src/app/services/api/training-session.service';
+import { IStatService } from 'src/app/interfaces/stat-service.interface';
+import { ITrainingSessionService } from 'src/app/interfaces/training-session-service.interface';
 
 @Component({
     selector: 'app-monthly-stats',
@@ -27,8 +27,8 @@ export class MonthlyStatsComponent implements OnInit, AfterViewInit {
     currentDate: DateTime;
 
     constructor(
-        private readonly trainingSessionsService: TrainingSessionService,
-        private readonly statsService: StatsService,
+        private readonly trainingSessionsService: ITrainingSessionService,
+        private readonly statsService: IStatService,
     ) {
         Chart.register(...registerables);
     }
