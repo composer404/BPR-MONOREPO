@@ -41,15 +41,7 @@ export class CreateExerciseModalComponent implements OnInit {
     description: string;
 
     constructor(private readonly exerciseService: IExerciseService, private readonly toastService: ToastService) {
-        this.exerciseForm = new FormGroup({
-            title: new FormControl(``, [Validators.required]),
-            description: new FormControl(``),
-            exercise_type: new FormControl(``, [Validators.required]),
-            muscle_group: new FormControl(``, [Validators.required]),
-            quantity: new FormControl(``, [Validators.required]),
-            trainingMachineId: new FormControl(``, [Validators.required]),
-            estimatedTime: new FormControl(null, [Validators.required]),
-        });
+        this.initEmptyForm();
     }
 
     ngOnInit(): void {
@@ -133,6 +125,7 @@ export class CreateExerciseModalComponent implements OnInit {
     }
 
     closeModalWithConfirm(exerciseId?: string) {
+        this.initEmptyForm();
         this.ionModal.dismiss(null, 'confirm');
         this.closeEvent.emit({
             type: `Confirm`,
@@ -193,5 +186,17 @@ export class CreateExerciseModalComponent implements OnInit {
             return;
         }
         this.toastService.success(`Exercise has been successfully created`);
+    }
+
+    private initEmptyForm(): void {
+        this.exerciseForm = new FormGroup({
+            title: new FormControl(``, [Validators.required]),
+            description: new FormControl(``),
+            exercise_type: new FormControl(``, [Validators.required]),
+            muscle_group: new FormControl(``, [Validators.required]),
+            quantity: new FormControl(``, [Validators.required]),
+            trainingMachineId: new FormControl(``, [Validators.required]),
+            estimatedTime: new FormControl(null, [Validators.required]),
+        });
     }
 }
